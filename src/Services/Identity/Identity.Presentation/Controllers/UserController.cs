@@ -1,5 +1,7 @@
-﻿using Identity.Application.Abstractions.Interfaces;
+﻿using Identity.Application.UseCases.Authentication.LogInUseCase;
+using Identity.Application.UseCases.Authentication.RegisterUseCase;
 using Identity.Presentation.Model;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.Presentation.Controllers
@@ -8,19 +10,30 @@ namespace Identity.Presentation.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IAccountService _loginService;
+        private readonly IMediator _mediator;
 
-        public UserController(IAccountService loginService)
+        public UserController(IMediator mediator)
         {
-            _loginService = loginService;
+            _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoginMember([FromBody] LoginRequest request, CancellationToken cancellationToken)
+        [Route("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
         {
-            var token = _loginService.LoginAsync(request.Username, request.Password, request.Email);
+           var token = await _mediator.Send(new LogIn() { UserName = request.Username, Email = request.Email, Password = request.Password});
 
             return token is not null ? Ok(token) : BadRequest();
         }
+
+        [HttpPost]
+        [Route("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
+        {
+            var token = await _mediator.Send(new Register() { UserName = request.Username, Email = request.Email, Password = request.Password });
+
+            return token is not null ? Ok(token) : BadRequest();
+        }
+
     }
 }

@@ -1,6 +1,9 @@
-﻿using Identity.Domain.Entities;
+﻿using Identity.Domain.Abstractions.Interfaces;
+using Identity.Domain.Entities;
 using Identity.Domain.Models;
+using Identity.Infrastracture.Authentication;
 using Identity.Infrastracture.Data;
+using Identity.Infrastracture.Implementations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +22,8 @@ namespace Identity.Infrastracture
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IJwtProvider, JwtProvider>();
             return services;
         }
     }

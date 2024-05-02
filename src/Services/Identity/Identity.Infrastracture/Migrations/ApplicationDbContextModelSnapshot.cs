@@ -4,19 +4,16 @@ using Identity.Infrastracture.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace Identity.Infrastracture.Data.Migrations
+namespace Identity.Infrastracture.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240430100202_InitialCreate")]
-    partial class InitialCreate
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,6 +47,22 @@ namespace Identity.Infrastracture.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895711",
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "c7b013f0-5201-4317-abd8-c211f91b7330",
+                            ConcurrencyStamp = "2",
+                            Name = "Buyer",
+                            NormalizedName = "Buyer"
+                        });
                 });
 
             modelBuilder.Entity("Identity.Domain.Models.ApplicationUser", b =>
@@ -115,6 +128,23 @@ namespace Identity.Infrastracture.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "757c8d0d-d78d-4aad-b148-d86c5ca6df16",
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "AQAAAAIAAYagAAAAEI73tj8xe9Wu+dKwDOUY+kQAs/B9DYnHlGapaQ8ZRBXJ+p8uu2NjpnH6p3TLvCQtzA==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6f23802e-ad28-4ab3-bea4-6d6d2f62caf7",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -202,6 +232,13 @@ namespace Identity.Infrastracture.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895711"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

@@ -11,23 +11,23 @@ namespace Identity.Infrastracture.Authentication
     internal class JwtProvider : IJwtProvider
     {
         private readonly JwtOptions _options;
-        private readonly IRoleRepository _roleRepository;
+        private readonly IUserRepository _userRepository;
 
-        public JwtProvider(IOptions<JwtOptions> options, IRoleRepository roleRepository)
+        public JwtProvider(IOptions<JwtOptions> options, IUserRepository userRepository)
         {
             _options = options.Value;
-            _roleRepository = roleRepository;
+            _userRepository = userRepository;
         }
 
         public async Task<string> Generate(ApplicationUser user)
         {
-            var role = (await _roleRepository.GetUserRolesAsync(user.Id)).Single();
+            var role = (await _userRepository.GetUserRolesAsync(user.Id)).Single();
 
             var claims = new Claim[] 
             {
                 new (JwtRegisteredClaimNames.Sub, user.Id),
                 new (JwtRegisteredClaimNames.Email, user.Email),
-                new ("role", role.Name),
+                new ("role", role),
 
             };
 

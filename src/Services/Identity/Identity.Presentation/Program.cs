@@ -1,3 +1,4 @@
+using Identity.Application;
 using Identity.Infrastracture;
 using Identity.Presentation.OptionsSetup;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -14,10 +15,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer();
 
-builder.Services.AddInfrastructureServices(builder.Configuration);
-
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
 builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
+
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 var app = builder.Build();
 
