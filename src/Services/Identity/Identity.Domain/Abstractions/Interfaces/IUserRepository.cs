@@ -1,5 +1,4 @@
-﻿using Identity.Domain.Entities;
-using Identity.Domain.Models;
+﻿using Identity.Domain.Models;
 
 namespace Identity.Domain.Abstractions.Interfaces
 {
@@ -14,5 +13,7 @@ namespace Identity.Domain.Abstractions.Interfaces
         Task<ApplicationUser?> GetUserByUserNameAsync(string email);
 
         public Task<IEnumerable<string>> GetUserRolesAsync(string userId);
+
+        public Task<IEnumerable<ApplicationUser>> GetAllUsersAsync();
     }
 }

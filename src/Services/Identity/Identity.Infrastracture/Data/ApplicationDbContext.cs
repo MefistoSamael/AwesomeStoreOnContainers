@@ -1,5 +1,4 @@
-﻿using Identity.Domain.Abstractions.Interfaces;
-using Identity.Domain.Entities;
+﻿using Identity.Domain.Entities;
 using Identity.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;

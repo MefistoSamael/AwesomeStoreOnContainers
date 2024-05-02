@@ -1,7 +1,7 @@
 ﻿using Identity.Domain.Abstractions.Interfaces;
-using Identity.Domain.Entities;
 using Identity.Domain.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Infrastracture.Implementations
 {
@@ -32,6 +32,11 @@ namespace Identity.Infrastracture.Implementations
             var user = await _userManager.FindByIdAsync(userId);
             if (user is not null)
                 await _userManager.DeleteAsync(user);
+        }
+
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync()
+        {
+            return await _userManager.Users.ToListAsync();
         }
 
         public async Task<ApplicationUser?> GetUserByEmailAsync(string email)

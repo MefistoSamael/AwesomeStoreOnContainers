@@ -2,34 +2,44 @@
 using Identity.Domain.Entities;
 using Identity.Domain.Models;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Runtime.CompilerServices;
 
 namespace Identity.Infrastracture.Implementations
 {
     public class RoleRepository : IRoleRepository
     {
-        
-        public RoleRepository()
-        {
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
-        }
-        public Task<string> CreateRoleAsync(ApplicationRole role)
+        public RoleRepository(RoleManager<ApplicationRole> roleManager)
         {
-            throw new NotImplementedException();
+            _roleManager = roleManager;
+        }
+        public async Task<string> CreateRoleAsync(ApplicationRole role)
+        {
+            role.Id = Guid.NewGuid().ToString();
+            await _roleManager.CreateAsync(role);
+
+            return role.Id;
         }
 
-        public Task DeleteRoleAsync(string roleId)
+        public async Task DeleteRoleAsync(string roleId)
         {
-            throw new NotImplementedException();
+            var role = await _roleManager.FindByIdAsync(roleId);
+            if (role is null)
+                return;
+
+            await _roleManager.DeleteAsync(role);
         }
 
-        public Task<ApplicationRole> GetRoleAsync(string roleId)
+        public async Task<IEnumerable<ApplicationRole>> GetAllRolesAsync()
         {
-            throw new NotImplementedException();
+            return await _roleManager.Roles.ToListAsync();
+        }
+
+        public Task<ApplicationRole?> GetRoleAsync(string roleId)
+        {
+            return _roleManager.FindByIdAsync(roleId);
         }
     }
 }

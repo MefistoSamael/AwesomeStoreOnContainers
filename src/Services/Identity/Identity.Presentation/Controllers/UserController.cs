@@ -1,6 +1,8 @@
 ﻿using Identity.Application.UseCases.Authentication.LogInUseCase;
 using Identity.Application.UseCases.Authentication.RegisterUseCase;
-using Identity.Presentation.Model;
+using Identity.Application.UseCases.UserCrud.CreateUserUseCase;
+using Identity.Application.UseCases.UserCrud.DeleteUserUseCase;
+using Identity.Application.UseCases.UserCrud.GetAllUsersUseCase;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,21 +21,44 @@ namespace Identity.Presentation.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Login([FromBody] LogIn request, CancellationToken cancellationToken)
         {
-           var token = await _mediator.Send(new LogIn() { UserName = request.Username, Email = request.Email, Password = request.Password});
+            var token = await _mediator.Send(request, cancellationToken);
 
             return token is not null ? Ok(token) : BadRequest();
         }
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Register([FromBody] Register request, CancellationToken cancellationToken)
         {
-            var token = await _mediator.Send(new Register() { UserName = request.Username, Email = request.Email, Password = request.Password });
+            var token = await _mediator.Send(request, cancellationToken);
 
             return token is not null ? Ok(token) : BadRequest();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUser request, CancellationToken cancellationToken)
+        {
+            var id = await _mediator.Send(request, cancellationToken);
+
+            return id is not null ? Ok(id) : BadRequest();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser([FromBody] DeleteUser request, CancellationToken cancellationToken)
+        {
+            await _mediator.Send(request, cancellationToken);
+
+            return Ok();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers(CancellationToken cancellationToken)
+        {
+            var users = await _mediator.Send(new GetAllUsers(), cancellationToken);
+
+            return users is not null ? Ok(users) : NotFound();
+        }
     }
 }
