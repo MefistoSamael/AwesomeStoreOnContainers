@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Identity.Application.MappingProfiles;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Identity.Application
@@ -10,6 +11,8 @@ namespace Identity.Application
             services.AddMediatR(cfg => {
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
+
+            services.AddAutoMapper(typeof(ApplicationUserToUserDtoMappingProfile));
 
             return services;
         }

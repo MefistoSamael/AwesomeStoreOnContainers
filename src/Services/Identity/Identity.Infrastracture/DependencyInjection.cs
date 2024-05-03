@@ -23,6 +23,7 @@ namespace Identity.Infrastracture
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IJwtProvider, JwtProvider>();
             return services;
         }
