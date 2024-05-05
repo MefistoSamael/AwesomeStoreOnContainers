@@ -2,6 +2,7 @@
 using Identity.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Identity.Infrastracture.Implementations
 {
@@ -21,6 +22,7 @@ namespace Identity.Infrastracture.Implementations
             await _userManager.AddPasswordAsync(model, model.PasswordHash!);
             IdentityResult roleResult = await _userManager.AddToRoleAsync(model, roleName);
 
+            // FOR DEVELOPMENT PURPOSES ONLY
             if (!roleResult.Succeeded)
                 throw new NotImplementedException($"Role {roleName} doesn't exists");
 
@@ -30,8 +32,14 @@ namespace Identity.Infrastracture.Implementations
         public async Task DeleteUserAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            if (user is not null)
-                await _userManager.DeleteAsync(user);
+
+            // FOR DEVELOPMENT PURPOSES ONLY
+            if (user is null)
+            {
+                throw new ArgumentNullException("In user deletion id of non-exsistent user");
+            }
+         
+            await _userManager.DeleteAsync(user);
         }
 
         public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync()
@@ -49,14 +57,14 @@ namespace Identity.Infrastracture.Implementations
             return await _userManager.FindByNameAsync(username);
         }
 
-        public async Task<IEnumerable<string>> GetUserRolesAsync(string userId)
+        public async Task<string> GetUserRoleAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId); 
             
             if (user is null)
                 throw new NotImplementedException("Handle me");
 
-            return await _userManager.GetRolesAsync(user);
+            return (await _userManager.GetRolesAsync(user)).Single();
         }
     }
 }

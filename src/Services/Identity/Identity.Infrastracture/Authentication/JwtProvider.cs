@@ -21,14 +21,13 @@ namespace Identity.Infrastracture.Authentication
 
         public async Task<string> Generate(ApplicationUser user)
         {
-            var role = (await _userRepository.GetUserRolesAsync(user.Id)).Single();
+            var role = await _userRepository.GetUserRoleAsync(user.Id);
 
             var claims = new Claim[] 
             {
                 new (JwtRegisteredClaimNames.Sub, user.Id),
                 new (JwtRegisteredClaimNames.Email, user.Email),
                 new ("role", role),
-
             };
 
             var signingCredentials = new SigningCredentials(

@@ -6,14 +6,10 @@ using System.Threading.Tasks;
 
 namespace Identity.Application.Models
 {
-    public class UserDTO
+    public class RoleDTO
     {
         public string Id { get; set; }
 
-        public string UserName { get; set; }
-
-        public string Email { get; set; }
-
-        public string RoleName { get; set; }
+        public string Name { get; set; }
     }
 }

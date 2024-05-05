@@ -8,11 +8,11 @@ namespace Identity.Presentation.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RoleController : ControllerBase
+    public class RolesController : ControllerBase
     {
         private readonly IMediator _mediator;
         
-        public RoleController(IMediator mediator)
+        public RolesController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -33,9 +33,10 @@ namespace Identity.Presentation.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteRole(DeleteRole request, CancellationToken cancellationToken)
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteRole(string id, CancellationToken cancellationToken)
         {
-            await _mediator.Send(request, cancellationToken);
+            await _mediator.Send(new DeleteRole { RoleId = id}, cancellationToken);
 
             return Ok();
         }

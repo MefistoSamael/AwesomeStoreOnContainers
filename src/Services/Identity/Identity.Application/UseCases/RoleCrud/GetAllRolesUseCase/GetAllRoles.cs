@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Entities;
+﻿using Identity.Application.Models;
+using Identity.Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Identity.Application.UseCases.RoleCrud.GetAllRolesUseCase
 {
-    public class GetAllRoles : IRequest<IEnumerable<ApplicationRole>>
+    public class GetAllRoles : IRequest<IEnumerable<RoleDTO>>
     {
 
     }

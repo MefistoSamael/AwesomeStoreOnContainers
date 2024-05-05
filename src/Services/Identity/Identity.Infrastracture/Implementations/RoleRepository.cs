@@ -26,8 +26,12 @@ namespace Identity.Infrastracture.Implementations
         public async Task DeleteRoleAsync(string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
+
+            // FOR DEVELOPMENT PURPOSES ONLY
             if (role is null)
-                return;
+            {
+                throw new ArgumentNullException("In role deletion id of non-exsistent user");
+            }
 
             await _roleManager.DeleteAsync(role);
         }

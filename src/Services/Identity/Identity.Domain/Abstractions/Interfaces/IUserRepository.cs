@@ -12,7 +12,7 @@ namespace Identity.Domain.Abstractions.Interfaces
 
         Task<ApplicationUser?> GetUserByUserNameAsync(string email);
 
-        public Task<IEnumerable<string>> GetUserRolesAsync(string userId);
+        public Task <string> GetUserRoleAsync(string userId);
 
         public Task<IEnumerable<ApplicationUser>> GetAllUsersAsync();
     }

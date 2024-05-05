@@ -10,11 +10,11 @@ namespace Identity.Presentation.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public UserController(IMediator mediator)
+        public UsersController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -46,9 +46,10 @@ namespace Identity.Presentation.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser([FromBody] DeleteUser request, CancellationToken cancellationToken)
+        [Route("{id}")]
+        public async Task<IActionResult> DeleteUser(string id, CancellationToken cancellationToken)
         {
-            await _mediator.Send(request, cancellationToken);
+            await _mediator.Send(new DeleteUser { Id = id} , cancellationToken);
 
             return Ok();
         }

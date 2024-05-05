@@ -1,5 +1,4 @@
-﻿using Identity.Application.MappingProfiles;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace Identity.Application
@@ -12,7 +11,7 @@ namespace Identity.Application
                 cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             });
 
-            services.AddAutoMapper(typeof(ApplicationUserToUserDtoMappingProfile));
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return services;
         }

@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Models;
+﻿using Identity.Application.Models;
+using Identity.Domain.Models;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Identity.Application.UseCases.UserCrud.GetAllUsersUseCase
 {
-    public class GetAllUsers : IRequest<IEnumerable<ApplicationUser>>
+    public class GetAllUsers : IRequest<IEnumerable<UserDTO>>
     {
     }
 }
