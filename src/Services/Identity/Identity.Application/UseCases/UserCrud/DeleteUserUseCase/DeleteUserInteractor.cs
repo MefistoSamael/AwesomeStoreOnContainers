@@ -19,6 +19,11 @@ namespace Identity.Application.UseCases.UserCrud.DeleteUserUseCase
 
         public async Task Handle(DeleteUser request, CancellationToken cancellationToken)
         {
+            if (await _userRepository.GetUserByIdAsync(request.Id) is null)
+            {
+                return;
+            }
+
             await _userRepository.DeleteUserAsync(request.Id);
         }
     }

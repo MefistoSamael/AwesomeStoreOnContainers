@@ -17,9 +17,21 @@ namespace Identity.Application.UseCases.RoleCrud.DeleteRoleUseCase
             _roleRepository = roleRepository;
         }
 
-        public Task Handle(DeleteRole request, CancellationToken cancellationToken)
+        public async Task Handle(DeleteRole request, CancellationToken cancellationToken)
         {
-            return _roleRepository.DeleteRoleAsync(request.RoleId);
+            if (await _roleRepository.GetRoleAsync(request.RoleId) is null) 
+            {
+                return;
+            } 
+            
+            if (await _roleRepository.HasUsers(request.RoleId))
+            {
+                throw new InvalidOperationException("Role can't be deleted, while there are users assigned to is ");
+            }
+            else
+            {
+                await _roleRepository.DeleteRoleAsync(request.RoleId);
+            }
         }
     }
 }

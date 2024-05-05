@@ -66,5 +66,12 @@ namespace Identity.Infrastracture.Implementations
 
             return (await _userManager.GetRolesAsync(user)).Single();
         }
+
+        public async Task<ApplicationUser?> GetUserByIdAsync(string id)
+        {
+            var user = await _userManager.FindByIdAsync(id);
+
+            return user;
+        }
     }
 }

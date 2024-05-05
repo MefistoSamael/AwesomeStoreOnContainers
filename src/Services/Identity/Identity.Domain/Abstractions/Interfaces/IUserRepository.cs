@@ -15,5 +15,7 @@ namespace Identity.Domain.Abstractions.Interfaces
         public Task <string> GetUserRoleAsync(string userId);
 
         public Task<IEnumerable<ApplicationUser>> GetAllUsersAsync();
+        
+        Task<ApplicationUser?> GetUserByIdAsync(string id);
     }
 }

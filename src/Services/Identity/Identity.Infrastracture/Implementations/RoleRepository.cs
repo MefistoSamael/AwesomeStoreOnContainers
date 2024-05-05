@@ -1,6 +1,7 @@
 ﻿using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Entities;
 using Identity.Domain.Models;
+using Identity.Infrastracture.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
@@ -10,10 +11,12 @@ namespace Identity.Infrastracture.Implementations
     public class RoleRepository : IRoleRepository
     {
         private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly ApplicationDbContext _context;
 
-        public RoleRepository(RoleManager<ApplicationRole> roleManager)
+        public RoleRepository(RoleManager<ApplicationRole> roleManager, ApplicationDbContext context)
         {
             _roleManager = roleManager;
+            _context = context;
         }
         public async Task<string> CreateRoleAsync(ApplicationRole role)
         {
@@ -44,6 +47,11 @@ namespace Identity.Infrastracture.Implementations
         public Task<ApplicationRole?> GetRoleAsync(string roleId)
         {
             return _roleManager.FindByIdAsync(roleId);
+        }
+
+        public async Task<bool> HasUsers(string roleId)
+        {
+            return await _context.UserRoles.FirstOrDefaultAsync(ur => ur.RoleId == roleId) is not null;
         }
     }
 }

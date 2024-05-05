@@ -11,5 +11,7 @@ namespace Identity.Domain.Abstractions.Interfaces
         public Task DeleteRoleAsync(string roleId);
 
         public Task<IEnumerable<ApplicationRole>> GetAllRolesAsync();
+
+        public Task<bool> HasUsers(string roleId);
     }
 }
