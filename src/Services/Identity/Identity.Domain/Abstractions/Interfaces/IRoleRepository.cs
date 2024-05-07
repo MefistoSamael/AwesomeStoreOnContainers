@@ -13,5 +13,7 @@ namespace Identity.Domain.Abstractions.Interfaces
         public Task<IEnumerable<ApplicationRole>> GetAllRolesAsync();
 
         public Task<bool> HasUsers(string roleId);
+
+        Task<string> UpdateRoleAsync(ApplicationRole role);
     }
 }

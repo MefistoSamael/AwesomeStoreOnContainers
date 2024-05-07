@@ -1,8 +1,11 @@
 ﻿using Identity.Application.UseCases.Authentication.LogInUseCase;
 using Identity.Application.UseCases.Authentication.RegisterUseCase;
+using Identity.Application.UseCases.UserCrud.ChangeRoleUseCase;
 using Identity.Application.UseCases.UserCrud.CreateUserUseCase;
 using Identity.Application.UseCases.UserCrud.DeleteUserUseCase;
 using Identity.Application.UseCases.UserCrud.GetAllUsersUseCase;
+using Identity.Application.UseCases.UserCrud.GetUserByIdUseCase;
+using Identity.Presentation.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,7 +52,7 @@ namespace Identity.Presentation.Controllers
         [Route("{id}")]
         public async Task<IActionResult> DeleteUser(string id, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new DeleteUser { Id = id} , cancellationToken);
+            await _mediator.Send(new DeleteUser { Id = id }, cancellationToken);
 
             return Ok();
         }
@@ -60,6 +63,24 @@ namespace Identity.Presentation.Controllers
             var users = await _mediator.Send(new GetAllUsers(), cancellationToken);
 
             return users is not null ? Ok(users) : NotFound();
+        }
+
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<IActionResult> GetUserById(string id, CancellationToken cancellationToken)
+        {
+            var user = await _mediator.Send(new GetUserById { UserId = id}, cancellationToken);
+
+            return user is not null ? Ok(user) : NotFound();
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> ChangeUserRole(string id, [FromBody] ChangeUserRoleRequest request, CancellationToken cancellationToken)
+        {
+            var user = await _mediator.Send(new ChangeRole { UserId = id, RoleName = request.NewRole}, cancellationToken);
+
+            return user is not null ? Ok(user) : NotFound();
         }
     }
 }

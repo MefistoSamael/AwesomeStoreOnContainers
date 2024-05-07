@@ -15,16 +15,12 @@ namespace Identity.Infrastracture.Implementations
             _userManager = userManager;
         }
 
-        public async Task<string> CreateUserAsync(ApplicationUser model, string roleName)
+        public async Task<string> CreateUserAsync(ApplicationUser model)
         {
             model.Id = Guid.NewGuid().ToString();
+            model.ConcurrencyStamp = Guid.NewGuid().ToString();
             await _userManager.CreateAsync(model);
             await _userManager.AddPasswordAsync(model, model.PasswordHash!);
-            IdentityResult roleResult = await _userManager.AddToRoleAsync(model, roleName);
-
-            // FOR DEVELOPMENT PURPOSES ONLY
-            if (!roleResult.Succeeded)
-                throw new NotImplementedException($"Role {roleName} doesn't exists");
 
             return model.Id;
         }
@@ -72,6 +68,32 @@ namespace Identity.Infrastracture.Implementations
             var user = await _userManager.FindByIdAsync(id);
 
             return user;
+        }
+
+        public async Task<string> AddToRoleAsync(ApplicationUser user, string roleName)
+        {
+            user.ConcurrencyStamp = Guid.NewGuid().ToString();
+
+            IdentityResult roleResult = await _userManager.AddToRoleAsync(user, roleName);
+
+            // FOR DEVELOPMENT PURPOSES ONLY
+            if (!roleResult.Succeeded)
+                throw new NotImplementedException($"Role {roleName} doesn't exists");
+
+            return user.Id;
+        }
+
+        public async Task<string> RemoveFromRoleAsync(ApplicationUser user, string roleName)
+        {
+            user.ConcurrencyStamp = Guid.NewGuid().ToString();
+
+            IdentityResult roleResult = await _userManager.RemoveFromRoleAsync(user, roleName);
+
+            // FOR DEVELOPMENT PURPOSES ONLY
+            if (!roleResult.Succeeded)
+                throw new NotImplementedException($"Role {roleName} doesn't exists");
+
+            return user.Id;
         }
     }
 }

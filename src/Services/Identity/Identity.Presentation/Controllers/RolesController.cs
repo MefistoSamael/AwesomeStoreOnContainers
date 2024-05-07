@@ -1,6 +1,8 @@
 ﻿using Identity.Application.UseCases.RoleCrud.CreateRoleUseCase;
 using Identity.Application.UseCases.RoleCrud.DeleteRoleUseCase;
 using Identity.Application.UseCases.RoleCrud.GetAllRolesUseCase;
+using Identity.Application.UseCases.RoleCrud.UpdateRoleUseCase;
+using Identity.Presentation.Requests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +41,15 @@ namespace Identity.Presentation.Controllers
             await _mediator.Send(new DeleteRole { RoleId = id}, cancellationToken);
 
             return Ok();
+        }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateRole(string id, [FromBody] UpdateRoleRequest request, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new UpdateRole { RoleId = id, NewRoleName = request.NewRoleName }, cancellationToken);
+
+            return Ok(result);
         }
     }
 }

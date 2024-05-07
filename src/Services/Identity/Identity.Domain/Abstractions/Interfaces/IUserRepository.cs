@@ -4,7 +4,11 @@ namespace Identity.Domain.Abstractions.Interfaces
 {
     public interface IUserRepository
     {
-        Task<string> CreateUserAsync(ApplicationUser model, string roleName);
+        Task<string> CreateUserAsync(ApplicationUser model);
+
+        Task<string> AddToRoleAsync(ApplicationUser user, string roleName);
+
+        Task<string> RemoveFromRoleAsync(ApplicationUser user, string roleName);
 
         Task DeleteUserAsync(string userId);
 

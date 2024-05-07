@@ -29,7 +29,8 @@ namespace Identity.Application.UseCases.Authentication.RegisterUseCase
             user = new ApplicationUser(request.Email, request.UserName, request.Password);
             user.PasswordHash = _passwordHasher.HashPassword(user, request.Password);
 
-            await _userRepository.CreateUserAsync(user, "Buyer");
+            await _userRepository.CreateUserAsync(user);
+            await _userRepository.AddToRoleAsync(user, "Buyer");
 
             string token = await _jwtProvider.Generate(user);
 

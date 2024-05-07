@@ -21,6 +21,7 @@ namespace Identity.Infrastracture.Implementations
         public async Task<string> CreateRoleAsync(ApplicationRole role)
         {
             role.Id = Guid.NewGuid().ToString();
+            role.ConcurrencyStamp = Guid.NewGuid().ToString();
             await _roleManager.CreateAsync(role);
 
             return role.Id;
@@ -52,6 +53,14 @@ namespace Identity.Infrastracture.Implementations
         public async Task<bool> HasUsers(string roleId)
         {
             return await _context.UserRoles.FirstOrDefaultAsync(ur => ur.RoleId == roleId) is not null;
+        }
+
+        public async Task<string> UpdateRoleAsync(ApplicationRole role)
+        {
+            role.ConcurrencyStamp = Guid.NewGuid().ToString();
+            await _roleManager.UpdateAsync(role);
+
+            return role.Id;
         }
     }
 }

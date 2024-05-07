@@ -25,7 +25,11 @@ namespace Identity.Application.UseCases.UserCrud.CreateUserUseCase
             ApplicationUser user = new ApplicationUser(request.Email, request.UserName, request.Password);
             user.PasswordHash = _passwordHasher.HashPassword(user, request.Password);
 
-            return await _userRepository.CreateUserAsync(user, request.Role);
+            var id = await _userRepository.CreateUserAsync(user);
+
+            await _userRepository.AddToRoleAsync(user, request.Role);
+
+            return id;
         }
     }
 }

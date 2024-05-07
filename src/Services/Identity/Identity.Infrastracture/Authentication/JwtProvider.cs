@@ -39,7 +39,8 @@ namespace Identity.Infrastracture.Authentication
                 _options.Audience,
                 claims,
                 null,
-                DateTime.UtcNow.AddHours(1));
+                DateTime.UtcNow.AddHours(1),
+                signingCredentials);
 
             string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
 
