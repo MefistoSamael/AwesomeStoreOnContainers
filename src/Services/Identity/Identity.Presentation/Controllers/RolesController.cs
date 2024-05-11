@@ -2,8 +2,9 @@
 using Identity.Application.UseCases.RoleCrud.DeleteRoleUseCase;
 using Identity.Application.UseCases.RoleCrud.GetAllRolesUseCase;
 using Identity.Application.UseCases.RoleCrud.UpdateRoleUseCase;
-using Identity.Presentation.Requests;
+using Identity.Presentation.Requests.RoleRequests;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.Presentation.Controllers
@@ -20,14 +21,19 @@ namespace Identity.Presentation.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateRole([FromBody] CreateRole request, CancellationToken cancellationToken)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateRole([FromBody] CreateRoleRequest request, CancellationToken cancellationToken)
         {
-            var id = await _mediator.Send(request, cancellationToken);
+            var id = await _mediator.Send(new CreateRole
+            {
+                Name = request.Name,
+            }, cancellationToken);
 
             return Ok(id);
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllRoles(CancellationToken cancellationToken)
         {
             var roles = await _mediator.Send(new GetAllRoles(), cancellationToken);
@@ -36,6 +42,7 @@ namespace Identity.Presentation.Controllers
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteRole(string id, CancellationToken cancellationToken)
         {
             await _mediator.Send(new DeleteRole { RoleId = id}, cancellationToken);
@@ -45,6 +52,7 @@ namespace Identity.Presentation.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateRole(string id, [FromBody] UpdateRoleRequest request, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new UpdateRole { RoleId = id, NewRoleName = request.NewRoleName }, cancellationToken);

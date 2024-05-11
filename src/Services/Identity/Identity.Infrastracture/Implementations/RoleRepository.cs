@@ -18,10 +18,12 @@ namespace Identity.Infrastracture.Implementations
             _roleManager = roleManager;
             _context = context;
         }
+
         public async Task<string> CreateRoleAsync(ApplicationRole role)
         {
             role.Id = Guid.NewGuid().ToString();
             role.ConcurrencyStamp = Guid.NewGuid().ToString();
+
             await _roleManager.CreateAsync(role);
 
             return role.Id;

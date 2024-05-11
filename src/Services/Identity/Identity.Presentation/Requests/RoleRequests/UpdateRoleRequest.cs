@@ -1,4 +1,4 @@
-﻿namespace Identity.Presentation.Requests
+﻿namespace Identity.Presentation.Requests.RoleRequests
 {
     public class UpdateRoleRequest
     {

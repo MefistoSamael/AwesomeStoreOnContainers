@@ -5,8 +5,10 @@ using Identity.Application.UseCases.UserCrud.CreateUserUseCase;
 using Identity.Application.UseCases.UserCrud.DeleteUserUseCase;
 using Identity.Application.UseCases.UserCrud.GetAllUsersUseCase;
 using Identity.Application.UseCases.UserCrud.GetUserByIdUseCase;
-using Identity.Presentation.Requests;
+using Identity.Presentation.Requests.AuthenticationRequests;
+using Identity.Presentation.Requests.UserRequests;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Identity.Presentation.Controllers
@@ -24,32 +26,50 @@ namespace Identity.Presentation.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LogIn request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Login([FromBody] LogInRequest request, CancellationToken cancellationToken)
         {
-            var token = await _mediator.Send(request, cancellationToken);
+            var token = await _mediator.Send(new LogIn 
+            { 
+                Email = request.Email, 
+                Password = request.Password,
+                UserName = request.UserName,
+            }, cancellationToken);
 
             return token is not null ? Ok(token) : BadRequest();
         }
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] Register request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
         {
-            var token = await _mediator.Send(request, cancellationToken);
+            var token = await _mediator.Send(new Register
+            {
+                Email = request.Email,
+                Password = request.Password,
+                UserName = request.UserName,
+            }, cancellationToken);
 
             return token is not null ? Ok(token) : BadRequest();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUser request, CancellationToken cancellationToken)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
         {
-            var id = await _mediator.Send(request, cancellationToken);
+            var id = await _mediator.Send(new CreateUser
+            {
+                UserName = request.UserName,
+                Email = request.Email,
+                Password = request.Password,
+                Role = request.Role,
+            }, cancellationToken);
 
             return id is not null ? Ok(id) : BadRequest();
         }
 
         [HttpDelete]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(string id, CancellationToken cancellationToken)
         {
             await _mediator.Send(new DeleteUser { Id = id }, cancellationToken);
@@ -58,6 +78,7 @@ namespace Identity.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers(CancellationToken cancellationToken)
         {
             var users = await _mediator.Send(new GetAllUsers(), cancellationToken);
@@ -67,6 +88,7 @@ namespace Identity.Presentation.Controllers
 
         [HttpGet]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUserById(string id, CancellationToken cancellationToken)
         {
             var user = await _mediator.Send(new GetUserById { UserId = id}, cancellationToken);
@@ -76,6 +98,7 @@ namespace Identity.Presentation.Controllers
 
         [HttpPut]
         [Route("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> ChangeUserRole(string id, [FromBody] ChangeUserRoleRequest request, CancellationToken cancellationToken)
         {
             var user = await _mediator.Send(new ChangeRole { UserId = id, RoleName = request.NewRole}, cancellationToken);
