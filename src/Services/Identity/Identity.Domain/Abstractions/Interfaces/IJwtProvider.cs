@@ -1,9 +1,8 @@
 ﻿using Identity.Domain.Models;
 
-namespace Identity.Domain.Abstractions.Interfaces
+namespace Identity.Domain.Abstractions.Interfaces;
+
+public interface IJwtProvider
 {
-    public interface IJwtProvider
-    {
-        Task<string> Generate(ApplicationUser user);
-    }
+    Task<string> Generate(ApplicationUser user);
 }

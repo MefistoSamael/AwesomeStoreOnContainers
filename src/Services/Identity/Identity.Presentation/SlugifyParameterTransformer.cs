@@ -1,19 +1,18 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Identity.Presentation
+namespace Identity.Presentation;
+
+
+public class SlugifyParameterTransformer : IOutboundParameterTransformer
 {
-
-    public class SlugifyParameterTransformer : IOutboundParameterTransformer
+    public string? TransformOutbound(object? value)
     {
-        public string? TransformOutbound(object? value)
-        {
-            if (value == null) { return null; }
+        if (value == null) { return null; }
 
-            return Regex.Replace(value.ToString()!,
-                                 "([a-z])([A-Z])",
-                                 "$1-$2",
-                                 RegexOptions.CultureInvariant,
-                                 TimeSpan.FromMilliseconds(100)).ToLowerInvariant();
-        }
+        return Regex.Replace(value.ToString()!,
+                             "([a-z])([A-Z])",
+                             "$1-$2",
+                             RegexOptions.CultureInvariant,
+                             TimeSpan.FromMilliseconds(100)).ToLowerInvariant();
     }
 }

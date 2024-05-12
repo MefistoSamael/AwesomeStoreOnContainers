@@ -1,21 +1,20 @@
 ﻿using Identity.Infrastracture.Authentication;
 using Microsoft.Extensions.Options;
 
-namespace Identity.Presentation.OptionsSetup
+namespace Identity.Presentation.OptionsSetup;
+
+public class JwtOptionsSetup : IConfigureOptions<JwtOptions>
 {
-    public class JwtOptionsSetup : IConfigureOptions<JwtOptions>
+    private const string sectionName = "Jwt";
+    private readonly IConfiguration _configuration;
+
+    public JwtOptionsSetup(IConfiguration configuration)
     {
-        private const string sectionName = "Jwt";
-        private readonly IConfiguration _configuration;
+        _configuration = configuration;
+    }
 
-        public JwtOptionsSetup(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-
-        public void Configure(JwtOptions options)
-        {
-            _configuration.GetSection(sectionName).Bind(options);
-        }
+    public void Configure(JwtOptions options)
+    {
+        _configuration.GetSection(sectionName).Bind(options);
     }
 }

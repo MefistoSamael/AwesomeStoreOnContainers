@@ -4,37 +4,36 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Identity.Presentation.OptionsSetup
+namespace Identity.Presentation.OptionsSetup;
+
+public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
 {
-    public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
+    public readonly JwtOptions _jwtOptions;
+
+    public JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions)
     {
-        public readonly JwtOptions _jwtOptions;
+        _jwtOptions = jwtOptions.Value;
+    }
 
-        public JwtBearerOptionsSetup(IOptions<JwtOptions> jwtOptions)
+    public void Configure(JwtBearerOptions options)
+    {
+        Configure(JwtBearerDefaults.AuthenticationScheme, options);
+    }
+
+    public void Configure(string name, JwtBearerOptions options)
+    {
+        options.TokenValidationParameters = new()
         {
-            _jwtOptions = jwtOptions.Value;
-        }
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
 
-        public void Configure(JwtBearerOptions options)
-        {
-            Configure(JwtBearerDefaults.AuthenticationScheme, options);
-        }
+            ValidIssuer = _jwtOptions.Issuer,
+            ValidAudience = _jwtOptions.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_jwtOptions.SecretKey))
+        };
 
-        public void Configure(string name, JwtBearerOptions options)
-        {
-            options.TokenValidationParameters = new()
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-
-                ValidIssuer = _jwtOptions.Issuer,
-                ValidAudience = _jwtOptions.Audience,
-                IssuerSigningKey = new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes(_jwtOptions.SecretKey))
-            };
-
-        }
     }
 }

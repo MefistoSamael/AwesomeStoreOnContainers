@@ -1,7 +1,6 @@
-﻿namespace Identity.Presentation.Requests.UserRequests
+﻿namespace Identity.Presentation.Requests.UserRequests;
+
+public class ChangeUserRoleRequest
 {
-    public class ChangeUserRoleRequest
-    {
-        public string NewRole { get; set; }
-    }
+    public string RoleName { get; set; }
 }

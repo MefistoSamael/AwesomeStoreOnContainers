@@ -2,98 +2,96 @@
 using Identity.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 
-namespace Identity.Infrastracture.Implementations
+namespace Identity.Infrastracture.Implementations;
+
+public class UserRepository : IUserRepository
 {
-    public class UserRepository : IUserRepository
+    private readonly UserManager<ApplicationUser> _userManager;
+
+    public UserRepository(UserManager<ApplicationUser> userManager)
     {
-        private readonly UserManager<ApplicationUser> _userManager;
+        _userManager = userManager;
+    }
 
-        public UserRepository(UserManager<ApplicationUser> userManager)
+    public async Task<string> CreateUserAsync(ApplicationUser model)
+    {
+        model.Id = Guid.NewGuid().ToString();
+        model.ConcurrencyStamp = Guid.NewGuid().ToString();
+        await _userManager.CreateAsync(model);
+        await _userManager.AddPasswordAsync(model, model.PasswordHash!);
+
+        return model.Id;
+    }
+
+    public async Task DeleteUserAsync(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId);
+
+        // FOR DEVELOPMENT PURPOSES ONLY
+        if (user is null)
         {
-            _userManager = userManager;
+            throw new ArgumentNullException("In user deletion id of non-exsistent user");
         }
+     
+        await _userManager.DeleteAsync(user);
+    }
 
-        public async Task<string> CreateUserAsync(ApplicationUser model)
-        {
-            model.Id = Guid.NewGuid().ToString();
-            model.ConcurrencyStamp = Guid.NewGuid().ToString();
-            await _userManager.CreateAsync(model);
-            await _userManager.AddPasswordAsync(model, model.PasswordHash!);
+    public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync()
+    {
+        return await _userManager.Users.ToListAsync();
+    }
 
-            return model.Id;
-        }
+    public async Task<ApplicationUser?> GetUserByEmailAsync(string email)
+    {
+        return await _userManager.FindByEmailAsync(email);
+    }
 
-        public async Task DeleteUserAsync(string userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId);
+    public async Task<ApplicationUser?> GetUserByUserNameAsync(string username)
+    {
+        return await _userManager.FindByNameAsync(username);
+    }
 
-            // FOR DEVELOPMENT PURPOSES ONLY
-            if (user is null)
-            {
-                throw new ArgumentNullException("In user deletion id of non-exsistent user");
-            }
-         
-            await _userManager.DeleteAsync(user);
-        }
+    public async Task<string> GetUserRoleAsync(string userId)
+    {
+        var user = await _userManager.FindByIdAsync(userId); 
+        
+        if (user is null)
+            throw new NotImplementedException("Handle me");
 
-        public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync()
-        {
-            return await _userManager.Users.ToListAsync();
-        }
+        return (await _userManager.GetRolesAsync(user)).Single();
+    }
 
-        public async Task<ApplicationUser?> GetUserByEmailAsync(string email)
-        {
-            return await _userManager.FindByEmailAsync(email);
-        }
+    public async Task<ApplicationUser?> GetUserByIdAsync(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
 
-        public async Task<ApplicationUser?> GetUserByUserNameAsync(string username)
-        {
-            return await _userManager.FindByNameAsync(username);
-        }
+        return user;
+    }
 
-        public async Task<string> GetUserRoleAsync(string userId)
-        {
-            var user = await _userManager.FindByIdAsync(userId); 
-            
-            if (user is null)
-                throw new NotImplementedException("Handle me");
+    public async Task<string> AddToRoleAsync(ApplicationUser user, string roleName)
+    {
+        user.ConcurrencyStamp = Guid.NewGuid().ToString();
 
-            return (await _userManager.GetRolesAsync(user)).Single();
-        }
+        IdentityResult roleResult = await _userManager.AddToRoleAsync(user, roleName);
 
-        public async Task<ApplicationUser?> GetUserByIdAsync(string id)
-        {
-            var user = await _userManager.FindByIdAsync(id);
+        // FOR DEVELOPMENT PURPOSES ONLY
+        if (!roleResult.Succeeded)
+            throw new Exception($"{roleResult.Errors}");
 
-            return user;
-        }
+        return user.Id;
+    }
 
-        public async Task<string> AddToRoleAsync(ApplicationUser user, string roleName)
-        {
-            user.ConcurrencyStamp = Guid.NewGuid().ToString();
+    public async Task<string> RemoveFromRoleAsync(ApplicationUser user, string roleName)
+    {
+        user.ConcurrencyStamp = Guid.NewGuid().ToString();
 
-            IdentityResult roleResult = await _userManager.AddToRoleAsync(user, roleName);
+        IdentityResult roleResult = await _userManager.RemoveFromRoleAsync(user, roleName);
 
-            // FOR DEVELOPMENT PURPOSES ONLY
-            if (!roleResult.Succeeded)
-                throw new NotImplementedException($"Role {roleName} doesn't exists");
+        // FOR DEVELOPMENT PURPOSES ONLY
+        if (!roleResult.Succeeded)
+            throw new NotImplementedException($"Role {roleName} doesn't exists");
 
-            return user.Id;
-        }
-
-        public async Task<string> RemoveFromRoleAsync(ApplicationUser user, string roleName)
-        {
-            user.ConcurrencyStamp = Guid.NewGuid().ToString();
-
-            IdentityResult roleResult = await _userManager.RemoveFromRoleAsync(user, roleName);
-
-            // FOR DEVELOPMENT PURPOSES ONLY
-            if (!roleResult.Succeeded)
-                throw new NotImplementedException($"Role {roleName} doesn't exists");
-
-            return user.Id;
-        }
+        return user.Id;
     }
 }

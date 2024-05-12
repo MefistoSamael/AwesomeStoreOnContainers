@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Identity.Application.Models;
 
-namespace Identity.Application.Models
+public class RoleDTO
 {
-    public class RoleDTO
-    {
-        public string Id { get; set; }
+    public string Id { get; set; }
 
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }

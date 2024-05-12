@@ -1,109 +1,103 @@
-﻿using Identity.Application.UseCases.Authentication.LogInUseCase;
-using Identity.Application.UseCases.Authentication.RegisterUseCase;
-using Identity.Application.UseCases.UserCrud.ChangeRoleUseCase;
-using Identity.Application.UseCases.UserCrud.CreateUserUseCase;
-using Identity.Application.UseCases.UserCrud.DeleteUserUseCase;
-using Identity.Application.UseCases.UserCrud.GetAllUsersUseCase;
-using Identity.Application.UseCases.UserCrud.GetUserByIdUseCase;
-using Identity.Presentation.Requests.AuthenticationRequests;
+﻿using AutoMapper;
+using Identity.Application.UseCases.Authentication.LogIn;
+using Identity.Application.UseCases.Authentication.Register;
+using Identity.Application.UseCases.UserCrud.ChangeRole;
+using Identity.Application.UseCases.UserCrud.CreateUser;
+using Identity.Application.UseCases.UserCrud.DeleteUser;
+using Identity.Application.UseCases.UserCrud.GetAllUsers;
+using Identity.Application.UseCases.UserCrud.GetUserById;
 using Identity.Presentation.Requests.UserRequests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Identity.Presentation.Controllers
+namespace Identity.Presentation.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class UsersController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class UsersController : ControllerBase
+    private readonly IMediator _mediator;
+    private readonly IMapper _mapper;
+
+    public UsersController(IMediator mediator, IMapper mapper)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+        _mapper = mapper;
+    }
 
-        public UsersController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+    [HttpPost]
+    [Route("login")]
+    public async Task<IActionResult> Login([FromBody] Requests.AuthenticationRequests.LogInRequest request, CancellationToken cancellationToken)
+    {
+        var useCase = _mapper.Map<LogInUseCase>(request);
 
-        [HttpPost]
-        [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LogInRequest request, CancellationToken cancellationToken)
-        {
-            var token = await _mediator.Send(new LogIn 
-            { 
-                Email = request.Email, 
-                Password = request.Password,
-                UserName = request.UserName,
-            }, cancellationToken);
+        var token = await _mediator.Send(useCase, cancellationToken);
 
-            return token is not null ? Ok(token) : BadRequest();
-        }
+        return token is not null ? Ok(token) : BadRequest();
+    }
 
-        [HttpPost]
-        [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest request, CancellationToken cancellationToken)
-        {
-            var token = await _mediator.Send(new Register
-            {
-                Email = request.Email,
-                Password = request.Password,
-                UserName = request.UserName,
-            }, cancellationToken);
+    [HttpPost]
+    [Route("register")]
+    public async Task<IActionResult> Register([FromBody] Requests.AuthenticationRequests.RegisterRequest request, CancellationToken cancellationToken)
+    {
+        var useCase = _mapper.Map<RegisterUseCase>(request);
 
-            return token is not null ? Ok(token) : BadRequest();
-        }
+        var token = await _mediator.Send(useCase, cancellationToken);
 
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
-        {
-            var id = await _mediator.Send(new CreateUser
-            {
-                UserName = request.UserName,
-                Email = request.Email,
-                Password = request.Password,
-                Role = request.Role,
-            }, cancellationToken);
+        return token is not null ? Ok(token) : BadRequest();
+    }
 
-            return id is not null ? Ok(id) : BadRequest();
-        }
+    [HttpPost]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> CreateUser([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
+    {
+        var useCase = _mapper.Map<CreateUserUseCase>(request);
 
-        [HttpDelete]
-        [Route("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteUser(string id, CancellationToken cancellationToken)
-        {
-            await _mediator.Send(new DeleteUser { Id = id }, cancellationToken);
+        var id = await _mediator.Send(useCase, cancellationToken);
 
-            return Ok();
-        }
+        return id is not null ? Ok(id) : BadRequest();
+    }
 
-        [HttpGet]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAllUsers(CancellationToken cancellationToken)
-        {
-            var users = await _mediator.Send(new GetAllUsers(), cancellationToken);
+    [HttpDelete]
+    [Route("{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> DeleteUser(string id, CancellationToken cancellationToken)
+    {
+        await _mediator.Send(new DeleteUserUseCase { Id = id }, cancellationToken);
 
-            return users is not null ? Ok(users) : NotFound();
-        }
+        return Ok();
+    }
 
-        [HttpGet]
-        [Route("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetUserById(string id, CancellationToken cancellationToken)
-        {
-            var user = await _mediator.Send(new GetUserById { UserId = id}, cancellationToken);
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetAllUsers(CancellationToken cancellationToken)
+    {
+        var users = await _mediator.Send(new GetAllUsersUseCase(), cancellationToken);
 
-            return user is not null ? Ok(user) : NotFound();
-        }
+        return users is not null ? Ok(users) : NotFound();
+    }
 
-        [HttpPut]
-        [Route("{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> ChangeUserRole(string id, [FromBody] ChangeUserRoleRequest request, CancellationToken cancellationToken)
-        {
-            var user = await _mediator.Send(new ChangeRole { UserId = id, RoleName = request.NewRole}, cancellationToken);
+    [HttpGet]
+    [Route("{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetUserById(string id, CancellationToken cancellationToken)
+    {
+        var user = await _mediator.Send(new GetUserByIdUseCase { UserId = id}, cancellationToken);
 
-            return user is not null ? Ok(user) : NotFound();
-        }
+        return user is not null ? Ok(user) : NotFound();
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> ChangeUserRole(string id, [FromBody] ChangeUserRoleRequest request, CancellationToken cancellationToken)
+    {
+        var useCase = _mapper.Map<ChangeUserRoleUseCase>(request);
+        useCase.UserId = id;
+
+        var user = await _mediator.Send(useCase, cancellationToken);
+
+        return user is not null ? Ok(user) : NotFound();
     }
 }

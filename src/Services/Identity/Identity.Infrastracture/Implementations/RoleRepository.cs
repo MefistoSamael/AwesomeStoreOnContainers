@@ -1,68 +1,65 @@
 ﻿using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Entities;
-using Identity.Domain.Models;
 using Identity.Infrastracture.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 
-namespace Identity.Infrastracture.Implementations
+namespace Identity.Infrastracture.Implementations;
+
+public class RoleRepository : IRoleRepository
 {
-    public class RoleRepository : IRoleRepository
+    private readonly RoleManager<ApplicationRole> _roleManager;
+    private readonly ApplicationDbContext _context;
+
+    public RoleRepository(RoleManager<ApplicationRole> roleManager, ApplicationDbContext context)
     {
-        private readonly RoleManager<ApplicationRole> _roleManager;
-        private readonly ApplicationDbContext _context;
+        _roleManager = roleManager;
+        _context = context;
+    }
 
-        public RoleRepository(RoleManager<ApplicationRole> roleManager, ApplicationDbContext context)
+    public async Task<string> CreateRoleAsync(ApplicationRole role)
+    {
+        role.Id = Guid.NewGuid().ToString();
+        role.ConcurrencyStamp = Guid.NewGuid().ToString();
+
+        await _roleManager.CreateAsync(role);
+
+        return role.Id;
+    }
+
+    public async Task DeleteRoleAsync(string roleId)
+    {
+        var role = await _roleManager.FindByIdAsync(roleId);
+
+        // FOR DEVELOPMENT PURPOSES ONLY
+        if (role is null)
         {
-            _roleManager = roleManager;
-            _context = context;
+            throw new ArgumentNullException("In role deletion id of non-exsistent user");
         }
 
-        public async Task<string> CreateRoleAsync(ApplicationRole role)
-        {
-            role.Id = Guid.NewGuid().ToString();
-            role.ConcurrencyStamp = Guid.NewGuid().ToString();
+        await _roleManager.DeleteAsync(role);
+    }
 
-            await _roleManager.CreateAsync(role);
+    public async Task<IEnumerable<ApplicationRole>> GetAllRolesAsync()
+    {
+        return await _roleManager.Roles.ToListAsync();
+    }
 
-            return role.Id;
-        }
+    public Task<ApplicationRole?> GetRoleAsync(string roleId)
+    {
+        return _roleManager.FindByIdAsync(roleId);
+    }
 
-        public async Task DeleteRoleAsync(string roleId)
-        {
-            var role = await _roleManager.FindByIdAsync(roleId);
+    public async Task<bool> HasUsers(string roleId)
+    {
+        return await _context.UserRoles.FirstOrDefaultAsync(ur => ur.RoleId == roleId) is not null;
+    }
 
-            // FOR DEVELOPMENT PURPOSES ONLY
-            if (role is null)
-            {
-                throw new ArgumentNullException("In role deletion id of non-exsistent user");
-            }
+    public async Task<string> UpdateRoleAsync(ApplicationRole role)
+    {
+        role.ConcurrencyStamp = Guid.NewGuid().ToString();
+        await _roleManager.UpdateAsync(role);
 
-            await _roleManager.DeleteAsync(role);
-        }
-
-        public async Task<IEnumerable<ApplicationRole>> GetAllRolesAsync()
-        {
-            return await _roleManager.Roles.ToListAsync();
-        }
-
-        public Task<ApplicationRole?> GetRoleAsync(string roleId)
-        {
-            return _roleManager.FindByIdAsync(roleId);
-        }
-
-        public async Task<bool> HasUsers(string roleId)
-        {
-            return await _context.UserRoles.FirstOrDefaultAsync(ur => ur.RoleId == roleId) is not null;
-        }
-
-        public async Task<string> UpdateRoleAsync(ApplicationRole role)
-        {
-            role.ConcurrencyStamp = Guid.NewGuid().ToString();
-            await _roleManager.UpdateAsync(role);
-
-            return role.Id;
-        }
+        return role.Id;
     }
 }

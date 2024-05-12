@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Identity.Domain.Models
+namespace Identity.Domain.Models;
+
+public class ApplicationUser : IdentityUser
 {
-    public class ApplicationUser : IdentityUser
+    public ApplicationUser() { }
+
+    public ApplicationUser(string email, string password)
     {
-        public ApplicationUser() { }
-        public ApplicationUser(string email, string username, string password) 
-        {
-            Email = email;
-            NormalizedEmail = email.ToUpper();
+        Email = email;
+        NormalizedEmail = email.ToUpper();
 
-            UserName = username;
-            NormalizedUserName = username.ToUpper();
+        UserName = email;
+        NormalizedUserName = email.ToUpper();
 
-            PasswordHash = password;
-        }
+        PasswordHash = password;
     }
 }
