@@ -1,6 +1,5 @@
 ﻿using Identity.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Identity.Presentation.Middleware;
 

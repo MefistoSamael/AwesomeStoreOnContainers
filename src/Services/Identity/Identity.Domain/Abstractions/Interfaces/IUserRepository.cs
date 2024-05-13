@@ -4,21 +4,25 @@ namespace Identity.Domain.Abstractions.Interfaces;
 
 public interface IUserRepository
 {
-    Task<string> CreateUserAsync(ApplicationUser model);
+    public Task<string> CreateUserAsync(ApplicationUser model);
 
-    Task<string> AddToRoleAsync(ApplicationUser user, string roleName);
+    public Task<string> AddToRoleAsync(ApplicationUser user, string roleName);
 
-    Task<string> RemoveFromRoleAsync(ApplicationUser user, string roleName);
+    public Task<string> RemoveFromRoleAsync(ApplicationUser user, string roleName);
 
-    Task DeleteUserAsync(string userId);
+    public Task DeleteUserAsync(string userId);
 
-    Task<ApplicationUser?> GetUserByEmailAsync(string email);
+    public Task<ApplicationUser?> GetUserByEmailAsync(string email);
 
-    Task<ApplicationUser?> GetUserByUserNameAsync(string email);
+    public Task<ApplicationUser?> GetUserByUserNameAsync(string email);
 
-    public Task <string> GetUserRoleAsync(string userId);
+    public Task<string> GetUserRoleAsync(string userId);
 
     public Task<IEnumerable<ApplicationUser>> GetAllUsersAsync();
-    
-    Task<ApplicationUser?> GetUserByIdAsync(string id);
+
+    public Task<IEnumerable<ApplicationUser>> GetPaginatedUsersAsync(int pageNumber, int pageSize);
+
+    public Task<ApplicationUser?> GetUserByIdAsync(string id);
+
+    public Task<int> GetUsersCountAsync();
 }

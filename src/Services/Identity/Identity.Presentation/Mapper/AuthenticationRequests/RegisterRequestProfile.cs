@@ -1,6 +1,6 @@
-﻿using Identity.Presentation.Requests.AuthenticationRequests;
-using AutoMapper;
+﻿using AutoMapper;
 using Identity.Application.UseCases.Authentication.Register;
+using Identity.Presentation.Requests.AuthenticationRequests;
 
 namespace Identity.Presentation.Mapper.AuthenticationRequests;
 

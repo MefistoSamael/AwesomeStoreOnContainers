@@ -77,4 +77,17 @@ public class UserRepository : IUserRepository
 
         return user.Id;
     }
+
+    public async Task<IEnumerable<ApplicationUser>> GetPaginatedUsersAsync(int pageNumber, int pageSize)
+    {
+        return await _userManager.Users.OrderBy(u => u.Id)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+
+    public async Task<int> GetUsersCountAsync()
+    {
+        return await _userManager.Users.CountAsync();
+    }
 }
