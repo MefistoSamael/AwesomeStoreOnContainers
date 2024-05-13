@@ -1,4 +1,4 @@
-﻿namespace Identity.Application.Models;
+﻿namespace Identity.Application.Common.Models;
 
 public class RoleDTO
 {

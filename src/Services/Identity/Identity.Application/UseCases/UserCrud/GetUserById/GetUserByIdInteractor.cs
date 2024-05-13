@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Identity.Application.Models;
+using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using MediatR;
 

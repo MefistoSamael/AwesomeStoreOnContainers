@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Identity.Application.Models;
+using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using MediatR;
 
@@ -21,11 +21,11 @@ public class GetAllUsersInteractor : IRequestHandler<GetAllUsersUseCase, IEnumer
         var applicationUsers = await _userRepository.GetAllUsersAsync();
         IEnumerable<UserDTO> users = _mapper.Map<List<UserDTO>>(applicationUsers);
 
-        foreach (var user in users) 
+        foreach (var user in users)
         {
             user.RoleName = await _userRepository.GetUserRoleAsync(user.Id);
         }
-        
+
         return users;
     }
 }

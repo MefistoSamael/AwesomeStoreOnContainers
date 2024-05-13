@@ -45,9 +45,14 @@ public class RoleRepository : IRoleRepository
         return await _roleManager.Roles.ToListAsync();
     }
 
-    public Task<ApplicationRole?> GetRoleAsync(string roleId)
+    public Task<ApplicationRole?> GetRoleByIdAsync(string roleId)
     {
         return _roleManager.FindByIdAsync(roleId);
+    }
+
+    public async Task<ApplicationRole?> GetRoleByNameAsync(string roleName)
+    {
+        return await _roleManager.FindByNameAsync(roleName);
     }
 
     public async Task<bool> HasUsers(string roleId)

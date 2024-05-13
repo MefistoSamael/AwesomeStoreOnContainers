@@ -1,4 +1,4 @@
-﻿using Identity.Application.Models;
+﻿using Identity.Application.Common.Models;
 using MediatR;
 
 namespace Identity.Application.UseCases.RoleCrud.GetAllRoles;

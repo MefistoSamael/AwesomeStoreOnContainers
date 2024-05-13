@@ -1,6 +1,7 @@
 using Identity.Application;
 using Identity.Infrastracture;
 using Identity.Presentation;
+using Identity.Presentation.Middleware;
 using Identity.Presentation.OptionsSetup;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.OpenApi.Models;
@@ -70,6 +71,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthentication();
 

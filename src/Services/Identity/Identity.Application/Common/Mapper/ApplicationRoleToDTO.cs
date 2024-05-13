@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Identity.Application.Models;
+using Identity.Application.Common.Models;
 using Identity.Domain.Entities;
 
-namespace Identity.Application.Mapper;
+namespace Identity.Application.Common.Mapper;
 
 public class ApplicationRoleToDTO : Profile
 {

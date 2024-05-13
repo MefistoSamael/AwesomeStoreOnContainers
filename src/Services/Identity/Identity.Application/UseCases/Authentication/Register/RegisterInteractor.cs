@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Abstractions.Interfaces;
+﻿using Identity.Application.Common.Exceptions;
+using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -22,7 +23,7 @@ public class RegisterInteractor : IRequestHandler<RegisterUseCase, string>
 
         if (user is not null)
         {
-            throw new NotImplementedException("existing user");
+            throw new ExistingUserException("User with such email already exists");
         }
 
 

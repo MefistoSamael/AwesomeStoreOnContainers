@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Abstractions.Interfaces;
+﻿using Identity.Application.Common.Exceptions;
+using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -20,11 +21,16 @@ public class LogInInteractor : IRequestHandler<LogInUseCase, string>
     public async Task<string> Handle(LogInUseCase request, CancellationToken cancellationToken)
     {
         ApplicationUser? user = await _userRepository.GetUserByEmailAsync(request.Email);
+
         if (user is null)
-            throw new NotImplementedException("user doesn't exist");
+        {
+            throw new MissMatchingUserCredentialsException("there are no user with such combination of username and password");
+        }
 
         if (_passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Password) == PasswordVerificationResult.Failed)
-            throw new NotImplementedException("invalid password");
+        {
+            throw new MissMatchingUserCredentialsException("there are no user with such combination of username and password");
+        }
 
         string token = await _jwtProvider.Generate(user);
 

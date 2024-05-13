@@ -15,6 +15,6 @@ public class GetRoleByIdInteractor : IRequestHandler<GetRoleByIdUseCase, Applica
 
     public async Task<ApplicationRole?> Handle(GetRoleByIdUseCase request, CancellationToken cancellationToken)
     {
-        return await _roleRepository.GetRoleAsync(request.RoleId);
+        return await _roleRepository.GetRoleByIdAsync(request.RoleId);
     }
 }

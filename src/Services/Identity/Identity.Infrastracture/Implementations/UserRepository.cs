@@ -27,12 +27,6 @@ public class UserRepository : IUserRepository
     public async Task DeleteUserAsync(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
-
-        // FOR DEVELOPMENT PURPOSES ONLY
-        if (user is null)
-        {
-            throw new ArgumentNullException("In user deletion id of non-exsistent user");
-        }
      
         await _userManager.DeleteAsync(user);
     }
@@ -55,9 +49,6 @@ public class UserRepository : IUserRepository
     public async Task<string> GetUserRoleAsync(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId); 
-        
-        if (user is null)
-            throw new NotImplementedException("Handle me");
 
         return (await _userManager.GetRolesAsync(user)).Single();
     }
@@ -75,10 +66,6 @@ public class UserRepository : IUserRepository
 
         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, roleName);
 
-        // FOR DEVELOPMENT PURPOSES ONLY
-        if (!roleResult.Succeeded)
-            throw new Exception($"{roleResult.Errors}");
-
         return user.Id;
     }
 
@@ -87,10 +74,6 @@ public class UserRepository : IUserRepository
         user.ConcurrencyStamp = Guid.NewGuid().ToString();
 
         IdentityResult roleResult = await _userManager.RemoveFromRoleAsync(user, roleName);
-
-        // FOR DEVELOPMENT PURPOSES ONLY
-        if (!roleResult.Succeeded)
-            throw new NotImplementedException($"Role {roleName} doesn't exists");
 
         return user.Id;
     }

@@ -4,7 +4,9 @@ namespace Identity.Domain.Abstractions.Interfaces;
 
 public interface IRoleRepository
 {
-    public Task<ApplicationRole?> GetRoleAsync(string roleId);
+    public Task<ApplicationRole?> GetRoleByIdAsync(string roleId);
+    
+    public Task<ApplicationRole?> GetRoleByNameAsync(string roleName);
 
     public Task<string> CreateRoleAsync(ApplicationRole role);
 
