@@ -23,6 +23,7 @@ public static  class DependencyInjection
         services.ConfigureOptions<JwtBearerOptionsSetup>();
         services.ConfigureOptions<RefreshTokenOptionsSetup>();
         services.ConfigureOptions<AuthenticationOptionsSetup>();
+        services.ConfigureOptions<PaginationOptionsSetup>();
 
         return services;
     }

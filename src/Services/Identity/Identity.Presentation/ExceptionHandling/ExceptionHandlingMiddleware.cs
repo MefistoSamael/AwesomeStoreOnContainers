@@ -105,7 +105,7 @@ public class ExceptionHandlingMiddleware
         }
         catch (Exception exception)
         {
-            //throw;
+            throw;
             await Console.Out.WriteLineAsync(exception.Message);
             var problemDetails = new ProblemDetails
             { 

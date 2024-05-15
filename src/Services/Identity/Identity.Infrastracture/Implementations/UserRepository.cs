@@ -1,5 +1,6 @@
 ﻿using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Models;
+using Identity.Infrastracture.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +9,12 @@ namespace Identity.Infrastracture.Implementations;
 public class UserRepository : IUserRepository
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly ApplicationDbContext _context;
 
-    public UserRepository(UserManager<ApplicationUser> userManager)
+    public UserRepository(UserManager<ApplicationUser> userManager, ApplicationDbContext context)
     {
         _userManager = userManager;
+        _context = context;
     }
 
     public async Task<string> CreateUserAsync(ApplicationUser model)
@@ -58,6 +61,21 @@ public class UserRepository : IUserRepository
         var user = await _userManager.FindByIdAsync(id);
 
         return user;
+    }
+
+    public async Task<string> UpdateUserRole(ApplicationUser user, string roleName)
+    {
+        var role = await _context.Roles.SingleAsync(r => r.Name == roleName);
+
+        var userRole = await _context.UserRoles.SingleAsync(ur => ur.UserId == user.Id);
+
+        userRole.RoleId = role.Id;
+
+        _context.UserRoles.Update(userRole);
+
+        await _context.SaveChangesAsync();
+
+        return user.Id;
     }
 
     public async Task<string> AddToRoleAsync(ApplicationUser user, string roleName)

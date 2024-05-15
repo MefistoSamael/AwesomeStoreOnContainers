@@ -28,7 +28,6 @@ public class ChangeUserRoleInteractor : IRequestHandler<ChangeUserRoleUseCase, s
             throw new KeyNotFoundException("There are no user with such id");
         }
 
-
         var oldRole = await _userRepository.GetUserRoleAsync(request.UserId);
         if (oldRole == request.RoleName)
         {
@@ -39,6 +38,9 @@ public class ChangeUserRoleInteractor : IRequestHandler<ChangeUserRoleUseCase, s
         // user can have only one role
         await _userRepository.RemoveFromRoleAsync(user, oldRole);
         await _userRepository.AddToRoleAsync(user, request.RoleName);
+
+        //// user can have only one role
+        //await _userRepository.UpdateUserRole(user, request.RoleName);
 
         return user.Id;
     }

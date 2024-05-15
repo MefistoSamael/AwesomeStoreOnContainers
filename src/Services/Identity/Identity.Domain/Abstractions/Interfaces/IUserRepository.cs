@@ -10,6 +10,8 @@ public interface IUserRepository
 
     public Task<string> RemoveFromRoleAsync(ApplicationUser user, string roleName);
 
+    public Task<string> UpdateUserRole(ApplicationUser user, string roleName);
+
     public Task DeleteUserAsync(string userId);
 
     public Task<ApplicationUser?> GetUserByEmailAsync(string email);
