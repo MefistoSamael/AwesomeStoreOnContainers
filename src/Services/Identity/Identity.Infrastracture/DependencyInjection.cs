@@ -25,6 +25,10 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IRoleRepository, RoleRepository>();
         services.AddScoped<IJwtProvider, JwtProvider>();
+        services.AddScoped<IRefreshTokenProvider, RefreshTokenProvider>();
+
+        services.AddAuthentication().AddJwtBearer();
+
         return services;
     }
 }

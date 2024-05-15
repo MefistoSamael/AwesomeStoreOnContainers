@@ -1,4 +1,5 @@
 ﻿using Identity.Application.Common.Exceptions;
+using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Models;
 using MediatR;
@@ -6,19 +7,21 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Identity.Application.UseCases.Authentication.LogIn;
 
-public class LogInInteractor : IRequestHandler<LogInUseCase, string>
+public class LogInInteractor : IRequestHandler<LogInUseCase, TokensResponse>
 {
     PasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
     private readonly IUserRepository _userRepository;
     private readonly IJwtProvider _jwtProvider;
+    private readonly IRefreshTokenProvider _refreshTokenProvider;
 
-    public LogInInteractor(IJwtProvider jwtProvider, IUserRepository userRepository)
+    public LogInInteractor(IJwtProvider jwtProvider, IUserRepository userRepository, IRefreshTokenProvider refreshTokenProvider)
     {
         _jwtProvider = jwtProvider;
         _userRepository = userRepository;
+        _refreshTokenProvider = refreshTokenProvider;
     }
 
-    public async Task<string> Handle(LogInUseCase request, CancellationToken cancellationToken)
+    public async Task<TokensResponse> Handle(LogInUseCase request, CancellationToken cancellationToken)
     {
         ApplicationUser? user = await _userRepository.GetUserByEmailAsync(request.Email);
 
@@ -32,8 +35,21 @@ public class LogInInteractor : IRequestHandler<LogInUseCase, string>
             throw new MissMatchingUserCredentialsException("there are no user with such combination of username and password");
         }
 
-        string token = await _jwtProvider.Generate(user);
+        var JwtToken = await _jwtProvider.GenerateJwt(user);
 
-        return token;
+        var refreshTokenResult = _refreshTokenProvider.Genereate();
+
+        user.RefreshToken = refreshTokenResult.Token;
+        user.RefreshTokenExpiry = refreshTokenResult.Expiry;
+
+        await _userRepository.UpdateUser(user);
+
+        return new TokensResponse
+        {
+            JwtToken = JwtToken.Token,
+            JwtExpiry = JwtToken.Expiry,
+            RefreshToken = refreshTokenResult.Token,
+            RefreshTokenExpiry = refreshTokenResult.Expiry,
+        };
     }
 }

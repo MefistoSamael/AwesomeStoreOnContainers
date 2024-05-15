@@ -1,4 +1,5 @@
 ﻿using Identity.Application.Common.Exceptions;
+using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Models;
 using MediatR;
@@ -10,12 +11,10 @@ public class RegisterInteractor : IRequestHandler<RegisterUseCase, string>
 {
     PasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
     private readonly IUserRepository _userRepository;
-    private readonly IJwtProvider _jwtProvider;
 
-    public RegisterInteractor(IUserRepository userRepository, IJwtProvider jwtProvider)
+    public RegisterInteractor(IUserRepository userRepository)
     {
         _userRepository = userRepository;
-        _jwtProvider = jwtProvider;
     }
     public async Task<string> Handle(RegisterUseCase request, CancellationToken cancellationToken)
     {
@@ -33,8 +32,6 @@ public class RegisterInteractor : IRequestHandler<RegisterUseCase, string>
         await _userRepository.CreateUserAsync(user);
         await _userRepository.AddToRoleAsync(user, "Buyer");
 
-        string token = await _jwtProvider.Generate(user);
-
-        return token;
+        return user.Id;
     }
 }

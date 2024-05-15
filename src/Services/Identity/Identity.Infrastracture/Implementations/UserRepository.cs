@@ -90,4 +90,9 @@ public class UserRepository : IUserRepository
     {
         return await _userManager.Users.CountAsync();
     }
+
+    public async Task UpdateUser(ApplicationUser user)
+    {
+        await _userManager.UpdateAsync(user);
+    }
 }

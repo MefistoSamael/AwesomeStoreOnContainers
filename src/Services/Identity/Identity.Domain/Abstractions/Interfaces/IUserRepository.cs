@@ -25,4 +25,5 @@ public interface IUserRepository
     public Task<ApplicationUser?> GetUserByIdAsync(string id);
 
     public Task<int> GetUsersCountAsync();
+    public Task UpdateUser(ApplicationUser user);
 }

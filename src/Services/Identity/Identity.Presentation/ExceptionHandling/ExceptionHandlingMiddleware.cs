@@ -1,5 +1,6 @@
 ﻿using Identity.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Identity.Presentation.Middleware;
 
@@ -89,9 +90,22 @@ public class ExceptionHandlingMiddleware
             context.Response.StatusCode = StatusCodes.Status404NotFound;
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
+        catch (UnauthorizedException exception)
+        {
+            var problemDetails = new ProblemDetails
+            {
+                Status = StatusCodes.Status401Unauthorized,
+                Type = "https://datatracker.ietf.org/doc/html/rfc7235#section-3.1",
+                Title = "Invalid access token",
+                Detail = exception.Message
+            };
+
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            await context.Response.WriteAsJsonAsync(problemDetails);
+        }
         catch (Exception exception)
         {
-            throw;
+            //throw;
             await Console.Out.WriteLineAsync(exception.Message);
             var problemDetails = new ProblemDetails
             { 

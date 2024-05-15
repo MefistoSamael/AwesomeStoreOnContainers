@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Identity.Application.UseCases.Authentication.LogIn;
+using Identity.Application.UseCases.Authentication.Refresh;
 using Identity.Application.UseCases.Authentication.Register;
 using Identity.Application.UseCases.UserCrud.ChangeRole;
 using Identity.Application.UseCases.UserCrud.CreateUser;
@@ -7,6 +8,7 @@ using Identity.Application.UseCases.UserCrud.DeleteUser;
 using Identity.Application.UseCases.UserCrud.GetPaginatedUsers;
 using Identity.Application.UseCases.UserCrud.GetUserById;
 using Identity.Domain.Entities;
+using Identity.Presentation.Requests.AuthenticationRequests;
 using Identity.Presentation.Requests.UserRequests;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -25,6 +27,17 @@ public class UsersController : ControllerBase
     {
         _mediator = mediator;
         _mapper = mapper;
+    }
+
+    [HttpPost]
+    [Route("refresh")]
+    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request, CancellationToken cancellationToken)
+    {
+        var useCase = _mapper.Map<RefreshUseCase>(request);
+
+        var token = await _mediator.Send(useCase, cancellationToken);
+
+        return Ok(token);
     }
 
     [HttpPost]

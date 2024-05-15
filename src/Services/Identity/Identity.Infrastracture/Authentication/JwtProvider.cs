@@ -1,8 +1,11 @@
-﻿using Identity.Domain.Abstractions.Interfaces;
+﻿using Identity.Application.Common.Models;
+using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
 
@@ -19,7 +22,7 @@ internal class JwtProvider : IJwtProvider
         _userRepository = userRepository;
     }
 
-    public async Task<string> Generate(ApplicationUser user)
+    public async Task<TokenResult> GenerateJwt(ApplicationUser user)
     {
         var role = await _userRepository.GetUserRoleAsync(user.Id);
 
@@ -30,6 +33,8 @@ internal class JwtProvider : IJwtProvider
             new ("role", role),
         };
 
+        var expiryDate = DateTime.UtcNow.AddMinutes(_options.JwtTokenLifeTime);
+
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_options.SecretKey)), 
@@ -39,11 +44,30 @@ internal class JwtProvider : IJwtProvider
             _options.Audience,
             claims,
             null,
-            DateTime.UtcNow.AddHours(1),
+            expiryDate,
             signingCredentials);
 
         string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
 
-        return tokenValue;
+        return new TokenResult
+        {
+            Token = tokenValue,
+            Expiry = expiryDate,
+        };
+    }
+
+    public ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
+    {
+        var secret = _options.SecretKey;
+
+        var validation = new TokenValidationParameters
+        {
+            ValidIssuer = _options.Issuer,
+            ValidAudience = _options.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)),
+            ValidateLifetime = false
+        };
+
+        return new JwtSecurityTokenHandler().ValidateToken(token, validation, out _);
     }
 }
