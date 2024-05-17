@@ -12,14 +12,15 @@ public class ApplicationRole : IdentityRole
 
     private string? name;
 
-    override public string? Name { 
+    override public string? Name
+    {
         get
         {
             return name;
         }
-            
+
         set
-        { 
+        {
             if (value is not null)
             {
                 NormalizedName = value.ToUpper();
@@ -30,7 +31,6 @@ public class ApplicationRole : IdentityRole
                 NormalizedName = null;
                 name = null;
             }
-        } 
+        }
     }
-
 }

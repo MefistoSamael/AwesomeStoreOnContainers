@@ -1,5 +1,4 @@
 ﻿using Identity.Application.Common.Exceptions;
-using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Models;
 using MediatR;

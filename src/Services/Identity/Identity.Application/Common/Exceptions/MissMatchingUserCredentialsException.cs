@@ -2,7 +2,7 @@
 
 public class MissMatchingUserCredentialsException : Exception
 {
-    public MissMatchingUserCredentialsException() 
+    public MissMatchingUserCredentialsException()
     { }
 
     public MissMatchingUserCredentialsException(string? message) : base(message)

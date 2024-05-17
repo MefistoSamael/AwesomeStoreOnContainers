@@ -30,7 +30,7 @@ public class UserRepository : IUserRepository
     public async Task DeleteUserAsync(string userId)
     {
         var user = await _userManager.FindByIdAsync(userId);
-     
+
         await _userManager.DeleteAsync(user);
     }
 
@@ -51,7 +51,7 @@ public class UserRepository : IUserRepository
 
     public async Task<string> GetUserRoleAsync(string userId)
     {
-        var user = await _userManager.FindByIdAsync(userId); 
+        var user = await _userManager.FindByIdAsync(userId);
 
         return (await _userManager.GetRolesAsync(user)).Single();
     }

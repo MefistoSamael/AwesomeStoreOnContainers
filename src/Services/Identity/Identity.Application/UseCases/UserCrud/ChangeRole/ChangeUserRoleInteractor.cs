@@ -17,7 +17,7 @@ public class ChangeUserRoleInteractor : IRequestHandler<ChangeUserRoleUseCase, s
 
     public async Task<string> Handle(ChangeUserRoleUseCase request, CancellationToken cancellationToken)
     {
-        if (await _roleRepository.GetRoleByNameAsync(request.RoleName) is null) 
+        if (await _roleRepository.GetRoleByNameAsync(request.RoleName) is null)
         {
             throw new UnexistingRoleException("There are no such role");
         }

@@ -2,9 +2,7 @@
 using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using MediatR;
-using Microsoft.Extensions.Options;
 using System.Security.Claims;
-using System.Text;
 
 namespace Identity.Application.UseCases.Authentication.Refresh;
 
@@ -50,9 +48,7 @@ public class RefreshInteractor : IRequestHandler<RefreshUseCase, TokensResponse>
         return new TokensResponse
         {
             JwtToken = JwtToken.Token,
-            JwtExpiry = JwtToken.Expiry,
             RefreshToken = refreshTokenResult.Token,
-            RefreshTokenExpiry = refreshTokenResult.Expiry,
         };
     }
 }

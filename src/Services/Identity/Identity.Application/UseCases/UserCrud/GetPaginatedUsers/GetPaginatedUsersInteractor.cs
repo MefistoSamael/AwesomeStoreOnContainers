@@ -32,7 +32,7 @@ public class GetPaginatedUsersInteractor : IRequestHandler<GetPaginatedUsersUseC
         return new PaginatedResult<UserDTO>
         {
             Collection = users,
-            
+
             PageSize = request.PageSize,
             CurrentPage = request.PageNumber,
 

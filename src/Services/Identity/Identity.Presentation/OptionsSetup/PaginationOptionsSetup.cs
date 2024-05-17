@@ -1,5 +1,4 @@
 ﻿using Identity.Application.Common.Options;
-using Identity.Infrastracture.Authentication;
 using Microsoft.Extensions.Options;
 
 namespace Identity.Presentation.OptionsSetup;

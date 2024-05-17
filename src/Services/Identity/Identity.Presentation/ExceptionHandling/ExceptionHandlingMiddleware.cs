@@ -1,6 +1,5 @@
 ﻿using Identity.Application.Common.Exceptions;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Identity.Presentation.Middleware;
 
@@ -15,7 +14,7 @@ public class ExceptionHandlingMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        try 
+        try
         {
             await _requestDelegate(context);
         }
@@ -38,7 +37,7 @@ public class ExceptionHandlingMiddleware
 
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
-        catch (ExistingUserException exception) 
+        catch (ExistingUserException exception)
         {
             var problemDetails = new ProblemDetails
             {
@@ -108,7 +107,7 @@ public class ExceptionHandlingMiddleware
             throw;
             await Console.Out.WriteLineAsync(exception.Message);
             var problemDetails = new ProblemDetails
-            { 
+            {
                 Status = StatusCodes.Status500InternalServerError,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1",
                 Title = "Error occured on server"

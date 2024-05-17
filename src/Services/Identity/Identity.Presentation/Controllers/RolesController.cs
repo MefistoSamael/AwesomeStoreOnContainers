@@ -11,7 +11,7 @@ namespace Identity.Presentation.Controllers;
 public class RolesController : ControllerBase
 {
     private readonly IMediator _mediator;
-    
+
     public RolesController(IMediator mediator)
     {
         _mediator = mediator;
@@ -21,7 +21,7 @@ public class RolesController : ControllerBase
     [Authorize(Roles = RoleConstants.Admin)]
     public async Task<IActionResult> GetAllRoles(CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 3)
     {
-        var request = new GetPaginatedRolesUseCase { PageNumber = pageNumber,  PageSize = pageSize};
+        var request = new GetPaginatedRolesUseCase { PageNumber = pageNumber, PageSize = pageSize };
         var roles = await _mediator.Send(request, cancellationToken);
         return roles is not null ? Ok(roles) : NotFound();
     }

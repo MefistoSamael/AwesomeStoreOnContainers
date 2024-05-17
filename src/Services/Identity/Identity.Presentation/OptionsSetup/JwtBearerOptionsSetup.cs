@@ -34,8 +34,7 @@ public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(_jwtOptions.SecretKey)),
 
-            ClockSkew = new TimeSpan (0, 0, 5)
+            ClockSkew = new TimeSpan(0, 0, 5)
         };
-
     }
 }

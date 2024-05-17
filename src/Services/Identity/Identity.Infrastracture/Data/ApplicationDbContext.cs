@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Identity.Infrastracture.Data;
 
-public class ApplicationDbContext : 
+public class ApplicationDbContext :
     IdentityDbContext<ApplicationUser, ApplicationRole, string>
-{      
+{
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) :
     base(options)
     {
@@ -17,7 +17,7 @@ public class ApplicationDbContext :
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        
+
         SeedUsers(builder);
         SeedRoles(builder);
         SeedUserRoles(builder);

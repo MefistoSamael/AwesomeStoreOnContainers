@@ -2,10 +2,7 @@ using Identity.Application;
 using Identity.Infrastracture;
 using Identity.Presentation;
 using Identity.Presentation.Middleware;
-using Identity.Presentation.OptionsSetup;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 

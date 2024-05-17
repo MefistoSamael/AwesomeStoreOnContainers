@@ -1,11 +1,9 @@
 ﻿using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Models;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
 
@@ -26,7 +24,7 @@ internal class JwtProvider : IJwtProvider
     {
         var role = await _userRepository.GetUserRoleAsync(user.Id);
 
-        var claims = new Claim[] 
+        var claims = new Claim[]
         {
             new (JwtRegisteredClaimNames.Sub, user.Id),
             new (JwtRegisteredClaimNames.Email, user.Email),
@@ -37,10 +35,10 @@ internal class JwtProvider : IJwtProvider
 
         var signingCredentials = new SigningCredentials(
             new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_options.SecretKey)), 
+                Encoding.UTF8.GetBytes(_options.SecretKey)),
             SecurityAlgorithms.HmacSha256);
         var token = new JwtSecurityToken(
-            _options.Issuer, 
+            _options.Issuer,
             _options.Audience,
             claims,
             null,

@@ -47,9 +47,7 @@ public class LogInInteractor : IRequestHandler<LogInUseCase, TokensResponse>
         return new TokensResponse
         {
             JwtToken = JwtToken.Token,
-            JwtExpiry = JwtToken.Expiry,
             RefreshToken = refreshTokenResult.Token,
-            RefreshTokenExpiry = refreshTokenResult.Expiry,
         };
     }
 }
