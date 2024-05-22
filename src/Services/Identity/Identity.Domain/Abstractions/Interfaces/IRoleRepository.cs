@@ -8,17 +8,11 @@ public interface IRoleRepository
 
     public Task<ApplicationRole?> GetRoleByNameAsync(string roleName);
 
-    public Task<IEnumerable<ApplicationRole>> GetAllRolesAsync();
+    public Task<IEnumerable<ApplicationRole>> GetAllRolesAsync(CancellationToken cancellationToken);
 
-    public Task<IEnumerable<ApplicationRole>> GetPaginatedRolesAsync(int pageNumber, int pageSize);
+    public Task<IEnumerable<ApplicationRole>> GetPaginatedRolesAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
 
-    public Task<bool> HasUsers(string roleId);
+    public Task<bool> HasUsers(string roleId, CancellationToken cancellationToken);
 
-    public Task<int> GetRolesCountAsync();
-
-    //public Task<string> CreateRoleAsync(ApplicationRole role);
-
-    //public Task DeleteRoleAsync(string roleId);
-
-    //Task<string> UpdateRoleAsync(ApplicationRole role);
+    public Task<int> GetRolesCountAsync(CancellationToken cancellationToken);
 }

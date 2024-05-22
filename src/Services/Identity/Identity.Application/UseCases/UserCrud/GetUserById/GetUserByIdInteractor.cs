@@ -7,6 +7,7 @@ namespace Identity.Application.UseCases.UserCrud.GetUserById;
 
 public class GetUserByIdInteractor : IRequestHandler<GetUserByIdUseCase, UserDTO?>
 {
+    private const string userNotFoundMessage = "user with specified id not found";
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
@@ -27,7 +28,7 @@ public class GetUserByIdInteractor : IRequestHandler<GetUserByIdUseCase, UserDTO
         }
         else
         {
-            return null;
+            throw new KeyNotFoundException(userNotFoundMessage);
         }
     }
 }

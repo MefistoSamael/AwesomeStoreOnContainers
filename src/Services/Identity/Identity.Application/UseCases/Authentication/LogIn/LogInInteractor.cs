@@ -23,7 +23,7 @@ public class LogInInteractor : IRequestHandler<LogInUseCase, TokensResponse>
 
     public async Task<TokensResponse> Handle(LogInUseCase request, CancellationToken cancellationToken)
     {
-        ApplicationUser? user = await _userRepository.GetUserByEmailAsync(request.Email);
+        var user = await _userRepository.GetUserByEmailAsync(request.Email);
 
         if (user is null)
         {

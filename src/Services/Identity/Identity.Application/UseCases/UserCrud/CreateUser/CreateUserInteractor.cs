@@ -24,6 +24,7 @@ public class CreateUserInteractor : IRequestHandler<CreateUserUseCase, string>
         {
             throw new UnexistingRoleException("There are no such role");
         }
+
         if (await _userRepository.GetUserByEmailAsync(request.Email) is not null)
         {
             throw new ExistingUserException("User with such email already exists");

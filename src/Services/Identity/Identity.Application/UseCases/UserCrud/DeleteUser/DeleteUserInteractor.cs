@@ -12,7 +12,7 @@ public class DeleteUserInteractor : IRequestHandler<DeleteUserUseCase>
         _userRepository = userRepository;
     }
 
-    public async Task Handle(DeleteUserUseCase request, CancellationToken cancelzlationToken)
+    public async Task Handle(DeleteUserUseCase request, CancellationToken cancellationToken)
     {
         if (await _userRepository.GetUserByIdAsync(request.Id) is null)
         {

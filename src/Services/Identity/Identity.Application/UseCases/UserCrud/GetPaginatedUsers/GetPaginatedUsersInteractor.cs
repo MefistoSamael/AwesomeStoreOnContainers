@@ -18,10 +18,10 @@ public class GetPaginatedUsersInteractor : IRequestHandler<GetPaginatedUsersUseC
 
     public async Task<PaginatedResult<UserDTO>> Handle(GetPaginatedUsersUseCase request, CancellationToken cancellationToken)
     {
-        var applicationUsers = await _userRepository.GetPaginatedUsersAsync(request.PageNumber, request.PageSize);
+        var applicationUsers = await _userRepository.GetPaginatedUsersAsync(request.PageNumber, request.PageSize, cancellationToken);
         IEnumerable<UserDTO> users = _mapper.Map<List<UserDTO>>(applicationUsers);
 
-        var itemsCount = await _userRepository.GetUsersCountAsync();
+        var itemsCount = await _userRepository.GetUsersCountAsync(cancellationToken);
         var totalPages = (int)Math.Ceiling(itemsCount / (double)request.PageSize);
 
         foreach (var user in users)

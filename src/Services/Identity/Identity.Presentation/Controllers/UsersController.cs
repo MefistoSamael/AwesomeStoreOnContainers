@@ -76,9 +76,10 @@ public class UsersController : ControllerBase
     [HttpDelete]
     [Route("{id}")]
     [Authorize(Roles = RoleConstants.Admin)]
-    public async Task<IActionResult> DeleteUser(string id, CancellationToken cancellationToken)
+    public async Task<IActionResult> DeleteUser([FromQuery] string id, CancellationToken cancellationToken)
     {
         var request = new DeleteUserUseCase { Id = id };
+
         await _mediator.Send(request, cancellationToken);
 
         return Ok();
@@ -91,25 +92,25 @@ public class UsersController : ControllerBase
         var request = new GetPaginatedUsersUseCase { PageNumber = pageNumber, PageSize = pageSize };
         var users = await _mediator.Send(request, cancellationToken);
 
-        return users is not null ? Ok(users) : NotFound();
+        return Ok(users);
     }
 
     [HttpGet]
     [Route("{id}")]
     [Authorize(Roles = RoleConstants.Admin)]
-    public async Task<IActionResult> GetUserById(string id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetUserById([FromQuery] string id, CancellationToken cancellationToken)
     {
         var request = new GetUserByIdUseCase { UserId = id };
 
         var user = await _mediator.Send(request, cancellationToken);
 
-        return user is not null ? Ok(user) : NotFound();
+        return Ok(user);
     }
 
     [HttpPut]
     [Route("{id}")]
     [Authorize(Roles = RoleConstants.Admin)]
-    public async Task<IActionResult> ChangeUserRole(string id, [FromBody] ChangeUserRoleRequest request, CancellationToken cancellationToken)
+    public async Task<IActionResult> ChangeUserRole([FromQuery] string id, [FromBody] ChangeUserRoleRequest request, CancellationToken cancellationToken)
     {
         var useCase = _mapper.Map<ChangeUserRoleUseCase>(request);
         useCase.UserId = id;

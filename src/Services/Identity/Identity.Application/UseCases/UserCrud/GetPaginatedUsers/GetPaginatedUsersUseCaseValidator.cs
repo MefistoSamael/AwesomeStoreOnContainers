@@ -8,11 +8,11 @@ public class GetPaginatedUsersUseCaseValidator : AbstractValidator<GetPaginatedU
 {
     public GetPaginatedUsersUseCaseValidator(IOptions<PaginationOptions> options)
     {
-        RuleFor(u => u.PageNumber).NotEmpty()
+        RuleFor(getPaginatedUsersUseCase => getPaginatedUsersUseCase.PageNumber).NotEmpty()
             .GreaterThan(0)
             .LessThanOrEqualTo(options.Value.MaxPageNumber);
 
-        RuleFor(u => u.PageSize).NotEmpty()
+        RuleFor(cancellationToken => cancellationToken.PageSize).NotEmpty()
             .GreaterThan(0)
             .LessThanOrEqualTo(options.Value.MaxPageSize);
     }

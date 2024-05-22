@@ -18,11 +18,11 @@ public class GetPaginatedRolesInteractor : IRequestHandler<GetPaginatedRolesUseC
 
     public async Task<PaginatedResult<RoleDTO>> Handle(GetPaginatedRolesUseCase request, CancellationToken cancellationToken)
     {
-        var applicationRoles = await _roleRepository.GetPaginatedRolesAsync(request.PageNumber, request.PageSize);
+        var applicationRoles = await _roleRepository.GetPaginatedRolesAsync(request.PageNumber, request.PageSize, cancellationToken);
 
-        IEnumerable<RoleDTO> roles = _mapper.Map<IEnumerable<RoleDTO>>(applicationRoles);
+        var roles = _mapper.Map<IEnumerable<RoleDTO>>(applicationRoles);
 
-        var count = await _roleRepository.GetRolesCountAsync();
+        var count = await _roleRepository.GetRolesCountAsync(cancellationToken);
         var totalPages = (int)Math.Ceiling(count / (double)request.PageSize);
 
         return new PaginatedResult<RoleDTO>

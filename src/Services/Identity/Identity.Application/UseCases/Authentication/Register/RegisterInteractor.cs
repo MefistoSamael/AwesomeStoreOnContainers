@@ -1,5 +1,6 @@
 ﻿using Identity.Application.Common.Exceptions;
 using Identity.Domain.Abstractions.Interfaces;
+using Identity.Domain.Entities;
 using Identity.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -29,7 +30,7 @@ public class RegisterInteractor : IRequestHandler<RegisterUseCase, string>
         user.PasswordHash = _passwordHasher.HashPassword(user, request.Password);
 
         await _userRepository.CreateUserAsync(user);
-        await _userRepository.AddToRoleAsync(user, "Buyer");
+        await _userRepository.AddToRoleAsync(user, RoleConstants.Buyer);
 
         return user.Id;
     }

@@ -28,9 +28,9 @@ public class ExceptionHandlingMiddleware
                 Detail = "One or more validation errors has occurred"
             };
 
-            if (exception.Errors is not null)
+            if (exception.ValidationErrors is not null)
             {
-                problemDetails.Extensions["errors"] = exception.Errors;
+                problemDetails.Extensions["errors"] = exception.ValidationErrors;
             }
 
             context.Response.StatusCode = StatusCodes.Status400BadRequest;

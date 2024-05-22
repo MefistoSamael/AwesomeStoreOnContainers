@@ -5,17 +5,15 @@ VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{09AD359A-5B3C-488D-9DE9-DDA928345725}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Temp", "Temp", "{9B7656E6-037F-41E7-9FAA-AC4921497002}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{D03DD823-FAE5-466E-B9E1-909AA934ABDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Application", "Services\Identity\Identity.Application\Identity.Application.csproj", "{6191465E-55E7-4EDF-AF81-62B3F908BFF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Application", "Services\Identity\Identity.Application\Identity.Application.csproj", "{6191465E-55E7-4EDF-AF81-62B3F908BFF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Domain", "Services\Identity\Identity.Domain\Identity.Domain.csproj", "{90C4B022-2181-4F4C-8644-316E0B1098A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Domain", "Services\Identity\Identity.Domain\Identity.Domain.csproj", "{90C4B022-2181-4F4C-8644-316E0B1098A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Infrastracture", "Services\Identity\Identity.Infrastracture\Identity.Infrastracture.csproj", "{D1C33AE5-5F3D-4ECB-A3B8-AC4B0E406AEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Infrastracture", "Services\Identity\Identity.Infrastracture\Identity.Infrastracture.csproj", "{D1C33AE5-5F3D-4ECB-A3B8-AC4B0E406AEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.Presentation", "Services\Identity\Identity.Presentation\Identity.Presentation.csproj", "{1B83CA89-281D-4144-998D-A22FAF27395C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Identity.Presentation", "Services\Identity\Identity.Presentation\Identity.Presentation.csproj", "{1B83CA89-281D-4144-998D-A22FAF27395C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,7 +42,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{9B7656E6-037F-41E7-9FAA-AC4921497002} = {09AD359A-5B3C-488D-9DE9-DDA928345725}
 		{D03DD823-FAE5-466E-B9E1-909AA934ABDC} = {09AD359A-5B3C-488D-9DE9-DDA928345725}
 		{6191465E-55E7-4EDF-AF81-62B3F908BFF1} = {D03DD823-FAE5-466E-B9E1-909AA934ABDC}
 		{90C4B022-2181-4F4C-8644-316E0B1098A0} = {D03DD823-FAE5-466E-B9E1-909AA934ABDC}

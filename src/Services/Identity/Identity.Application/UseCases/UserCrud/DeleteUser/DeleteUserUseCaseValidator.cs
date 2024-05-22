@@ -6,6 +6,6 @@ public class DeleteUserUseCaseValidator : AbstractValidator<DeleteUserUseCase>
 {
     public DeleteUserUseCaseValidator()
     {
-        RuleFor(u => u.Id).NotEmpty();
+        RuleFor(deleteUserUseCase => deleteUserUseCase.Id).NotEmpty();
     }
 }

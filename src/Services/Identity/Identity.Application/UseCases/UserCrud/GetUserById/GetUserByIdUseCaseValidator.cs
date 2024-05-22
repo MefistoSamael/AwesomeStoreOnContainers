@@ -6,6 +6,6 @@ public class GetUserByIdUseCaseValidator : AbstractValidator<GetUserByIdUseCase>
 {
     public GetUserByIdUseCaseValidator()
     {
-        RuleFor(u => u.UserId).NotEmpty();
+        RuleFor(getUserByIdUseCase => getUserByIdUseCase.UserId).NotEmpty();
     }
 }

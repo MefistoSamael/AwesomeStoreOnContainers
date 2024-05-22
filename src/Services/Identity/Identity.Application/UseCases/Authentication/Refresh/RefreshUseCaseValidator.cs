@@ -6,8 +6,8 @@ public class RefreshUseCaseValidator : AbstractValidator<RefreshUseCase>
 {
     public RefreshUseCaseValidator()
     {
-        RuleFor(x => x.RefreshToken).NotEmpty();
+        RuleFor(refreshUseCase => refreshUseCase.RefreshToken).NotEmpty();
 
-        RuleFor(x => x.AccessToken).NotEmpty();
+        RuleFor(refreshUseCase => refreshUseCase.AccessToken).NotEmpty();
     }
 }

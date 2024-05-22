@@ -34,11 +34,6 @@ public class UserRepository : IUserRepository
         await _userManager.DeleteAsync(user);
     }
 
-    public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync()
-    {
-        return await _userManager.Users.ToListAsync();
-    }
-
     public async Task<ApplicationUser?> GetUserByEmailAsync(string email)
     {
         return await _userManager.FindByEmailAsync(email);
@@ -63,17 +58,17 @@ public class UserRepository : IUserRepository
         return user;
     }
 
-    public async Task<string> UpdateUserRole(ApplicationUser user, string roleName)
+    public async Task<string> UpdateUserRole(ApplicationUser user, string roleName, CancellationToken cancellationToken)
     {
-        var role = await _context.Roles.SingleAsync(r => r.Name == roleName);
+        var role = await _context.Roles.SingleAsync(r => r.Name == roleName, cancellationToken);
 
-        var userRole = await _context.UserRoles.SingleAsync(ur => ur.UserId == user.Id);
+        var userRole = await _context.UserRoles.SingleAsync(ur => ur.UserId == user.Id, cancellationToken);
 
         userRole.RoleId = role.Id;
 
         _context.UserRoles.Update(userRole);
 
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(cancellationToken);
 
         return user.Id;
     }
@@ -96,17 +91,17 @@ public class UserRepository : IUserRepository
         return user.Id;
     }
 
-    public async Task<IEnumerable<ApplicationUser>> GetPaginatedUsersAsync(int pageNumber, int pageSize)
+    public async Task<IEnumerable<ApplicationUser>> GetPaginatedUsersAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
         return await _userManager.Users.OrderBy(u => u.Id)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task<int> GetUsersCountAsync()
+    public async Task<int> GetUsersCountAsync(CancellationToken cancellationToken)
     {
-        return await _userManager.Users.CountAsync();
+        return await _userManager.Users.CountAsync(cancellationToken);
     }
 
     public async Task UpdateUser(ApplicationUser user)

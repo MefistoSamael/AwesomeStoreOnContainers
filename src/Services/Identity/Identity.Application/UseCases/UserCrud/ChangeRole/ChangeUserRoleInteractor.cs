@@ -34,13 +34,9 @@ public class ChangeUserRoleInteractor : IRequestHandler<ChangeUserRoleUseCase, s
             return request.UserId;
         }
 
-        // POSSIBLY MOVE TO SEPARATE REPOSITORY METHOD
         // user can have only one role
         await _userRepository.RemoveFromRoleAsync(user, oldRole);
         await _userRepository.AddToRoleAsync(user, request.RoleName);
-
-        //// user can have only one role
-        //await _userRepository.UpdateUserRole(user, request.RoleName);
 
         return user.Id;
     }

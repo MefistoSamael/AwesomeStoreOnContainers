@@ -24,6 +24,7 @@ public class RefreshInteractor : IRequestHandler<RefreshUseCase, TokensResponse>
         var principal = _jwtProvider.GetPrincipalFromExpiredToken(request.AccessToken);
 
         var email = principal?.FindFirstValue(ClaimTypes.Email);
+
         if (email is null)
         {
             throw new UnauthorizedException();

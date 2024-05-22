@@ -5,6 +5,6 @@ public class GetRoleByIdUseCaseValidator : AbstractValidator<GetRoleByIdUseCase>
 {
     public GetRoleByIdUseCaseValidator()
     {
-        RuleFor(u => u.RoleId).NotEmpty();
+        RuleFor(getRoleByIdUseCase => getRoleByIdUseCase.RoleId).NotEmpty();
     }
 }

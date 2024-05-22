@@ -19,10 +19,12 @@ public class RolesController : ControllerBase
 
     [HttpGet]
     [Authorize(Roles = RoleConstants.Admin)]
-    public async Task<IActionResult> GetAllRoles(CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 3)
+    public async Task<IActionResult> GetPaginatedRoles(CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 3)
     {
         var request = new GetPaginatedRolesUseCase { PageNumber = pageNumber, PageSize = pageSize };
+
         var roles = await _mediator.Send(request, cancellationToken);
-        return roles is not null ? Ok(roles) : NotFound();
+
+        return Ok(roles);
     }
 }

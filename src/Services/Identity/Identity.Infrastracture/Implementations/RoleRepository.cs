@@ -17,22 +17,22 @@ public class RoleRepository : IRoleRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<ApplicationRole>> GetAllRolesAsync()
+    public async Task<IEnumerable<ApplicationRole>> GetAllRolesAsync(CancellationToken cancellationToken)
     {
-        return await _roleManager.Roles.ToListAsync();
+        return await _roleManager.Roles.ToListAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<ApplicationRole>> GetPaginatedRolesAsync(int pageNumber, int pageSize)
+    public async Task<IEnumerable<ApplicationRole>> GetPaginatedRolesAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
         return await _roleManager.Roles.OrderBy(r => r.Id)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
     }
 
-    public Task<ApplicationRole?> GetRoleByIdAsync(string roleId)
+    public async Task<ApplicationRole?> GetRoleByIdAsync(string roleId)
     {
-        return _roleManager.FindByIdAsync(roleId);
+        return await _roleManager.FindByIdAsync(roleId);
     }
 
     public async Task<ApplicationRole?> GetRoleByNameAsync(string roleName)
@@ -40,38 +40,13 @@ public class RoleRepository : IRoleRepository
         return await _roleManager.FindByNameAsync(roleName);
     }
 
-    public async Task<int> GetRolesCountAsync()
+    public async Task<int> GetRolesCountAsync(CancellationToken cancellationToken)
     {
-        return await _roleManager.Roles.CountAsync();
+        return await _roleManager.Roles.CountAsync(cancellationToken);
     }
 
-    public async Task<bool> HasUsers(string roleId)
+    public async Task<bool> HasUsers(string roleId, CancellationToken cancellationToken)
     {
-        return await _context.UserRoles.FirstOrDefaultAsync(ur => ur.RoleId == roleId) is not null;
+        return await _context.UserRoles.FirstOrDefaultAsync(ur => ur.RoleId == roleId, cancellationToken) is not null;
     }
-
-    //public async Task<string> UpdateRoleAsync(ApplicationRole role)
-    //{
-    //    role.ConcurrencyStamp = Guid.NewGuid().ToString();
-    //    await _roleManager.UpdateAsync(role);
-
-    //    return role.Id;
-    //}
-
-    //public async Task<string> CreateRoleAsync(ApplicationRole role)
-    //{
-    //    role.Id = Guid.NewGuid().ToString();
-    //    role.ConcurrencyStamp = Guid.NewGuid().ToString();
-
-    //    await _roleManager.CreateAsync(role);
-
-    //    return role.Id;
-    //}
-
-    //public async Task DeleteRoleAsync(string roleId)
-    //{
-    //    var role = await _roleManager.FindByIdAsync(roleId);
-
-    //    await _roleManager.DeleteAsync(role);
-    //}
 }

@@ -6,8 +6,8 @@ public class ChangeUserRoleUseCaseValidator : AbstractValidator<ChangeUserRoleUs
 {
     public ChangeUserRoleUseCaseValidator()
     {
-        RuleFor(u => u.UserId).NotEmpty();
+        RuleFor(changeUserRoleUseCase => changeUserRoleUseCase.UserId).NotEmpty();
 
-        RuleFor(u => u.RoleName).NotEmpty();
+        RuleFor(changeUserRoleUseCase => changeUserRoleUseCase.RoleName).NotEmpty();
     }
 }
