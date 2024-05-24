@@ -1,27 +1,28 @@
 ﻿using Catalog.Domain.Entities;
 
-namespace Catalog.Domain.Abstractions
+namespace Catalog.Domain.Abstractions;
+
+public interface IProductRepostitory
 {
-    public interface IProductRepostitory
-    {
-        Task<string> CreateProductAsync(Product product);
+    Task<string> CreateProductAsync(Product product);
 
-        Task<string> UpdateProductAsync(Product product);
+    Task<string> UpdateProductAsync(Product product);
 
-        Task DeleteProductAsync(Product product);
+    Task DeleteProductAsync(Product product);
 
 
-        Task<string> AddToTypeAsync(Product product, string typeName);
+    Task<string> AddToCategoryAsync(Product product, string categoryName);
 
-        Task<string> AddToTypesAsync(Product product, IEnumerable<string> typeName);
+    Task<string> AddToCategoriesAsync(Product product, IEnumerable<string> categoryName);
 
-        Task<string> RemoveFromTypeAsync(Product product, string typeName);
+    Task<string> RemoveFromCategoryAsync(Product product, string categoryName);
 
-        Task<string> RemoveFromTypesAsync(Product product, IEnumerable<string> typeName);
+    Task<string> RemoveFromCategoriesAsync(Product product, IEnumerable<string> categoryName);
 
 
-        Task<Product> GetProductByIdAsync(string id);
+    Task<Product> GetProductByIdAsync(string id);
 
-        Task<IEnumerable<Product>> GetPaginatedProductsAsync();
-    }
+    Task<IEnumerable<Product>> GetPaginatedProductsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
+
+    Task<int> GetProductCountAsync(CancellationToken cancellationToken);
 }
