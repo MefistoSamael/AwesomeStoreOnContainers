@@ -50,19 +50,25 @@ public class ProductRepository : IProductRepostitory
     }
 
 
-    public Task<IEnumerable<Product>> GetPaginatedProductsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Product>> GetPaginatedProductsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _products.Find(filter => true)
+            .SortBy(category => category.Id)
+            .Skip((pageNumber - 1) * pageSize)
+            .Limit(pageSize)
+            .ToListAsync(cancellationToken);
     }
 
-    public Task<Product> GetProductByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<Product> GetProductByIdAsync(string id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var filter = Builders<Product>.Filter.Eq(product => product.Id, id);
+
+        return await (await _products.FindAsync(filter, cancellationToken: cancellationToken)).FirstOrDefaultAsync();
     }
 
-    public Task<int> GetProductCountAsync(CancellationToken cancellationToken)
+    public async Task<int> GetProductCountAsync(CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return (int)await _products.EstimatedDocumentCountAsync(cancellationToken: cancellationToken);
     }
 
 

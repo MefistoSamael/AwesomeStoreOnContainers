@@ -36,7 +36,7 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<int> GetCategoriesCountAsync(CancellationToken cancellationToken)
     {
-                    return (int)await _categories.EstimatedDocumentCountAsync(_estimatedDocumentCountOptions, cancellationToken);
+        return (int)await _categories.EstimatedDocumentCountAsync(_estimatedDocumentCountOptions, cancellationToken);
     }
 
     public async Task<Category?> GetCategoryByIdAsync(string id, CancellationToken cancellationToken)

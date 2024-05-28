@@ -9,13 +9,19 @@ public class CreateUseCaseToProduct : Profile
     public CreateUseCaseToProduct()
     {
         CreateMap<CreateProductUseCase, Product>()
-            .ForMember(product => product.Name, 
+            .ForMember(product => product.Name,
                 opt => opt.MapFrom(createProductUseCase => createProductUseCase.Name))
-            .ForMember(product => product.Description, 
+            .ForMember(product => product.Description,
                 opt => opt.MapFrom(createProductUseCase => createProductUseCase.Description))
-            .ForMember(product => product.Price, 
+            .ForMember(product => product.Price,
                 opt => opt.MapFrom(createProductUseCase => createProductUseCase.Price))
-            .ForMember(product => product.StockCount, 
-                opt => opt.MapFrom(createProductUseCase => createProductUseCase.StockCount));
+            .ForMember(product => product.StockCount,
+                opt => opt.MapFrom(createProductUseCase => createProductUseCase.StockCount))
+            .ForMember(product => product.Categories,
+                opt => opt.Ignore())
+            .ForMember(product => product.PictureFileName,
+                opt => opt.Ignore())
+            .ForMember(product => product.PictureUri,
+                opt => opt.Ignore());
     }
 }

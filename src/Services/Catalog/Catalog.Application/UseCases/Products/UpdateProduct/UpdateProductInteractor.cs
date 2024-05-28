@@ -1,4 +1,5 @@
-﻿using Catalog.Domain.Abstractions;
+﻿using AutoMapper;
+using Catalog.Domain.Abstractions;
 using MediatR;
 
 namespace Catalog.Application.UseCases.Product.UpdateProduct;
@@ -6,10 +7,12 @@ namespace Catalog.Application.UseCases.Product.UpdateProduct;
 public class UpdateProductInteractor : IRequestHandler<UpdateProductUseCase, string>
 {
     private readonly IProductRepostitory _productRepostitory;
+    private readonly IMapper _mapper;
 
-    public UpdateProductInteractor(IProductRepostitory productRepostitory)
+    public UpdateProductInteractor(IProductRepostitory productRepostitory, IMapper mapper)
     {
         _productRepostitory = productRepostitory;
+        _mapper = mapper;
     }
 
     public async Task<string> Handle(UpdateProductUseCase request, CancellationToken cancellationToken)
@@ -21,9 +24,7 @@ public class UpdateProductInteractor : IRequestHandler<UpdateProductUseCase, str
             throw new KeyNotFoundException($"product with {request.ProductId} id not found");
         }
 
-        product.Price = request.Price;
-        product.Description = request.Description;
-        product.Name = request.Name;
+        product = _mapper.Map(request, product);
 
         await _productRepostitory.UpdateProductAsync(product, cancellationToken);
 

@@ -9,13 +9,18 @@ public class CreateRequestToUseCase : Profile
     public CreateRequestToUseCase()
     {
         CreateMap<CreateProductRequest, CreateProductUseCase>()
-            .ForMember(us => us.Name, opt => opt.MapFrom(r => r.Name))
-            .ForMember(us => us.Description, opt => opt.MapFrom(r => r.Description))
-            .ForMember(us => us.Price, opt => opt.MapFrom(r => r.Price))
-            .ForMember(us => us.StockCount, opt => opt.MapFrom(r => r.StockCount))
-            .ForMember(us => us.Image, opt => opt.MapFrom(r => r.Image))
-            .ForMember(us => us.Categories, opt => opt.MapFrom(r => r.Categories))
-            ;
+            .ForMember(createProductUseCase => createProductUseCase.Name,
+                opt => opt.MapFrom(createProductRequest => createProductRequest.Name))
+            .ForMember(createProductUseCase => createProductUseCase.Description,
+                opt => opt.MapFrom(createProductRequest => createProductRequest.Description))
+            .ForMember(createProductUseCase => createProductUseCase.Price,
+                opt => opt.MapFrom(createProductRequest => createProductRequest.Price))
+            .ForMember(createProductUseCase => createProductUseCase.StockCount,
+                opt => opt.MapFrom(createProductRequest => createProductRequest.StockCount))
+            .ForMember(createProductUseCase => createProductUseCase.Image,
+                opt => opt.MapFrom(createProductRequest => createProductRequest.Image))
+            .ForMember(createProductUseCase => createProductUseCase.Categories,
+                opt => opt.MapFrom(createProductRequest => createProductRequest.Categories));
     }
 }
 

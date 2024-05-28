@@ -11,18 +11,18 @@ public class ImageService : IImageService
 {
     private readonly IProductRepostitory _productRepostitory;
     private WWWRootOptions _options;
+    private string imageFolder = "";
 
     public ImageService(IProductRepostitory productRepostitory, IOptions<WWWRootOptions> options)
     {
         _productRepostitory = productRepostitory;
         _options = options.Value;
+        imageFolder = Path.Combine(_options.WebRootPath, "Images");
     }
 
     public async Task<Product> SaveImageAsync(IFormFile image, Product product, CancellationToken cancellationToken)
     {
-        var imageFolder = Path.Combine(_options.WebRootPath, "Images");
-
-        await DeleteImageAsync(imageFolder, product);
+        DeleteImage(product);
 
         var extension = Path.GetExtension(image.FileName);
         var fileName = Path.ChangeExtension(Path.GetRandomFileName(), extension);
@@ -42,8 +42,12 @@ public class ImageService : IImageService
         return product;
     }
 
-    private Task DeleteImageAsync(string imageFolder, Product product)
+    public void DeleteImage(Product product)
     {
-        throw new NotImplementedException();
+        if (!string.IsNullOrEmpty(product.PictureUri))
+        {
+            var prevImage = Path.Combine(imageFolder, Path.GetFileName(product.PictureUri));
+            File.Delete(prevImage);
+        }
     }
 }
