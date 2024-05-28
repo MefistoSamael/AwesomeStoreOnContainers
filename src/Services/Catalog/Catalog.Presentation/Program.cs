@@ -1,9 +1,11 @@
 using Catalog.Application;
+using Catalog.Domain.Entities;
 using Catalog.Infrastructure;
 using Catalog.Infrastructure.Data;
 using Catalog.Infrastructure.Data.Seeders;
 using Catalog.Presentation;
 using Catalog.Presentation.Common.Middleware;
+using MongoDB.Driver;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -34,8 +36,11 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
-    var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
-    CategoriesSeeder.SeedCategories(context!);
+    var categories = scope.ServiceProvider.GetService<IMongoCollection<Category>>();
+    var products = scope.ServiceProvider.GetService<IMongoCollection<Product>>();
+    
+    CategoriesSeeder.SeedCategories(categories!);
+    //ProductsSeeder.SeedProducts(products!);
 }
 
 app.Run();

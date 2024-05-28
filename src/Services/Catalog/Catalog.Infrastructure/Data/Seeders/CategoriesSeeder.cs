@@ -1,17 +1,17 @@
 ﻿using Catalog.Domain.Entities;
+using MongoDB.Driver;
 
 namespace Catalog.Infrastructure.Data.Seeders;
 
 public class CategoriesSeeder
 {
-
-    public static void SeedCategories(ApplicationDbContext _context)
+    public static void SeedCategories(IMongoCollection<Category> categories)
     {
-        if (!_context.Categories.Any())
+        if (categories.EstimatedDocumentCount() == 0) 
         {
-
-            _context.Categories.AddRange(
-            new Category
+            categories.InsertMany(new List<Category>
+            {
+                new Category
             {
                 Id = "985E88A9-84B2-4458-B8F6-6D3B32AB12C8",
                 Name = "Roofs"
@@ -35,9 +35,7 @@ public class CategoriesSeeder
             {
                 Id = "57C88E0C-97F1-4D49-BD38-B860A2A332D1",
                 Name = "Wood"
-            });
-
-            _context.SaveChanges();
+            }});
         }
     }
 }

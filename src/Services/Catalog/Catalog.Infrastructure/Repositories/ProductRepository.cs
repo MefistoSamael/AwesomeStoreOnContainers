@@ -2,42 +2,51 @@
 using Catalog.Domain.Entities;
 using Catalog.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using MongoDB.Driver;
 using System.Threading;
 
 namespace Catalog.Infrastructure.Repositories;
 
 public class ProductRepository : IProductRepostitory
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IMongoCollection<Product> _products;
 
-    public ProductRepository(ApplicationDbContext context)
+    private InsertOneOptions _insertOneOptions;
+    private ReplaceOptions _updateOptions;
+    private DeleteOptions _deleteOneOptions;
+
+    public ProductRepository(IMongoCollection<Product> products)
     {
-        _context = context;
+        _products = products;
+
+        _insertOneOptions = new InsertOneOptions();
+        _updateOptions = new ReplaceOptions();
+        _deleteOneOptions = new DeleteOptions();
     }
 
     public async Task<string> CreateProductAsync(Product product, CancellationToken cancellationToken)
     {
         product.Id = Guid.NewGuid().ToString();
 
-        await _context.Products.AddAsync(product, cancellationToken);
-
-        await _context.SaveChangesAsync(cancellationToken);
+        await _products.InsertOneAsync(product, _insertOneOptions, cancellationToken);
 
         return product.Id;
     }
 
     public async Task<string> UpdateProductAsync(Product product, CancellationToken cancellationToken)
     {
-        _context.Products.Update(product);
+        var idFilter = Builders<Product>.Filter.Eq(product => product.Id, product.Id);
 
-        await _context.SaveChangesAsync(cancellationToken);
+        await _products.ReplaceOneAsync(idFilter, product, _updateOptions, cancellationToken);
 
         return product.Id;
     }
 
-    public Task DeleteProductAsync(Product product, CancellationToken cancellationToken)
+    public async Task DeleteProductAsync(Product product, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var idFilter = Builders<Product>.Filter.Eq(product => product.Id, product.Id);
+
+        await _products.DeleteOneAsync(idFilter, _deleteOneOptions, cancellationToken);
     }
 
 
@@ -61,9 +70,7 @@ public class ProductRepository : IProductRepostitory
     {
         product.Categories.AddRange(categories);
 
-        _context.Update(product);
-
-        await _context.SaveChangesAsync(cancellationToken);
+        await UpdateProductAsync(product, cancellationToken);
 
         return product.Id;
     }
@@ -72,9 +79,7 @@ public class ProductRepository : IProductRepostitory
     {
         product.Categories.Add(category);
 
-        _context.Update(product);
-
-        await _context.SaveChangesAsync(cancellationToken);
+        await UpdateProductAsync(product, cancellationToken);
 
         return product.Id;
     }
@@ -86,9 +91,7 @@ public class ProductRepository : IProductRepostitory
             product.Categories.Remove(category);
         }
 
-        _context.Update(product);
-
-        await _context.SaveChangesAsync(cancellationToken);
+        await UpdateProductAsync(product, cancellationToken);
 
         return product.Id;
     }
@@ -97,9 +100,7 @@ public class ProductRepository : IProductRepostitory
     {
         product.Categories.Remove(category);
 
-        _context.Update(product);
-
-        await _context.SaveChangesAsync(cancellationToken);
+        await UpdateProductAsync(product, cancellationToken);
 
         return product.Id;
     }
