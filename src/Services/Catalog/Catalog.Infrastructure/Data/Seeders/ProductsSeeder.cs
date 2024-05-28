@@ -1,11 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace Catalog.Infrastructure.Data.Seeders;
 
-namespace Catalog.Infrastructure.Data.Seeders;
-
-internal class ProductsSeeder
+public class ProductsSeeder
 {
-    internal static void SeedProducts(ModelBuilder builder)
+    public static void SeedProducts(ApplicationDbContext _context)
     {
-        
+        throw new NotImplementedException();
     }
 }

@@ -1,11 +1,17 @@
+using Catalog.Application;
+using Catalog.Infrastructure;
+using Catalog.Infrastructure.Data;
+using Catalog.Infrastructure.Data.Seeders;
+using Catalog.Presentation;
+using Catalog.Presentation.Common.Middleware;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddApplicationServices();
+builder.Services.AddInfrastructureServices(builder.Configuration);
+builder.Services.AddPresentationServices();
 
 WebApplication app = builder.Build();
 
@@ -17,9 +23,20 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetService<ApplicationDbContext>();
+    CategoriesSeeder.SeedCategories(context!);
+}
+
 app.Run();
+

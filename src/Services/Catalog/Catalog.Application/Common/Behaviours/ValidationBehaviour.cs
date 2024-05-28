@@ -1,5 +1,7 @@
-﻿using FluentValidation;
+﻿
+using FluentValidation;
 using MediatR;
+using ValidationException = Catalog.Application.Common.Exceptions.ValidationException;
 
 namespace Catalog.Application.Common.Behaviours;
 

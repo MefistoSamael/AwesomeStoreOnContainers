@@ -1,8 +1,6 @@
-﻿using System.Runtime.Serialization;
+﻿namespace Catalog.Application.Common.Exceptions;
 
-namespace Catalog.Application.Common.Exceptions;
-
-internal class ExistingCategoryException : Exception
+public class ExistingCategoryException : Exception
 {
     public ExistingCategoryException()
     {

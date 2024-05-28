@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\Product\ChangeProductCategories\" />
-    <Folder Include="UseCases\Product\ChangeProductImage\" />
+    <Folder Include="UseCases\Products\ChangeProductCategories\" />
+    <Folder Include="UseCases\Products\ChangeProductImage\" />
   </ItemGroup>
 
 </Project>
