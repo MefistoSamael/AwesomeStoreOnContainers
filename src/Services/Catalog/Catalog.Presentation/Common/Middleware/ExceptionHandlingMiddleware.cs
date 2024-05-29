@@ -63,6 +63,19 @@ public class ExceptionHandlingMiddleware
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
+        catch (InvalidOperationException exception)
+        {
+            var problemDetails = new ProblemDetails
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
+                Title = "Invalid operation",
+                Detail = exception.Message
+            };
+
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            await context.Response.WriteAsJsonAsync(problemDetails);
+        }
         catch (KeyNotFoundException exception)
         {
             var problemDetails = new ProblemDetails

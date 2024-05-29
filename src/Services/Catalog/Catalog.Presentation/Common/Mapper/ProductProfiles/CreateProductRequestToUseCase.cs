@@ -4,9 +4,9 @@ using Catalog.Presentation.Requests.ProductRequests;
 
 namespace Catalog.Presentation.Common.Mapper.ProductProfiles;
 
-public class CreateRequestToUseCase : Profile
+public class CreateProductRequestToUseCase : Profile
 {
-    public CreateRequestToUseCase()
+    public CreateProductRequestToUseCase()
     {
         CreateMap<CreateProductRequest, CreateProductUseCase>()
             .ForMember(createProductUseCase => createProductUseCase.Name,

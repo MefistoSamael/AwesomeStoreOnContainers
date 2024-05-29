@@ -13,13 +13,14 @@ public DeleteCategoryInteractor(ICategoryRepository categoryRepository)
 
     public async Task Handle(DeleteCategoryUseCase request, CancellationToken cancellationToken)
     {
-        var category = await _categoryRepository.GetCategoryByIdAsync(request.CategoryId, cancellationToken);
-
-        if (category is null)
-        {
-            return;
-        }
+        var category = await _categoryRepository.GetCategoryByIdAsync(request.CategoryId, cancellationToken) 
+            ?? throw new KeyNotFoundException("category with specified id wasn't found");
         
+        if (await _categoryRepository.HasProductsAsync(category, cancellationToken))
+        {
+            throw new InvalidOperationException("category can't be deletet while it has products");
+        }
+
         await _categoryRepository.DeleteCategoryAsync(category, cancellationToken);
     }
 }
