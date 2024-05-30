@@ -19,9 +19,4 @@
     <ProjectReference Include="..\Catalog.Domain\Catalog.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\Products\ChangeProductCategories\" />
-    <Folder Include="UseCases\Products\ChangeProductImage\" />
-  </ItemGroup>
-
 </Project>

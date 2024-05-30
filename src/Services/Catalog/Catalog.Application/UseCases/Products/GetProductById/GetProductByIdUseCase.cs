@@ -1,7 +1,7 @@
 ﻿using Catalog.Application.Common.Models;
 using MediatR;
 
-namespace Catalog.Application.UseCases.Product.GetProductById;
+namespace Catalog.Application.UseCases.Products.GetProductById;
 
 public class GetProductByIdUseCase : IRequest<ProductDTO>
 {

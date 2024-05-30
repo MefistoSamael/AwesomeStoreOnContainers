@@ -1,21 +1,19 @@
-﻿using FluentValidation;
+﻿using Catalog.Application.Common.Options;
+using FluentValidation;
+using Microsoft.Extensions.Options;
 
-namespace Catalog.Application.UseCases.Product.GetPaginatedProducts;
+namespace Catalog.Application.UseCases.Products.GetPaginatedProducts;
 
 public class GetPaginatedProductsUseCaseValidator : AbstractValidator<GetPaginatedProductsUseCase>
 {
-    //TODO: use options to initialize this values
-    private const int MaxPageNumber = 100;
-    private const int MaxPageSize= 20;
-
-    public GetPaginatedProductsUseCaseValidator()
+    public GetPaginatedProductsUseCaseValidator(IOptions<ProductPaginationOptions> options)
     {
         RuleFor(getPaginatedProductsUseCase => getPaginatedProductsUseCase.PageNumber).NotEmpty()
             .GreaterThan(0)
-            .LessThanOrEqualTo(MaxPageNumber);
+            .LessThanOrEqualTo(options.Value.PageNumber);
 
         RuleFor(getPaginatedProductsUseCase => getPaginatedProductsUseCase.PageSize).NotEmpty()
             .GreaterThan(0)
-            .LessThanOrEqualTo(MaxPageSize);
+            .LessThanOrEqualTo(options.Value.PageSize);
     }
 }

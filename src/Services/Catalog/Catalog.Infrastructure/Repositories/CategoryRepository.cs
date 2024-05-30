@@ -46,8 +46,10 @@ public class CategoryRepository : ICategoryRepository
     {
         var filter = Builders<Product>.Filter.ElemMatch(p => p.Categories, c => c.Id == category.Id);
 
-        var update = Builders<Product>.Update.Set("Categories.$.Name", category.Name);
-        
+        var update = Builders<Product>.Update
+        .Set("Categories.$.Name", category.Name) 
+        .Set("Categories.$.NormalizedName", category.NormalizedName);
+
         await _products.UpdateManyAsync(filter, update, cancellationToken: cancellationToken);
 
         return category.Id;
@@ -68,7 +70,7 @@ public class CategoryRepository : ICategoryRepository
 
     public async Task<Category?> GetCategoryByNameAsync(string categoryName, CancellationToken cancellationToken)
     {
-        var filter = Builders<Category>.Filter.Eq(category => category.Name, categoryName);
+        var filter = Builders<Category>.Filter.Eq(category => category.NormalizedName, categoryName.ToUpper());
 
         return await (await _categories.FindAsync(filter, cancellationToken: cancellationToken)).FirstOrDefaultAsync();
     }

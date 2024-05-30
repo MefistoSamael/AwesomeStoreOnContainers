@@ -2,7 +2,7 @@
 using Catalog.Domain.Abstractions;
 using MediatR;
 
-namespace Catalog.Application.UseCases.Product.DeleteProduct;
+namespace Catalog.Application.UseCases.Products.DeleteProduct;
 
 public class DeleteProductInteractor : IRequestHandler<DeleteProductUseCase>
 {

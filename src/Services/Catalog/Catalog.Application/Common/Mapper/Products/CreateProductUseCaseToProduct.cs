@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Catalog.Application.UseCases.Product.CreateProduct;
+using Catalog.Application.UseCases.Products.CreateProducts;
 using Catalog.Domain.Entities;
 
-namespace Catalog.Application.Common.Mapper;
+namespace Catalog.Application.Common.Mapper.Products;
 
-public class CreateUseCaseToProduct : Profile
+public class CreateProductUseCaseToProduct : Profile
 {
-    public CreateUseCaseToProduct()
+    public CreateProductUseCaseToProduct()
     {
         CreateMap<CreateProductUseCase, Product>()
             .ForMember(product => product.Name,
@@ -19,9 +19,9 @@ public class CreateUseCaseToProduct : Profile
                 opt => opt.MapFrom(createProductUseCase => createProductUseCase.StockCount))
             .ForMember(product => product.Categories,
                 opt => opt.Ignore())
-            .ForMember(product => product.PictureFileName,
+            .ForMember(product => product.ImageFileName,
                 opt => opt.Ignore())
-            .ForMember(product => product.PictureUri,
+            .ForMember(product => product.ImageUri,
                 opt => opt.Ignore());
     }
 }

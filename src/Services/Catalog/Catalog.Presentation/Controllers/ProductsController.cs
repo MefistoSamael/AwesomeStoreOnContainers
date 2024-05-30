@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
-using Catalog.Application.UseCases.Product.CreateProduct;
-using Catalog.Application.UseCases.Product.DeleteProduct;
-using Catalog.Application.UseCases.Product.GetPaginatedProducts;
-using Catalog.Application.UseCases.Product.GetProductById;
-using Catalog.Application.UseCases.Product.UpdateProduct;
+using Catalog.Application.UseCases.Products.CreateProducts;
+using Catalog.Application.UseCases.Products.DeleteProduct;
+using Catalog.Application.UseCases.Products.GetPaginatedProducts;
+using Catalog.Application.UseCases.Products.GetProductById;
+using Catalog.Application.UseCases.Products.UpdateProduct;
+using Catalog.Application.UseCases.Products.ChangeProductImage;
 using Catalog.Presentation.Requests.ProductRequests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Catalog.Application.UseCases.Products.ChangeProductCategories;
 
 namespace Catalog.Presentation.Controllers;
 
@@ -75,5 +77,29 @@ public class ProductsController : ControllerBase
         await _mediator.Send(useCase, cancellationToken);
 
         return Ok();
+    }
+
+    [HttpPatch]
+    [Route("{id}/image")]
+    public async Task<IActionResult> ChangeImageAsync([FromRoute] string id, [FromForm] ChangeProductImageRequest request, CancellationToken cancellationToken)
+    {
+        var useCase = _mapper.Map<ChangeProductImageUseCase>(request);
+        useCase.ProductId = id;
+
+        var result = await _mediator.Send(useCase, cancellationToken);
+
+        return Ok(result);
+    }
+
+    [HttpPatch]
+    [Route("{id}/categories")]
+    public async Task<IActionResult> ChangeCategoriesAsync([FromRoute] string id, [FromBody] ChangeProductCategoriesRequest request, CancellationToken cancellationToken)
+    {
+        var useCase = _mapper.Map<ChangeProductCategoriesUseCase>(request);
+        useCase.ProductId = id;
+
+        var result = await _mediator.Send(useCase, cancellationToken);
+
+        return Ok(result);
     }
 }

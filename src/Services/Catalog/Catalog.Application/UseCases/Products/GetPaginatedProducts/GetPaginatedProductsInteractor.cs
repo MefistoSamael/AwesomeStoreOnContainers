@@ -3,7 +3,7 @@ using Catalog.Application.Common.Models;
 using Catalog.Domain.Abstractions;
 using MediatR;
 
-namespace Catalog.Application.UseCases.Product.GetPaginatedProducts;
+namespace Catalog.Application.UseCases.Products.GetPaginatedProducts;
 
 public class GetPaginatedProductsInteractor : IRequestHandler<GetPaginatedProductsUseCase, PaginatedResult<ProductDTO>>
 {

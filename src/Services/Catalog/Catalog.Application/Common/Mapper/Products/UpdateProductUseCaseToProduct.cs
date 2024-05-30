@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Catalog.Application.UseCases.Product.UpdateProduct;
+using Catalog.Application.UseCases.Products.UpdateProduct;
 using Catalog.Domain.Entities;
 
-namespace Catalog.Application.Common.Mapper;
+namespace Catalog.Application.Common.Mapper.Products;
 
-public class UpdateUseCaseToProduct : Profile
+public class UpdateProductUseCaseToProduct : Profile
 {
-    public UpdateUseCaseToProduct()
+    public UpdateProductUseCaseToProduct()
     {
         CreateMap<UpdateProductUseCase, Product>()
             .ForMember(product => product.Name,

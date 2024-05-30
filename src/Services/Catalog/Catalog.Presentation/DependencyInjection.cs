@@ -11,7 +11,6 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddPresentationServices(this IServiceCollection services)
     {
-        // KEEP launchSettings.json and applicatoinSettings.json in SYNC
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
 
@@ -30,7 +29,10 @@ public static class DependencyInjection
 
     public static IServiceCollection ConfigureOptions(this IServiceCollection services)
     {
+        // KEEP launchSettings.json and applicatoinSettings.json in SYNC
         services.ConfigureOptions<WWWRootOptionsSetup>();
+        services.ConfigureOptions<ProductPaginationOptionsSetup>();
+        services.ConfigureOptions<CategoryPaginationOptionsSetup>();
 
         return services;
     }

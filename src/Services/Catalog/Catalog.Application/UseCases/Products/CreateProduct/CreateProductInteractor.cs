@@ -5,7 +5,7 @@ using Catalog.Domain.Abstractions;
 using Catalog.Domain.Entities;
 using MediatR;
 
-namespace Catalog.Application.UseCases.Product.CreateProduct;
+namespace Catalog.Application.UseCases.Products.CreateProducts;
 
 public class CreateProductInteractor : IRequestHandler<CreateProductUseCase, string>
 {
@@ -35,7 +35,7 @@ public class CreateProductInteractor : IRequestHandler<CreateProductUseCase, str
             
             if (domainCategory is null)
             {
-                throw new NonExistentCategoryException();
+                throw new NonExistentCategoryException($"category with name: {category} doesn't exist");
             }
 
             domainCategories.Add(domainCategory);

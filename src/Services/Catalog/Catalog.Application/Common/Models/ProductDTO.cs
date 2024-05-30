@@ -12,5 +12,7 @@ public class ProductDTO
 
     public required int StockCount { get; set; }
 
+    public required string ImageUri { get; set; }
+
     public required IEnumerable<CategoryDTO> ProductCatrgories { get; set; }
 }

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Catalog.Application.UseCases.Product.DeleteProduct;
+namespace Catalog.Application.UseCases.Products.DeleteProduct;
 
 public class DeleteProductUseCaseValidator : AbstractValidator<DeleteProductUseCase>
 {

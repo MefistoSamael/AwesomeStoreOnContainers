@@ -1,4 +1,5 @@
-﻿using Catalog.Domain.Abstractions;
+﻿using AutoMapper;
+using Catalog.Domain.Abstractions;
 using MediatR;
 
 namespace Catalog.Application.UseCases.Categories.UpdateCategory;
@@ -6,10 +7,12 @@ namespace Catalog.Application.UseCases.Categories.UpdateCategory;
 public class UpdateCategoryInteractor : IRequestHandler<UpdateCategoryUseCase, string>
 {
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IMapper _mapper;
 
-    public UpdateCategoryInteractor(ICategoryRepository categoryRepository)
+    public UpdateCategoryInteractor(ICategoryRepository categoryRepository, IMapper mapper)
     {
         _categoryRepository = categoryRepository;
+        _mapper = mapper;
     }
 
     public async Task<string> Handle(UpdateCategoryUseCase request, CancellationToken cancellationToken)
@@ -21,7 +24,7 @@ public class UpdateCategoryInteractor : IRequestHandler<UpdateCategoryUseCase, s
             throw new KeyNotFoundException("can't find category with such id");
         }
 
-        category.Name = request.CategoryName;
+        category = _mapper.Map(request, category);
 
         await _categoryRepository.UpdateCategoryAsync(category, cancellationToken);
 

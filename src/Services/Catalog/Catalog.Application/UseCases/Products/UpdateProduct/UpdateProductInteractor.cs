@@ -2,7 +2,7 @@
 using Catalog.Domain.Abstractions;
 using MediatR;
 
-namespace Catalog.Application.UseCases.Product.UpdateProduct;
+namespace Catalog.Application.UseCases.Products.UpdateProduct;
 
 public class UpdateProductInteractor : IRequestHandler<UpdateProductUseCase, string>
 {

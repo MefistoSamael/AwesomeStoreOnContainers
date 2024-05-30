@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Catalog.Application.UseCases.Product.UpdateProduct;
+namespace Catalog.Application.UseCases.Products.UpdateProduct;
 
 public class UpdateProductUseCaseValidator : AbstractValidator<UpdateProductUseCase>
 {

@@ -3,7 +3,7 @@ using Catalog.Application.Common.Models;
 using Catalog.Domain.Abstractions;
 using MediatR;
 
-namespace Catalog.Application.UseCases.Product.GetProductById;
+namespace Catalog.Application.UseCases.Products.GetProductById;
 
 public class GetProductByIdInteractor : IRequestHandler<GetProductByIdUseCase, ProductDTO>
 {

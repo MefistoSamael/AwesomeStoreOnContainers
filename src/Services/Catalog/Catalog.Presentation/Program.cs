@@ -39,6 +39,8 @@ using (var scope = app.Services.CreateScope())
     var categories = scope.ServiceProvider.GetService<IMongoCollection<Category>>();
     var products = scope.ServiceProvider.GetService<IMongoCollection<Product>>();
 
+    var filter = Builders<Category>.Filter.Empty;
+    categories.DeleteMany(filter);
     CategoriesSeeder.SeedCategories(categories!);
     //ProductsSeeder.SeedProducts(products!);
 }

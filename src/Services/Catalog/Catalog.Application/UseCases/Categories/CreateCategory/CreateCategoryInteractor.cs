@@ -1,5 +1,7 @@
-﻿using Catalog.Application.Common.Exceptions;
+﻿using AutoMapper;
+using Catalog.Application.Common.Exceptions;
 using Catalog.Domain.Abstractions;
+using Catalog.Domain.Entities;
 using MediatR;
 
 namespace Catalog.Application.UseCases.Categories.CreateCategory;
@@ -7,10 +9,12 @@ namespace Catalog.Application.UseCases.Categories.CreateCategory;
 public class CreateCategoryInteractor : IRequestHandler<CreateCategoryUseCase, string>
 {
     private readonly ICategoryRepository _categoryRepository;
+    private readonly IMapper _mapper;
 
-    public CreateCategoryInteractor(ICategoryRepository categoryRepository)
+    public CreateCategoryInteractor(ICategoryRepository categoryRepository, IMapper mapper)
     {
         _categoryRepository = categoryRepository;
+        _mapper = mapper;
     }
 
     public async Task<string> Handle(CreateCategoryUseCase request, CancellationToken cancellationToken)
@@ -22,8 +26,7 @@ public class CreateCategoryInteractor : IRequestHandler<CreateCategoryUseCase, s
             throw new ExistingCategoryException("category with such name already exists");
         }
 
-        //TODO: change to mapper
-        category = new Domain.Entities.Category { Id = "", Name = request.CategoryName };
+        category = _mapper.Map<Category>(request);
 
         return await _categoryRepository.CreateCategoryAsync(category, cancellationToken);
     }

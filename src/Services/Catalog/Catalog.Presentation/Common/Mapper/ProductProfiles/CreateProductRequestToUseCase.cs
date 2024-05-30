@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Catalog.Application.UseCases.Product.CreateProduct;
+using Catalog.Application.UseCases.Products.CreateProducts;
 using Catalog.Presentation.Requests.ProductRequests;
 
 namespace Catalog.Presentation.Common.Mapper.ProductProfiles;

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Catalog.Application.UseCases.Product.UpdateProduct;
+namespace Catalog.Application.UseCases.Products.UpdateProduct;
 
 public class UpdateProductUseCase : IRequest<string>
 {

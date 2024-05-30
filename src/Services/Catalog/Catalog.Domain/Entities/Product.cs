@@ -10,9 +10,9 @@ public class Product
 
     public required int Price { get; set; }
 
-    public string? PictureFileName { get; set; }
+    public string? ImageFileName { get; set; }
 
-    public string? PictureUri { get; set; }
+    public string? ImageUri { get; set; }
 
     public required int StockCount { get; set; }
 

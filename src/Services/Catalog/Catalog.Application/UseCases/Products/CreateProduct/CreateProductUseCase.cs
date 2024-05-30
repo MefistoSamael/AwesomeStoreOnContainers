@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 
-namespace Catalog.Application.UseCases.Product.CreateProduct;
+namespace Catalog.Application.UseCases.Products.CreateProducts;
 
 public class CreateProductUseCase : IRequest<string>
 {

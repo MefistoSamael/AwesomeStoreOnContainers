@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Catalog.Application.UseCases.Product.CreateProduct;
+namespace Catalog.Application.UseCases.Products.CreateProducts;
 
 public class CreateProductUseCaseValidator : AbstractValidator<CreateProductUseCase>
 {

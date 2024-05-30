@@ -1,20 +1,19 @@
-﻿using FluentValidation;
+﻿using Catalog.Application.Common.Options;
+using FluentValidation;
+using Microsoft.Extensions.Options;
 
 namespace Catalog.Application.UseCases.Categories.GetPaginatedCategory;
 
 public class GetPaginatedCategoryUseCaseValidator : AbstractValidator<GetPaginatedCategoriesUseCase>
 {
-    private const int MaxPageNumber = 20;
-    private const int MaxPageSize = 20;
-
-    public GetPaginatedCategoryUseCaseValidator()
+    public GetPaginatedCategoryUseCaseValidator(IOptions<CategoryPaginationOptions> options)
     {
         RuleFor(getPaginatedCategoriesUseCase => getPaginatedCategoriesUseCase.PageNumber)
-            .LessThanOrEqualTo(MaxPageNumber)
+            .LessThanOrEqualTo(options.Value.PageNumber)
             .GreaterThan(0);
 
         RuleFor(getPaginatedCategoriesUseCase => getPaginatedCategoriesUseCase.PageSize)
-            .LessThanOrEqualTo(MaxPageSize)
+            .LessThanOrEqualTo(options.Value.PageSize)
             .GreaterThan(0);
     }
 }

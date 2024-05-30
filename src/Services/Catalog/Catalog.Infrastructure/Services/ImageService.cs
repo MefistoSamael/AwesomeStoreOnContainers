@@ -34,8 +34,8 @@ public class ImageService : IImageService
             await image.CopyToAsync(fileStream, cancellationToken);
         }
 
-        product.PictureUri = $"{_options.Host}/Images/{fileName}";
-        product.PictureFileName = extension;
+        product.ImageUri = $"{_options.Host}/Images/{fileName}";
+        product.ImageFileName = extension;
 
         await _productRepostitory.UpdateProductAsync(product, cancellationToken);
 
@@ -44,9 +44,9 @@ public class ImageService : IImageService
 
     public void DeleteImage(Product product)
     {
-        if (!string.IsNullOrEmpty(product.PictureUri))
+        if (!string.IsNullOrEmpty(product.ImageUri))
         {
-            var prevImage = Path.Combine(imageFolder, Path.GetFileName(product.PictureUri));
+            var prevImage = Path.Combine(imageFolder, Path.GetFileName(product.ImageUri));
             File.Delete(prevImage);
         }
     }

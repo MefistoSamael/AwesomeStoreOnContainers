@@ -2,7 +2,7 @@
 using Catalog.Application.Common.Models;
 using Catalog.Domain.Entities;
 
-namespace Catalog.Application.Common.Mapper;
+namespace Catalog.Application.Common.Mapper.Categories;
 
 public class CategoryToDTO : Profile
 {

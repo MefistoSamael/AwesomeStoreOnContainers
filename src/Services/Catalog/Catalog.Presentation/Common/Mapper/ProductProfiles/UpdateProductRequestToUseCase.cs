@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Catalog.Application.UseCases.Product.UpdateProduct;
+using Catalog.Application.UseCases.Products.UpdateProduct;
 using Catalog.Presentation.Requests.ProductRequests;
 
 namespace Catalog.Presentation.Common.Mapper.ProductProfiles;
