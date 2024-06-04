@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Catalog.Application.UseCases.Categories.CreateCategory;
-using Catalog.Application.UseCases.Categories.UpdateCategory;
 using Catalog.Domain.Entities;
 
 namespace Catalog.Application.Common.Mapper.Categories;

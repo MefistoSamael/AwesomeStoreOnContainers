@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using Catalog.Application.UseCases.Categories.CreateCategory;
 using Catalog.Application.UseCases.Categories.UpdateCategory;
 using Catalog.Presentation.Requests.CategoryRequests;
-using Catalog.Presentation.Requests.ProductRequests;
 
 namespace Catalog.Presentation.Common.Mapper.CategoryProfiles;
 

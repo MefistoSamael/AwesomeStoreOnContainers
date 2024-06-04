@@ -2,7 +2,6 @@
 using Catalog.Domain.Abstractions;
 using Catalog.Domain.Entities;
 using MediatR;
-using System.Runtime.CompilerServices;
 
 namespace Catalog.Application.UseCases.Products.ChangeProductCategories;
 

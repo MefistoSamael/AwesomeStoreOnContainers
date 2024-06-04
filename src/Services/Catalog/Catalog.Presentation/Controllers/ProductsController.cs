@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
+using Catalog.Application.UseCases.Products.ChangeProductCategories;
+using Catalog.Application.UseCases.Products.ChangeProductImage;
 using Catalog.Application.UseCases.Products.CreateProducts;
 using Catalog.Application.UseCases.Products.DeleteProduct;
 using Catalog.Application.UseCases.Products.GetPaginatedProducts;
 using Catalog.Application.UseCases.Products.GetProductById;
 using Catalog.Application.UseCases.Products.UpdateProduct;
-using Catalog.Application.UseCases.Products.ChangeProductImage;
 using Catalog.Presentation.Requests.ProductRequests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Catalog.Application.UseCases.Products.ChangeProductCategories;
 
 namespace Catalog.Presentation.Controllers;
 

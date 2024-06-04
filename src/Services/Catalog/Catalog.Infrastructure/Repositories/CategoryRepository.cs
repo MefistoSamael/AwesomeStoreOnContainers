@@ -1,6 +1,5 @@
 ﻿using Catalog.Domain.Abstractions;
 using Catalog.Domain.Entities;
-using Catalog.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.Driver;
 

@@ -1,10 +1,8 @@
 ﻿using Catalog.Application.Services;
 using Catalog.Domain.Abstractions;
 using Catalog.Domain.Entities;
-using Catalog.Infrastructure.Data;
 using Catalog.Infrastructure.Repositories;
 using Catalog.Infrastructure.Services;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;

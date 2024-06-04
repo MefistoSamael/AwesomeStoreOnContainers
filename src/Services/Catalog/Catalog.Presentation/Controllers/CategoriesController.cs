@@ -7,7 +7,6 @@ using Catalog.Application.UseCases.Categories.UpdateCategory;
 using Catalog.Presentation.Requests.CategoryRequests;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using ZstdSharp.Unsafe;
 
 namespace Catalog.Presentation.Controllers;
 
