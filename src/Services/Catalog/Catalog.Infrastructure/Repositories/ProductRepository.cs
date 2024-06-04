@@ -71,6 +71,15 @@ public class ProductRepository : IProductRepostitory
         return (int)await _products.EstimatedDocumentCountAsync(cancellationToken: cancellationToken);
     }
 
+    public async Task<IEnumerable<Product>> GetAllProductsAsync(CancellationToken? cancellationToken)
+    {
+        var notNullableCancellationToken = cancellationToken ?? default;
+
+        var filter = Builders<Product>.Filter.Empty;
+        return  await (await _products.FindAsync<Product>(filter, cancellationToken: notNullableCancellationToken))
+            .ToListAsync(cancellationToken: notNullableCancellationToken);
+    }
+
 
     public async Task<string> AddToCategoriesAsync(Product product, IEnumerable<Category> categories, CancellationToken cancellationToken)
     {
@@ -109,5 +118,14 @@ public class ProductRepository : IProductRepostitory
         await UpdateProductAsync(product, cancellationToken);
 
         return product.Id;
+    }
+
+    public async Task AddStockCount(Product product, int restockAmount)
+    {
+        var filter = Builders<Product>.Filter.Where(prod => prod.Id == product.Id);
+
+        var update = Builders<Product>.Update.Inc(product => product.StockCount, restockAmount);
+
+        await _products.UpdateManyAsync(filter, update);
     }
 }
