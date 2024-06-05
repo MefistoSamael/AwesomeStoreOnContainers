@@ -82,7 +82,7 @@ public class UsersController : ControllerBase
 
         await _mediator.Send(request, cancellationToken);
 
-        return Ok();
+        return NoContent();
     }
 
     [HttpGet]
@@ -98,7 +98,7 @@ public class UsersController : ControllerBase
     [HttpGet]
     [Route("{id}")]
     [Authorize(Roles = RoleConstants.Admin)]
-    public async Task<IActionResult> GetUserById(string id, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetUserById([FromRoute] string id, CancellationToken cancellationToken)
     {
         var request = new GetUserByIdUseCase { UserId = id };
 

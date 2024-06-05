@@ -42,7 +42,6 @@ public static class UsersSeeder
         buyer.PasswordHash = _passwordHasher.HashPassword(buyer, "Buyer123");
         employee.PasswordHash = _passwordHasher.HashPassword(employee, "Employee123");
 
-
         builder.Entity<ApplicationUser>().HasData(admin, buyer, employee);
     }
 }

@@ -19,7 +19,7 @@ public class RolesController : ControllerBase
 
     [HttpGet]
     [Authorize(Roles = RoleConstants.Admin)]
-    public async Task<IActionResult> GetPaginatedRoles(CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 3)
+    public async Task<IActionResult> GetPaginatedRoles([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 3, CancellationToken cancellationToken = default)
     {
         var request = new GetPaginatedRolesUseCase { PageNumber = pageNumber, PageSize = pageSize };
 

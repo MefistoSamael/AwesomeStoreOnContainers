@@ -24,7 +24,7 @@ public class RoleRepository : IRoleRepository
 
     public async Task<IEnumerable<ApplicationRole>> GetPaginatedRolesAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        return await _roleManager.Roles.OrderBy(r => r.Id)
+        return await _roleManager.Roles.OrderBy(role => role.Id)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync(cancellationToken);
@@ -43,10 +43,5 @@ public class RoleRepository : IRoleRepository
     public async Task<int> GetRolesCountAsync(CancellationToken cancellationToken)
     {
         return await _roleManager.Roles.CountAsync(cancellationToken);
-    }
-
-    public async Task<bool> HasUsers(string roleId, CancellationToken cancellationToken)
-    {
-        return await _context.UserRoles.FirstOrDefaultAsync(ur => ur.RoleId == roleId, cancellationToken) is not null;
     }
 }

@@ -12,7 +12,5 @@ public interface IRoleRepository
 
     public Task<IEnumerable<ApplicationRole>> GetPaginatedRolesAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
 
-    public Task<bool> HasUsers(string roleId, CancellationToken cancellationToken);
-
     public Task<int> GetRolesCountAsync(CancellationToken cancellationToken);
 }

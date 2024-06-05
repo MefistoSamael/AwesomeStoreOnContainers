@@ -12,7 +12,7 @@ public class GetPaginatedUsersUseCaseValidator : AbstractValidator<GetPaginatedU
             .GreaterThan(0)
             .LessThanOrEqualTo(options.Value.MaxPageNumber);
 
-        RuleFor(cancellationToken => cancellationToken.PageSize).NotEmpty()
+        RuleFor(getPaginatedUsersUseCase => getPaginatedUsersUseCase.PageSize).NotEmpty()
             .GreaterThan(0)
             .LessThanOrEqualTo(options.Value.MaxPageSize);
     }
