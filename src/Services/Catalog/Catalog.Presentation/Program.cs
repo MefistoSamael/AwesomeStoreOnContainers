@@ -4,8 +4,9 @@ using Catalog.Infrastructure;
 using Catalog.Infrastructure.Data.Seeders;
 using Catalog.Presentation;
 using Catalog.Presentation.Common.Middleware;
+using EventBus.Infrastructure;
 using MongoDB.Driver;
-using EventBus;
+
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

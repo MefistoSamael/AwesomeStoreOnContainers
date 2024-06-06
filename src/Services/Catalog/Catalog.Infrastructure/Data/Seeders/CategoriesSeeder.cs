@@ -1,6 +1,5 @@
 ﻿using Catalog.Domain.Entities;
 using MongoDB.Driver;
-using System.Runtime.CompilerServices;
 
 namespace Catalog.Infrastructure.Data.Seeders;
 

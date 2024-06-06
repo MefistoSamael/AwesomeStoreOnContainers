@@ -1,11 +1,11 @@
-﻿namespace EventBus.Entities;
+﻿namespace EventBus.Domain.Entities;
 
 public abstract class Event
 {
-    public DateTime TimeStamps { get; protected set; }
+    public DateTime TimeStamp { get; protected set; }
 
     protected Event()
     {
-        TimeStamps = DateTime.Now;
+        TimeStamp = DateTime.Now;
     }
 }

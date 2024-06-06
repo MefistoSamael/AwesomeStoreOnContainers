@@ -1,9 +1,8 @@
-﻿using EventBus.Bus;
-using EventBus.Interfaces;
+﻿using EventBus.Domain.Interfaces;
+using EventBus.Infrastructure.Implementation;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
-namespace EventBus;
+namespace EventBus.Infrastructure;
 
 public static class DependencyInjection
 {

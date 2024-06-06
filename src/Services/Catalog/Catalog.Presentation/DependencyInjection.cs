@@ -1,7 +1,5 @@
-﻿using Catalog.Application.Common.Behaviours;
-using Catalog.Presentation.Common.OptionsSetup;
+﻿using Catalog.Presentation.Common.OptionsSetup;
 using Catalog.Presentation.Common.Swagger;
-using MediatR;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Reflection;
 

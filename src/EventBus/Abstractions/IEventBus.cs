@@ -1,8 +1,7 @@
-﻿using EventBus.Entities;
-using EventBus.EventHandler;
-using System;
+﻿using EventBus.Domain.Abstractions;
+using EventBus.Domain.Entities;
 
-namespace EventBus.Interfaces;
+namespace EventBus.Domain.Interfaces;
 
 public interface IEventBus
 {

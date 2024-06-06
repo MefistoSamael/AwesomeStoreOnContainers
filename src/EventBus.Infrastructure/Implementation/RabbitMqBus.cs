@@ -1,13 +1,13 @@
-﻿using EventBus.Entities;
-using EventBus.EventHandler;
-using EventBus.Interfaces;
+﻿using EventBus.Domain.Abstractions;
+using EventBus.Domain.Entities;
+using EventBus.Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
-namespace EventBus.Bus;
+namespace EventBus.Infrastructure.Implementation;
 
 public class RabbitMqBus : IEventBus
 {
