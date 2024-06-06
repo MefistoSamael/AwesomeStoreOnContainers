@@ -1,4 +1,4 @@
-﻿using Catalog.Infrastructure.Data;
+﻿using Catalog.Infrastructure.Options;
 using Microsoft.Extensions.Options;
 
 namespace Catalog.Presentation.Common.OptionsSetup;

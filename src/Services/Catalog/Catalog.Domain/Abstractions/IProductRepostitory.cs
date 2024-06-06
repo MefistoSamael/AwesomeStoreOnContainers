@@ -25,4 +25,9 @@ public interface IProductRepostitory
     Task<IEnumerable<Product>> GetPaginatedProductsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
 
     Task<int> GetProductCountAsync(CancellationToken cancellationToken);
+
+    Task<IEnumerable<Product>> GetAllProductsAsync(CancellationToken? cancellationToken);
+    
+    
+    Task AddStockCount(Product product, int restockAmount);
 }
