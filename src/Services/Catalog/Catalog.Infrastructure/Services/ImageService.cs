@@ -1,7 +1,7 @@
 ﻿using Catalog.Application.Services;
 using Catalog.Domain.Abstractions;
 using Catalog.Domain.Entities;
-using Catalog.Infrastructure.Data;
+using Catalog.Infrastructure.Options;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 

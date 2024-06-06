@@ -1,4 +1,4 @@
-﻿namespace Catalog.Infrastructure.Data;
+﻿namespace Catalog.Infrastructure.Options;
 
 public class WWWRootOptions
 {

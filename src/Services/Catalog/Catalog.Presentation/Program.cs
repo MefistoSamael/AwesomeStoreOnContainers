@@ -4,7 +4,10 @@ using Catalog.Infrastructure;
 using Catalog.Infrastructure.Data.Seeders;
 using Catalog.Presentation;
 using Catalog.Presentation.Common.Middleware;
+using Hangfire;
+using EventBus.Infrastructure;
 using MongoDB.Driver;
+
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +15,8 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddPresentationServices();
+builder.Services.AddPresentationServices(builder.Configuration);
+builder.Services.AddRabbitMqBus();
 
 WebApplication app = builder.Build();
 
@@ -32,14 +36,13 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseHangfireDashboard();
 
 using (var scope = app.Services.CreateScope())
 {
     var categories = scope.ServiceProvider.GetService<IMongoCollection<Category>>();
     var products = scope.ServiceProvider.GetService<IMongoCollection<Product>>();
-
-    var filter = Builders<Category>.Filter.Empty;
-
+    
     CategoriesSeeder.SeedCategories(categories!);
 }
 
