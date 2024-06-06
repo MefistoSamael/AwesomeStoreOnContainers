@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\EventBus\EventBus.Infrastructure\EventBus.Infrastructure.csproj" />
     <ProjectReference Include="..\Catalog.Application\Catalog.Application.csproj" />
   </ItemGroup>
 

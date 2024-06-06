@@ -17,8 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\EventBus.Infrastructure\EventBus.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\..\EventBus\EventBus.Domain.csproj" />
+    <ProjectReference Include="..\..\..\EventBus\EventBus.Infrastructure\EventBus.Infrastructure.csproj" />
     <ProjectReference Include="..\Catalog.Application\Catalog.Application.csproj" />
     <ProjectReference Include="..\Catalog.Infrastructure\Catalog.Infrastructure.csproj" />
   </ItemGroup>
