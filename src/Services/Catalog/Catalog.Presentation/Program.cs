@@ -5,7 +5,9 @@ using Catalog.Infrastructure.Data.Seeders;
 using Catalog.Presentation;
 using Catalog.Presentation.Common.Middleware;
 using Hangfire;
+using Hangfire.Dashboard;
 using MassTransit;
+using Microsoft.AspNetCore.Mvc.Filters;
 using MongoDB.Driver;
 
 
@@ -24,6 +26,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseHangfireDashboard(options: new DashboardOptions()
+    {
+        Authorization = new[] { new DashboardNoAuthorizationFilter() }
+    });
 }
 
 app.UseHttpsRedirection();
@@ -35,7 +41,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-//app.UseHangfireDashboard();
 
 using (var scope = app.Services.CreateScope())
 {

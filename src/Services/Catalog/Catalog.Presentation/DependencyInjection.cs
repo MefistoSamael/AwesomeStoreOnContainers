@@ -24,9 +24,9 @@ public static class DependencyInjection
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-        //services.AddScoped<IUpdateStockCountJob, UpdateStockCountJob>();
+        services.AddScoped<IUpdateStockCountJob, UpdateStockCountJob>();
 
-        //services.ConfigureHangfire(configuration);
+        services.ConfigureHangfire(configuration);
 
         return services;
     }
