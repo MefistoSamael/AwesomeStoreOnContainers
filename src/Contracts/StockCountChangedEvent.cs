@@ -1,6 +1,4 @@
-﻿using EventBus.Domain.Entities;
-
-namespace Catalog.Application.Common.Events;
+﻿namespace Contracts;
 
 public class StockCountChangedEvent : Event
 {

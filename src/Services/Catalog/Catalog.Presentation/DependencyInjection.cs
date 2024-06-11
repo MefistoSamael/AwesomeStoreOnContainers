@@ -1,10 +1,7 @@
-﻿using Catalog.Application.Common.Behaviours;
-using Catalog.Application.Common.Jobs;
+﻿using Catalog.Application.Common.Jobs;
 using Catalog.Presentation.Common.OptionsSetup;
 using Catalog.Presentation.Common.Swagger;
-using CronEspresso.NETCore;
 using Hangfire;
-using MediatR;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using System.Reflection;
 

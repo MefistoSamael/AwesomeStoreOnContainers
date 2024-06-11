@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Catalog.Application.Common.Events;
 using Catalog.Domain.Abstractions;
-using EventBus.Domain.Interfaces;
+using Contracts;
+using MassTransit;
 using MediatR;
 
 namespace Catalog.Application.UseCases.Products.UpdateProduct;
@@ -10,13 +10,13 @@ public class UpdateProductInteractor : IRequestHandler<UpdateProductUseCase, str
 {
     private readonly IProductRepostitory _productRepostitory;
     private readonly IMapper _mapper;
-    private readonly IEventBus _eventBus;
+    private readonly IPublishEndpoint _publishEndpoint;
 
-    public UpdateProductInteractor(IProductRepostitory productRepostitory, IMapper mapper, IEventBus eventBus)
+    public UpdateProductInteractor(IProductRepostitory productRepostitory, IMapper mapper, IPublishEndpoint endpoint)
     {
         _productRepostitory = productRepostitory;
         _mapper = mapper;
-        _eventBus = eventBus;
+        _publishEndpoint = endpoint;
     }
 
     public async Task<string> Handle(UpdateProductUseCase request, CancellationToken cancellationToken)
@@ -35,7 +35,7 @@ public class UpdateProductInteractor : IRequestHandler<UpdateProductUseCase, str
 
         await _productRepostitory.UpdateProductAsync(product, cancellationToken);
 
-        //_eventBus.Publish(priceChangedEvent);
+        await _publishEndpoint.Publish(priceChangedEvent);
 
         return product.Id;
     }

@@ -1,14 +1,12 @@
-﻿using EventBus.Domain.Entities;
+﻿namespace Contracts;
 
-namespace Catalog.Application.Common.Events;
-
-public class PriceChangedEvent : Event
+public class PriceChangedEvent
 {
     public required string ProductId { get; set; }
 
     public required string ProductName { get; set; }
 
     public required int NewPrice { get; set; }
-    
+
     public required int OldPrice { get; set; }
 }

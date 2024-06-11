@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using Catalog.Application.Common.Events;
 using Catalog.Domain.Entities;
-using System.Net;
+using Contracts;
 
 namespace Catalog.Application.Common.Mapper.Events;
 

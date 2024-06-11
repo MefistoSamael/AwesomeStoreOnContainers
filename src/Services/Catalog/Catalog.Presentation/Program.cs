@@ -5,7 +5,7 @@ using Catalog.Infrastructure.Data.Seeders;
 using Catalog.Presentation;
 using Catalog.Presentation.Common.Middleware;
 using Hangfire;
-using EventBus.Infrastructure;
+using MassTransit;
 using MongoDB.Driver;
 
 
@@ -13,10 +13,9 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresentationServices(builder.Configuration);
-builder.Services.AddRabbitMqBus();
 
 WebApplication app = builder.Build();
 
