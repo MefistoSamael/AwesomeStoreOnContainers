@@ -17,7 +17,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{6E81C4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "Contracts\Contracts.csproj", "{DD47ADDE-977C-47ED-8044-00A9B0C0B2BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEmp", "..\TEmp\TEmp.csproj", "{7072B4C2-C02E-42F4-B9D5-BC5B58F36D7D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4228EC1A-B568-46E6-9E37-16EF5B52E5FA}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{25C27006-F489-4AAB-806D-A07954E81EDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +47,10 @@ Global
 		{DD47ADDE-977C-47ED-8044-00A9B0C0B2BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD47ADDE-977C-47ED-8044-00A9B0C0B2BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD47ADDE-977C-47ED-8044-00A9B0C0B2BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7072B4C2-C02E-42F4-B9D5-BC5B58F36D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7072B4C2-C02E-42F4-B9D5-BC5B58F36D7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7072B4C2-C02E-42F4-B9D5-BC5B58F36D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7072B4C2-C02E-42F4-B9D5-BC5B58F36D7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25C27006-F489-4AAB-806D-A07954E81EDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25C27006-F489-4AAB-806D-A07954E81EDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25C27006-F489-4AAB-806D-A07954E81EDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25C27006-F489-4AAB-806D-A07954E81EDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

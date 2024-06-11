@@ -10,13 +10,15 @@ public class UpdateProductInteractor : IRequestHandler<UpdateProductUseCase, str
 {
     private readonly IProductRepostitory _productRepostitory;
     private readonly IMapper _mapper;
-    private readonly IPublishEndpoint _publishEndpoint;
+    //private readonly IPublishEndpoint _publishEndpoint;
 
-    public UpdateProductInteractor(IProductRepostitory productRepostitory, IMapper mapper, IPublishEndpoint endpoint)
+    public UpdateProductInteractor(IProductRepostitory productRepostitory,
+        //IPublishEndpoint endpoint,
+        IMapper mapper)
     {
         _productRepostitory = productRepostitory;
         _mapper = mapper;
-        _publishEndpoint = endpoint;
+        //_publishEndpoint = endpoint;
     }
 
     public async Task<string> Handle(UpdateProductUseCase request, CancellationToken cancellationToken)
@@ -35,7 +37,7 @@ public class UpdateProductInteractor : IRequestHandler<UpdateProductUseCase, str
 
         await _productRepostitory.UpdateProductAsync(product, cancellationToken);
 
-        await _publishEndpoint.Publish(priceChangedEvent);
+        //await _publishEndpoint.Publish(priceChangedEvent);
 
         return product.Id;
     }
