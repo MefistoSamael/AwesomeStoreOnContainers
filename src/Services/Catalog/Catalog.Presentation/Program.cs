@@ -5,9 +5,6 @@ using Catalog.Infrastructure.Data.Seeders;
 using Catalog.Presentation;
 using Catalog.Presentation.Common.Middleware;
 using Hangfire;
-using Hangfire.Dashboard;
-using MassTransit;
-using Microsoft.AspNetCore.Mvc.Filters;
 using MongoDB.Driver;
 
 
@@ -15,7 +12,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddApplicationServices();
+builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresentationServices(builder.Configuration);
 

@@ -11,17 +11,17 @@ public class UpdateStockCountJob : IUpdateStockCountJob
 {
     private readonly IProductRepostitory _productRepostitory;
     private readonly StockCountUpdationOptions _options;
-    //private readonly IPublishEndpoint _publishEndpoint;
+    private readonly IPublishEndpoint _publishEndpoint;
     private readonly IMapper _mapper;
 
     public UpdateStockCountJob(IOptions<StockCountUpdationOptions> options,
         IProductRepostitory productRepostitory,
-        //IPublishEndpoint publishEndpoint,
+        IPublishEndpoint publishEndpoint,
         IMapper mapper)
     {
         _options = options.Value;
         _productRepostitory = productRepostitory;
-        //_publishEndpoint = publishEndpoint;
+        _publishEndpoint = publishEndpoint;
         _mapper = mapper;
     }
 
@@ -36,7 +36,7 @@ public class UpdateStockCountJob : IUpdateStockCountJob
 
             await _productRepostitory.AddStockCount(product, _options.RestockAmount);
 
-            //await _publishEndpoint.Publish(stockCountChanged);
+            await _publishEndpoint.Publish(stockCountChanged);
         }
     }
 }
