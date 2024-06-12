@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  catalog.presentation:
+    container_name: "Catalog.Presentation"
+    image: ${DOCKER_REGISTRY-}catalogpresentation
+    build:
+      context: .
+      dockerfile: Services/Catalog/Catalog.Presentation/Dockerfile
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+
+  catalog.database:
+    container_name: "Catalog.Database"
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./.containers/catalog-db:/var/lib/mongodb/data
+
+  catalog.mq:
+    image: rabbitmq:management
+    container_name: Catalog.RabbitMq
+    volumes:
+        - ./.containers/queue/data/:/var/lib/rabbitmq
+        - ./.containers/queue/log/:/var/log/rabbitmq
+    environment:
+        RABBITMQ_DEFAULT_USER: guest
+        RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"
