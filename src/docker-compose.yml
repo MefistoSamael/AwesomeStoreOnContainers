@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+
+  identity.presentation:
+    container_name: "Identity.Presentation"
+    image: ${DOCKER_REGISTRY-}identitypresentation
+    build:
+      context: .
+      dockerfile: Services/Identity/Identity.Presentation/Dockerfile
+    ports:
+        - "7000:7000"
+        - "7001:7001"
+
+  identity.db:
+    container_name: "Identity.Db"
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    user: root
+    volumes:
+      - ./containers/data:/var/opt/mssql/data
+    environment:
+        ACCEPT_EULA: "Y"
+        MSSQL_SA_PASSWORD: StrongPassword123
+    ports:
+        - "1433:1433"

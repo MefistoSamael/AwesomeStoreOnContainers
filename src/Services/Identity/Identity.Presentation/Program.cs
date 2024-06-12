@@ -1,8 +1,10 @@
 using Identity.Application;
 using Identity.Infrastracture;
+using Identity.Infrastracture.Data;
 using Identity.Presentation;
 using Identity.Presentation.Middleware;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,4 +41,11 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetService<ApplicationDbContext>().Database.Migrate();
+}
+
 app.Run();
+
+
