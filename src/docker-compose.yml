@@ -31,12 +31,3 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
-
-  temp:
-    container_name: "Temp"
-    image: ${DOCKER_REGISTRY-}temp
-    build:
-      context: .
-      dockerfile: Services/Catalog/Temp/Dockerfile
-    ports:
-      - "5002:5002"
