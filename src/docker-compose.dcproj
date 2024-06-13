@@ -7,7 +7,7 @@
     <ProjectGuid>3d2fa86e-4a6f-414c-9dac-7c78c5ffc3fd</ProjectGuid>
 	<DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
 	<DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-	<DockerServiceName>catalog.presentation</DockerServiceName>
+	<DockerServiceName>Identity.Presentation</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

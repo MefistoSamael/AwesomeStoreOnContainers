@@ -17,7 +17,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     user: root
     volumes:
-      - ./containers/data:/var/opt/mssql/data
+      - ./.containers/data:/var/opt/mssql/data
     environment:
         ACCEPT_EULA: "Y"
         MSSQL_SA_PASSWORD: StrongPassword123
