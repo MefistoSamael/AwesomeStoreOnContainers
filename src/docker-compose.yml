@@ -1,0 +1,20 @@
+version: '3.4'
+
+services:
+  ordering.presentation:
+    image: ${DOCKER_REGISTRY-}orderingpresentation
+    build:
+      context: .
+      dockerfile: Ordering.Presentation/Dockerfile
+
+  ordering.db:
+    container_name: "Ordering.Database"
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    user: root
+    volumes:
+      - ./.containers/data:/var/opt/mssql/data
+    environment:
+        ACCEPT_EULA: "Y"
+        MSSQL_SA_PASSWORD: StrongPassword123
+    ports:
+        - "1434:1433"
