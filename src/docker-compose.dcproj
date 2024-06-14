@@ -4,9 +4,11 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
+    <ProjectGuid>3d2fa86e-4a6f-414c-9dac-7c78c5ffc3fd</ProjectGuid>
     <ProjectGuid>29d22f7e-62a3-41b4-9947-fa3d34d339f8</ProjectGuid>
-    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+	<DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+	<DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+	<DockerServiceName>Identity.Presentation</DockerServiceName>
     <DockerServiceName>ordering.presentation</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
