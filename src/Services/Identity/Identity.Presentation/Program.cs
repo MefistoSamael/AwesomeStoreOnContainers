@@ -9,12 +9,9 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresentationServices();
-
-
 
 builder.Services.AddControllers(options =>
 {
@@ -43,9 +40,7 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
-    scope.ServiceProvider.GetService<ApplicationDbContext>().Database.Migrate();
+    scope.ServiceProvider.GetService<ApplicationDbContext>()!.Database.Migrate();
 }
 
 app.Run();
-
-

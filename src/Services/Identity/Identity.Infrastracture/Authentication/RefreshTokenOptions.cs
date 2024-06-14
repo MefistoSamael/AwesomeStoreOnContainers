@@ -2,5 +2,5 @@
 
 public class RefreshTokenOptions
 {
-    public required int RefreshTokenLifeTime { get; set; }
+    required public int RefreshTokenLifeTime { get; set; }
 }

@@ -2,11 +2,11 @@
 
 public class Product
 {
-    public required string Id { get; set; }
+    required public string Id { get; set; }
 
-    public required string Name { get; set; }
+    required public string Name { get; set; }
 
-    public required string ImageUri { get; set; }
+    required public string ImageUri { get; set; }
 
-    public required int Price { get; set; }
+    required public int Price { get; set; }
 }

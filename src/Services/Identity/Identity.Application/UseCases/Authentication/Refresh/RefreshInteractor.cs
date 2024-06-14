@@ -1,8 +1,9 @@
-﻿using Identity.Application.Common.Exceptions;
+﻿using System.Security.Claims;
+using Identity.Application.Common.Exceptions;
 using Identity.Application.Common.Models;
+using Identity.Application.Providers;
 using Identity.Domain.Abstractions.Interfaces;
 using MediatR;
-using System.Security.Claims;
 
 namespace Identity.Application.UseCases.Authentication.Refresh;
 
@@ -37,7 +38,7 @@ public class RefreshInteractor : IRequestHandler<RefreshUseCase, TokensResponse>
             throw new UnauthorizedException();
         }
 
-        var JwtToken = await _jwtProvider.GenerateJwt(user);
+        var jwtToken = await _jwtProvider.GenerateJwt(user);
 
         var refreshTokenResult = _refreshTokenProvider.Genereate();
 
@@ -48,7 +49,7 @@ public class RefreshInteractor : IRequestHandler<RefreshUseCase, TokensResponse>
 
         return new TokensResponse
         {
-            JwtToken = JwtToken.Token,
+            JwtToken = jwtToken.Token,
             RefreshToken = refreshTokenResult.Token,
         };
     }

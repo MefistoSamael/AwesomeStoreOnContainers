@@ -1,8 +1,8 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+using AutoMapper;
 using MediatR;
 using Ordering.Domain.Abstractions;
 using Ordering.Domain.Entities;
-using System.Linq.Expressions;
 
 namespace Ordering.Application.Orders.Commands.CreateOrderCommand;
 
@@ -19,7 +19,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, str
 
     public async Task<string> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        Expression<Func<Order, bool>> userHasOrder = order => 
+        Expression<Func<Order, bool>> userHasOrder = order =>
                                         order.BuyerId == request.BuyerId &&
                                         order.State == OrderState.Configuring;
 

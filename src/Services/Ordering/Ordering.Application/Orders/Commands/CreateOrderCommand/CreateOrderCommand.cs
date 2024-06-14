@@ -4,7 +4,7 @@ namespace Ordering.Application.Orders.Commands.CreateOrderCommand;
 
 public class CreateOrderCommand : IRequest<string>
 {
-    public required string BuyerId { get; set; }
-    
-    public required string Description { get; set; }
+    required public string BuyerId { get; set; }
+
+    required public string Description { get; set; }
 }

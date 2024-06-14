@@ -5,5 +5,5 @@ namespace Ordering.Application.OrderItems.Queries.GetOrderItemsFromOrderQuery;
 
 public class GetOrderItemsFromOrderQuery : IRequest<IEnumerable<OrderItemDTO>>
 {
-    public required string OrderId { get; set; }
+    required public string OrderId { get; set; }
 }

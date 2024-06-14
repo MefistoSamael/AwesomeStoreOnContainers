@@ -5,8 +5,7 @@ namespace Identity.Application.UseCases.Authentication.LogIn;
 
 public class LogInUseCase : IRequest<TokensResponse>
 {
+    required public string Password { get; set; }
 
-    public string Password { get; set; }
-
-    public string Email { get; set; }
+    required public string Email { get; set; }
 }

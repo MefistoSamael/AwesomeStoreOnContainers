@@ -5,7 +5,7 @@ namespace Identity.Presentation.OptionsSetup;
 
 public class RefreshTokenOptionsSetup : IConfigureOptions<RefreshTokenOptions>
 {
-    private const string sectionName = "RefreshToken";
+    private const string SectionName = "RefreshToken";
     private readonly IConfiguration _configuration;
 
     public RefreshTokenOptionsSetup(IConfiguration configuration)
@@ -15,6 +15,6 @@ public class RefreshTokenOptionsSetup : IConfigureOptions<RefreshTokenOptions>
 
     public void Configure(RefreshTokenOptions options)
     {
-        _configuration.GetSection(sectionName).Bind(options);
+        _configuration.GetSection(SectionName).Bind(options);
     }
 }

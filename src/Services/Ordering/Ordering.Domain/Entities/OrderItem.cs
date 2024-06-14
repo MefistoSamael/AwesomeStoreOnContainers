@@ -2,17 +2,17 @@
 
 public class OrderItem
 {
-    public required string Id { get; set; }
+    required public string Id { get; set; }
 
-    public required string ProductName { get; set; }
+    required public string ProductName { get; set; }
 
-    public required string ImageUri { get; set; }
-    
-    public required int Price { get; set; }
+    required public string ImageUri { get; set; }
 
-    public required int Quantity { get; set; }
+    required public int Price { get; set; }
 
-    public required string ProductId { get; set; }
+    required public int Quantity { get; set; }
 
-    public required string OrderId { get; set; }
+    required public string ProductId { get; set; }
+
+    required public string OrderId { get; set; }
 }

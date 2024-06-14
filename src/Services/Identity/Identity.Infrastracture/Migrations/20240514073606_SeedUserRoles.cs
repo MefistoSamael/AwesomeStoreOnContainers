@@ -4,7 +4,9 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
+#pragma warning disable IDE0161 // Convert to file-scoped namespace
 namespace Identity.Infrastracture.Migrations
+#pragma warning restore IDE0161 // Convert to file-scoped namespace
 {
     /// <inheritdoc />
     public partial class SeedUserRoles : Migration
@@ -12,6 +14,7 @@ namespace Identity.Infrastracture.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+#pragma warning disable SA1118 // Parameter should not span multiple lines
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
@@ -19,8 +22,9 @@ namespace Identity.Infrastracture.Migrations
                 {
                     { "c7b013f0-5201-4317-abd8-c211f91b7330", "0078F440-C7A4-4445-94C0-350F23700AA0" },
                     { "C262F33A-0F33-4B7B-9DB7-7581AEA78EAB", "40F21EAF-2807-4EF3-8506-84FAF53A2190" },
-                    { "fab4fac1-c546-41de-aebc-a14da6895711", "b74ddd14-6340-4840-95c2-db12554843e5" }
+                    { "fab4fac1-c546-41de-aebc-a14da6895711", "b74ddd14-6340-4840-95c2-db12554843e5" },
                 });
+#pragma warning restore SA1118 // Parameter should not span multiple lines
 
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",

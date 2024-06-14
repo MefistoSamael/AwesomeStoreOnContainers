@@ -2,7 +2,6 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Orders.Commands.CreateOrderCommand;
-using Ordering.Domain.Abstractions;
 
 namespace Ordering.Presentation.Controllers;
 
@@ -27,4 +26,3 @@ public class OrdersController : ControllerBase
         return Ok(result);
     }
 }
-

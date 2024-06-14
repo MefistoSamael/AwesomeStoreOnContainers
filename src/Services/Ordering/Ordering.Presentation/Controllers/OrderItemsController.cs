@@ -7,4 +7,3 @@ namespace Ordering.Presentation.Controllers;
 public class OrderItemsController : ControllerBase
 {
 }
-

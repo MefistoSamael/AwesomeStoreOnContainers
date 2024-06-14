@@ -4,7 +4,6 @@ namespace Identity.Application.UseCases.Authentication.Register;
 
 public class RegisterUseCaseValidator : AbstractValidator<RegisterUseCase>
 {
-
     public RegisterUseCaseValidator()
     {
         RuleFor(registerUseCase => registerUseCase.Email).NotEmpty().WithMessage("Your email cannot be empty")

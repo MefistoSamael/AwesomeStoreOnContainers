@@ -10,9 +10,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresentationServices();
 
-
 WebApplication app = builder.Build();
-
 
 if (app.Environment.IsDevelopment())
 {
@@ -30,7 +28,7 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
-    scope.ServiceProvider.GetService<ApplicationDbContext>().Database.Migrate();
+    scope.ServiceProvider.GetService<ApplicationDbContext>() !.Database.Migrate();
 }
 
 app.Run();

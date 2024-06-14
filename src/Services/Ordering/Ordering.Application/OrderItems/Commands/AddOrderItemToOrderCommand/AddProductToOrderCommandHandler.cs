@@ -23,7 +23,8 @@ public class AddProductToOrderCommandHandler : IRequestHandler<AddProductToOrder
 
     public async Task Handle(AddProductToOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.SingleOrDefaultAsync(order => order.Id == request.OrderId,
+        var order = await _orderRepository.SingleOrDefaultAsync(
+            order => order.Id == request.OrderId,
             cancellationToken) ?? throw new NonExistentOrderException();
 
         if (order.OrderItems.SingleOrDefault(item => item.ProductId == request.ProductId) is not null)
@@ -39,7 +40,8 @@ public class AddProductToOrderCommandHandler : IRequestHandler<AddProductToOrder
         }
 
         var orderItem = _mapper.Map<OrderItem>(product);
-        // TODO: 
+
+        // TODO:
         // создание orderItem в репозитории?
         order.OrderItems.Add(orderItem);
 

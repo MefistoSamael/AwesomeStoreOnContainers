@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ordering.Domain.Entities;
 
 namespace Ordering.Infrastructure.Data.EntityConfiguration;
@@ -20,7 +20,7 @@ public class OrderEntityTypeConfigurator : IEntityTypeConfiguration<Order>
 
         orderConfiguration.HasMany(order => order.OrderItems)
             .WithOne()
-            .HasForeignKey("OrderId")  
+            .HasForeignKey("OrderId")
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

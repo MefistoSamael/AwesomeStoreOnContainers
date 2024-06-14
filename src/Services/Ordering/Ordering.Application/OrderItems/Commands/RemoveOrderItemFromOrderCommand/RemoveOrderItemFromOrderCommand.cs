@@ -4,5 +4,5 @@ namespace Ordering.Application.OrderItems.Commands.RemoveOrderItemFromOrderComma
 
 public class RemoveOrderItemFromOrderCommand : IRequest
 {
-    public required string OrderItemId { get; set; }
+    required public string OrderItemId { get; set; }
 }

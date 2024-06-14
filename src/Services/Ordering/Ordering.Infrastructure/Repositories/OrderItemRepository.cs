@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using Ordering.Domain.Abstractions;
 using Ordering.Domain.Entities;
-using System.Linq.Expressions;
 
 namespace Ordering.Infrastructure.Repositories;
 

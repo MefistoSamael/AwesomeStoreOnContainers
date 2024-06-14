@@ -1,4 +1,4 @@
-﻿using Identity.Domain.Models;
+﻿using Identity.Domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,14 +33,14 @@ public static class UsersSeeder
             NormalizedEmail = "employee@gmail.com".ToUpper(),
             LockoutEnabled = false,
             UserName = "employee@gmail.com",
-            NormalizedUserName = "employee@gmail.com".ToUpper()
+            NormalizedUserName = "employee@gmail.com".ToUpper(),
         };
 
-        PasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
+        var passwordHasher = new PasswordHasher<ApplicationUser>();
 
-        admin.PasswordHash = _passwordHasher.HashPassword(admin, "Admin123");
-        buyer.PasswordHash = _passwordHasher.HashPassword(buyer, "Buyer123");
-        employee.PasswordHash = _passwordHasher.HashPassword(employee, "Employee123");
+        admin.PasswordHash = passwordHasher.HashPassword(admin, "Admin123");
+        buyer.PasswordHash = passwordHasher.HashPassword(buyer, "Buyer123");
+        employee.PasswordHash = passwordHasher.HashPassword(employee, "Employee123");
 
         builder.Entity<ApplicationUser>().HasData(admin, buyer, employee);
     }

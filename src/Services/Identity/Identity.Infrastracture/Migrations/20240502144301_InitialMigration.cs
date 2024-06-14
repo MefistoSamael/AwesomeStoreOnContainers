@@ -19,7 +19,7 @@ public partial class InitialMigration : Migration
                 Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                 NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true),
             },
             constraints: table =>
             {
@@ -44,7 +44,7 @@ public partial class InitialMigration : Migration
                 TwoFactorEnabled = table.Column<bool>(type: "bit", nullable: false),
                 LockoutEnd = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                 LockoutEnabled = table.Column<bool>(type: "bit", nullable: false),
-                AccessFailedCount = table.Column<int>(type: "int", nullable: false)
+                AccessFailedCount = table.Column<int>(type: "int", nullable: false),
             },
             constraints: table =>
             {
@@ -59,7 +59,7 @@ public partial class InitialMigration : Migration
                     .Annotation("SqlServer:Identity", "1, 1"),
                 RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
             },
             constraints: table =>
             {
@@ -80,7 +80,7 @@ public partial class InitialMigration : Migration
                     .Annotation("SqlServer:Identity", "1, 1"),
                 UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true),
             },
             constraints: table =>
             {
@@ -100,7 +100,7 @@ public partial class InitialMigration : Migration
                 LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
             },
             constraints: table =>
             {
@@ -118,7 +118,7 @@ public partial class InitialMigration : Migration
             columns: table => new
             {
                 UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                RoleId = table.Column<string>(type: "nvarchar(450)", nullable: false),
             },
             constraints: table =>
             {
@@ -144,7 +144,7 @@ public partial class InitialMigration : Migration
                 UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
                 Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                Value = table.Column<string>(type: "nvarchar(max)", nullable: true),
             },
             constraints: table =>
             {
@@ -157,14 +157,16 @@ public partial class InitialMigration : Migration
                     onDelete: ReferentialAction.Cascade);
             });
 
+#pragma warning disable SA1118 // Parameter should not span multiple lines
         migrationBuilder.InsertData(
             table: "AspNetRoles",
             columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
             values: new object[,]
             {
                 { "c7b013f0-5201-4317-abd8-c211f91b7330", "2", "Buyer", "Buyer" },
-                { "fab4fac1-c546-41de-aebc-a14da6895711", "1", "Admin", "Admin" }
+                { "fab4fac1-c546-41de-aebc-a14da6895711", "1", "Admin", "Admin" },
             });
+#pragma warning restore SA1118 // Parameter should not span multiple lines
 
         migrationBuilder.InsertData(
             table: "AspNetUsers",

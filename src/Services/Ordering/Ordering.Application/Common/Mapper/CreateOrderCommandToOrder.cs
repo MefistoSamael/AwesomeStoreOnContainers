@@ -9,13 +9,17 @@ public class CreateOrderCommandToOrder : Profile
     public CreateOrderCommandToOrder()
     {
         CreateMap<CreateOrderCommand, Order>()
-            .ForMember(order => order.BuyerId,
+            .ForMember(
+                order => order.BuyerId,
                 opt => opt.MapFrom(createOrderCommand => createOrderCommand.BuyerId))
-            .ForMember(order => order.Description,
+            .ForMember(
+                order => order.Description,
                 opt => opt.MapFrom(createOrderCommand => createOrderCommand.Description))
-            .ForMember(order => order.State,
+            .ForMember(
+                order => order.State,
                 opt => opt.MapFrom(_ => OrderState.Configuring))
-            .ForMember(order => order.OrderItems,
+            .ForMember(
+                order => order.OrderItems,
                 opt => opt.MapFrom(_ => new List<OrderItem>()));
     }
 }

@@ -1,4 +1,4 @@
-﻿using Identity.Domain.Models;
+﻿using Identity.Domain.Entities;
 
 namespace Identity.Domain.Abstractions.Interfaces;
 

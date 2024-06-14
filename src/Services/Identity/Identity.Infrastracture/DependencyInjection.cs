@@ -1,6 +1,6 @@
-﻿using Identity.Domain.Abstractions.Interfaces;
+﻿using Identity.Application.Providers;
+using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Entities;
-using Identity.Domain.Models;
 using Identity.Infrastracture.Authentication;
 using Identity.Infrastracture.Data;
 using Identity.Infrastracture.Implementations;

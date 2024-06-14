@@ -1,16 +1,14 @@
-﻿using Ordering.Domain.Entities;
-
-namespace Ordering.Application.Common.Models;
+﻿namespace Ordering.Application.Common.Models;
 
 public class OrderDTO
 {
-    public required string Id { get; set; }
+    required public string Id { get; set; }
 
-    public required string BuyerId { get; set; }
+    required public string BuyerId { get; set; }
 
-    public required string Description { get; set; }
+    required public string Description { get; set; }
 
-    public required List<OrderItemDTO>? OrderItems { get; set; }
+    required public List<OrderItemDTO>? OrderItems { get; set; }
 
-    public required string State { get; set; }
+    required public string State { get; set; }
 }

@@ -20,7 +20,7 @@ public static class DependencyInjection
         services.AddScoped<IOrderRepository, OrderRepository>();
         services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
-        services.AddScoped<IProductService, gRPCProductService>();
+        services.AddScoped<IProductService, GRPCProductService>();
         services.AddScoped<IUserService, gRPCUserService>();
 
         return services;

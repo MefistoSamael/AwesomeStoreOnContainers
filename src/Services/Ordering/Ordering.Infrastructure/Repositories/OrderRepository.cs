@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using Ordering.Domain.Abstractions;
 using Ordering.Domain.Entities;
-using System.Collections.Generic;
-using System.Linq.Expressions;
 
 namespace Ordering.Infrastructure.Repositories;
 
@@ -84,7 +83,7 @@ public sealed class OrderRepository : IOrderRepository
 
         return order;
     }
-    
+
     public async Task<Order?> SingleOrDefaultAsync(Expression<Func<Order, bool>> filters, CancellationToken cancellationToken)
     {
         var order = await _orders.AsNoTracking()

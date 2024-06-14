@@ -3,7 +3,7 @@ using Ordering.Domain.Entities;
 
 namespace Ordering.Infrastructure.Services;
 
-public class gRPCProductService : IProductService
+public class GRPCProductService : IProductService
 {
     public Task<Product?> GetProductByIdAsync(string productId)
     {

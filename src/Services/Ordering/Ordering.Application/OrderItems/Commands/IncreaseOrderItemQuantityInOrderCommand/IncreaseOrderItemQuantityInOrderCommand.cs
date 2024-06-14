@@ -2,7 +2,7 @@
 
 public class IncreaseOrderItemQuantityInOrderCommand
 {
-    public required string OrderItemId { get; set; }
+    required public string OrderItemId { get; set; }
 
-    public required int Quantity { get; set; }
+    required public int Quantity { get; set; }
 }

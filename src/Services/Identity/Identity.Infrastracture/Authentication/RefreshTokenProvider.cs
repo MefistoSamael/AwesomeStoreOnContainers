@@ -1,7 +1,7 @@
-﻿using Identity.Application.Common.Models;
+﻿using System.Security.Cryptography;
+using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using Microsoft.Extensions.Options;
-using System.Security.Cryptography;
 
 namespace Identity.Infrastracture.Authentication;
 
@@ -25,7 +25,7 @@ public class RefreshTokenProvider : IRefreshTokenProvider
         return new TokenResult
         {
             Expiry = DateTime.UtcNow.AddMinutes(_options.RefreshTokenLifeTime),
-            Token = Convert.ToBase64String(randomNumber)
+            Token = Convert.ToBase64String(randomNumber),
         };
     }
 }

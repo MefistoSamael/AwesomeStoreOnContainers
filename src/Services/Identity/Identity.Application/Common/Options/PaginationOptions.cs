@@ -2,7 +2,7 @@
 
 public class PaginationOptions
 {
-    public required int MaxPageNumber { get; set; }
+    required public int MaxPageNumber { get; set; }
 
-    public required int MaxPageSize { get; set; }
+    required public int MaxPageSize { get; set; }
 }

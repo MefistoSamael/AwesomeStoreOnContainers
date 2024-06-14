@@ -4,7 +4,7 @@ namespace Ordering.Application.OrderItems.Commands.DecreaseOrderItemQuantityInOr
 
 public class DecreaseOrderItemQuantityInOrderCommand : IRequest
 {
-    public required string OrderItemId { get; set; }
+    required public string OrderItemId { get; set; }
 
-    public required int NewQuantity { get; set; }
+    required public int NewQuantity { get; set; }
 }

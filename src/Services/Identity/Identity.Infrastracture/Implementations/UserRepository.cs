@@ -1,5 +1,5 @@
 ﻿using Identity.Domain.Abstractions.Interfaces;
-using Identity.Domain.Models;
+using Identity.Domain.Entities;
 using Identity.Infrastracture.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +31,7 @@ public class UserRepository : IUserRepository
     {
         var user = await _userManager.FindByIdAsync(userId);
 
-        await _userManager.DeleteAsync(user);
+        await _userManager.DeleteAsync(user!);
     }
 
     public async Task<ApplicationUser?> GetUserByEmailAsync(string email)
@@ -48,7 +48,7 @@ public class UserRepository : IUserRepository
     {
         var user = await _userManager.FindByIdAsync(userId);
 
-        return (await _userManager.GetRolesAsync(user)).Single();
+        return (await _userManager.GetRolesAsync(user!)).Single();
     }
 
     public async Task<ApplicationUser?> GetUserByIdAsync(string id)

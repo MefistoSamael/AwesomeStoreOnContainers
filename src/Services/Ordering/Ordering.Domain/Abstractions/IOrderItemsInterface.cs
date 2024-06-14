@@ -1,10 +1,5 @@
-﻿using Ordering.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq.Expressions;
+using Ordering.Domain.Entities;
 
 namespace Ordering.Domain.Abstractions;
 public interface IOrderItemRepository
@@ -14,7 +9,6 @@ public interface IOrderItemRepository
     Task<string> UpdateOrderItemAsync(OrderItem orderItem, CancellationToken cancellationToken);
 
     Task DeleteOrderItemAsync(OrderItem orderItem, CancellationToken cancellationToken);
-
 
     Task<OrderItem?> FirstOrDefaultAsync(Expression<Func<OrderItem, bool>> filters, CancellationToken cancellationToken);
 

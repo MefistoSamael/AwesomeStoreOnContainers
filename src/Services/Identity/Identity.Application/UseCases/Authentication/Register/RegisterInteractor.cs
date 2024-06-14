@@ -1,7 +1,6 @@
 ﻿using Identity.Application.Common.Exceptions;
 using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Entities;
-using Identity.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -24,7 +23,6 @@ public class RegisterInteractor : IRequestHandler<RegisterUseCase, string>
         {
             throw new ExistingUserException("User with such email already exists");
         }
-
 
         user = new ApplicationUser(request.Email, request.Password);
         user.PasswordHash = _passwordHasher.HashPassword(user, request.Password);
