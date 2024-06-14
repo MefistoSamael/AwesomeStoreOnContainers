@@ -24,6 +24,7 @@ services:
     ports:
         - "1433:1433"
 
+
   ordering.presentation:
     image: ${DOCKER_REGISTRY-}orderingpresentation
     build:
