@@ -24,6 +24,7 @@ public class GetUserByIdInteractor : IRequestHandler<GetUserByIdUseCase, UserDTO
         {
             var user = _mapper.Map<UserDTO>(applicationUser);
             user.RoleName = await _userRepository.GetUserRoleAsync(request.UserId);
+
             return user;
         }
         else

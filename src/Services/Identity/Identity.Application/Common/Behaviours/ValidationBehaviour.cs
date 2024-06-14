@@ -1,5 +1,4 @@
-﻿
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using ValidationException = Identity.Application.Common.Exceptions.ValidationException;
 
@@ -26,15 +25,16 @@ public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TReque
                     validator.ValidateAsync(context, cancellationToken)));
 
             var failures = validationResults
-                .Where(validationResult => validationResult.Errors.Any())
+                .Where(validationResult => validationResult.Errors.Count != 0)
                 .SelectMany(validationResult => validationResult.Errors)
                 .ToList();
 
-            if (failures.Any())
+            if (failures.Count != 0)
             {
                 throw new ValidationException(failures);
             }
         }
+
         return await next();
     }
 }
