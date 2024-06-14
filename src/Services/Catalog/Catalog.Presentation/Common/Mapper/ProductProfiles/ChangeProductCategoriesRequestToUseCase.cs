@@ -9,8 +9,8 @@ public class ChangeProductCategoriesRequestToUseCase : Profile
     public ChangeProductCategoriesRequestToUseCase()
     {
         CreateMap<ChangeProductCategoriesRequest, ChangeProductCategoriesUseCase>()
-            .ForMember(changeProductCategoriesRequest => changeProductCategoriesRequest.Categories, 
+            .ForMember(
+                changeProductCategoriesRequest => changeProductCategoriesRequest.Categories,
                 opt => opt.MapFrom(changeProductCategoriesUseCase => changeProductCategoriesUseCase.Categories));
     }
 }
-

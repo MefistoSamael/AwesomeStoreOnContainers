@@ -18,13 +18,8 @@ public class GetCategoryByIdInteractor : IRequestHandler<GetCategoryByIdUseCase,
 
     public async Task<CategoryDTO> Handle(GetCategoryByIdUseCase request, CancellationToken cancellationToken)
     {
-        var category = await _categoryRepository.GetCategoryByIdAsync(request.CategoryId, cancellationToken);
+        Domain.Entities.Category? category = await _categoryRepository.GetCategoryByIdAsync(request.CategoryId, cancellationToken);
 
-        if (category is null)
-        {
-            throw new KeyNotFoundException("category with such id wasn't found");
-        }
-
-        return _mapper.Map<CategoryDTO>(category);
+        return category is null ? throw new KeyNotFoundException("category with such id wasn't found") : _mapper.Map<CategoryDTO>(category);
     }
 }

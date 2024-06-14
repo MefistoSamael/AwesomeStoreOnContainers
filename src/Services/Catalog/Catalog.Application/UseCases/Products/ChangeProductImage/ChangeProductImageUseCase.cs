@@ -5,7 +5,7 @@ namespace Catalog.Application.UseCases.Products.ChangeProductImage;
 
 public class ChangeProductImageUseCase : IRequest<string>
 {
-    public required string ProductId { get; set; }
-    
-    public required IFormFile Image { get; set; }
+    required public string ProductId { get; set; }
+
+    required public IFormFile Image { get; set; }
 }

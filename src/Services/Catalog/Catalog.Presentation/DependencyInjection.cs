@@ -1,9 +1,9 @@
-﻿using Catalog.Application.Common.Jobs;
+﻿using System.Reflection;
+using Catalog.Application.Common.Jobs;
 using Catalog.Presentation.Common.OptionsSetup;
 using Catalog.Presentation.Common.Swagger;
 using Hangfire;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using System.Reflection;
 
 namespace Catalog.Presentation;
 
@@ -44,14 +44,14 @@ public static class DependencyInjection
 
     public static IServiceCollection ConfigureHangfire(this IServiceCollection services, IConfiguration configuration)
     {
-        var restoskPeriod = Convert.ToInt32(configuration["StockCountUpdationOptions:RestockPeriod"]);
+        int restoskPeriod = Convert.ToInt32(configuration["StockCountUpdationOptions:RestockPeriod"]);
 
-        var client = services.BuildServiceProvider().GetService<IRecurringJobManager>();
-        client.AddOrUpdate<IUpdateStockCountJob>("StockCountUpdationJob",
-        job => job.Execute(),
-        "* * * * *");
+        IRecurringJobManager? client = services.BuildServiceProvider().GetService<IRecurringJobManager>();
+        client.AddOrUpdate<IUpdateStockCountJob>(
+            "StockCountUpdationJob",
+            job => job.Execute(),
+            "* * * * *");
 
         return services;
     }
 }
-

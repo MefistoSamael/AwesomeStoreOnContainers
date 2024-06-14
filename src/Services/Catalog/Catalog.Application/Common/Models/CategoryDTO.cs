@@ -2,6 +2,7 @@
 
 public class CategoryDTO
 {
-    public required string Id { get; set; }
-    public required string CatrgoryName { get; set; }
+    required public string Id { get; set; }
+
+    required public string CatrgoryName { get; set; }
 }

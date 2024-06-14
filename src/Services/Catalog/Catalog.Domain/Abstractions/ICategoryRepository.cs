@@ -10,7 +10,6 @@ public interface ICategoryRepository
 
     Task DeleteCategoryAsync(Category category, CancellationToken cancellationToken);
 
-    
     Task<Category?> GetCategoryByNameAsync(string categoryName, CancellationToken cancellationToken);
 
     Task<IEnumerable<Category>> GetPaginatedCategoriesAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
@@ -18,7 +17,6 @@ public interface ICategoryRepository
     Task<int> GetCategoriesCountAsync(CancellationToken cancellationToken);
 
     Task<Category?> GetCategoryByIdAsync(string id, CancellationToken cancellationToken);
-
 
     Task<bool> HasProductsAsync(Category category, CancellationToken cancellationToken);
 }

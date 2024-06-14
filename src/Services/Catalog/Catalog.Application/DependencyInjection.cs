@@ -1,10 +1,10 @@
-﻿using Catalog.Application.Common.Behaviours;
+﻿using System.Reflection;
+using Catalog.Application.Common.Behaviours;
 using FluentValidation;
 using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace Catalog.Application;
 

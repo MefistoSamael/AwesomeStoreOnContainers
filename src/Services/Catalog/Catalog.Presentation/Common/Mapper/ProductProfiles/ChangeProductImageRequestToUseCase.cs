@@ -9,8 +9,8 @@ public class ChangeProductImageRequestToUseCase : Profile
     public ChangeProductImageRequestToUseCase()
     {
         CreateMap<ChangeProductImageRequest, ChangeProductImageUseCase>()
-            .ForMember(changeProductImageUseCase => changeProductImageUseCase.Image,
+            .ForMember(
+                changeProductImageUseCase => changeProductImageUseCase.Image,
                 opt => opt.MapFrom(changeProductImageRequest => changeProductImageRequest.Image));
     }
 }
-

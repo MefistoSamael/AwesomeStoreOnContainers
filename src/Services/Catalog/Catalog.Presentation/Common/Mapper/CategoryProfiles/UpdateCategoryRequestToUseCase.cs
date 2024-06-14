@@ -9,8 +9,8 @@ public class UpdateCategoryRequestToUseCase : Profile
     public UpdateCategoryRequestToUseCase()
     {
         CreateMap<UpdateCategoryRequest, UpdateCategoryUseCase>()
-            .ForMember(createCategoryUseCase => createCategoryUseCase.CategoryName,
+            .ForMember(
+                createCategoryUseCase => createCategoryUseCase.CategoryName,
                 opt => opt.MapFrom(createCategoryRequest => createCategoryRequest.NewCategoryName));
     }
 }
-

@@ -18,4 +18,3 @@ public class ProductPaginationOptionsSetup : IConfigureOptions<ProductPagination
         options.PageSize = Convert.ToInt32(_configuration["CategoryPaginationOptions:MaxPageSize"]);
     }
 }
-

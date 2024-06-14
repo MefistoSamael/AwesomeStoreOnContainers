@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Catalog.Application.Common.Models;
 using Catalog.Application.UseCases.Categories.CreateCategory;
 using Catalog.Application.UseCases.Categories.DeleteCategory;
 using Catalog.Application.UseCases.Categories.GetCategoryById;
@@ -24,11 +25,13 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetPaginatedCategoriesAsync(CancellationToken cancellationToken,
-        [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 3)
+    public async Task<IActionResult> GetPaginatedCategoriesAsync(
+        CancellationToken cancellationToken,
+        [FromQuery] int pageNumber = 1,
+        [FromQuery] int pageSize = 3)
     {
-        var getPaginatedCategoriesUseCase = new GetPaginatedCategoriesUseCase { PageNumber = pageNumber, PageSize = pageSize };
-        var respone = await _mediator.Send(getPaginatedCategoriesUseCase, cancellationToken);
+        GetPaginatedCategoriesUseCase getPaginatedCategoriesUseCase = new () { PageNumber = pageNumber, PageSize = pageSize };
+        PaginatedResult<CategoryDTO> respone = await _mediator.Send(getPaginatedCategoriesUseCase, cancellationToken);
 
         return Ok(respone);
     }
@@ -37,8 +40,8 @@ public class CategoriesController : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> GetCategoryById(string id, CancellationToken cancellationToken)
     {
-        var getCategoryByIdUseCase = new GetCategoryByIdUseCase { CategoryId = id };
-        var respone = await _mediator.Send(getCategoryByIdUseCase, cancellationToken);
+        GetCategoryByIdUseCase getCategoryByIdUseCase = new () { CategoryId = id };
+        CategoryDTO respone = await _mediator.Send(getCategoryByIdUseCase, cancellationToken);
 
         return Ok(respone);
     }
@@ -46,9 +49,9 @@ public class CategoriesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateCategoryAsync([FromBody] CreateCategoryRequest request, CancellationToken cancellationToken)
     {
-        var useCase = _mapper.Map<CreateCategoryUseCase>(request);
+        CreateCategoryUseCase useCase = _mapper.Map<CreateCategoryUseCase>(request);
 
-        var result = await _mediator.Send(useCase, cancellationToken);
+        string result = await _mediator.Send(useCase, cancellationToken);
 
         return Ok(result);
     }
@@ -57,10 +60,10 @@ public class CategoriesController : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> UpdateCategoryAsync([FromRoute] string id, [FromBody] UpdateCategoryRequest request, CancellationToken cancellationToken)
     {
-        var useCase = _mapper.Map<UpdateCategoryUseCase>(request);
+        UpdateCategoryUseCase useCase = _mapper.Map<UpdateCategoryUseCase>(request);
         useCase.CategoryId = id;
 
-        var result = await _mediator.Send(useCase, cancellationToken);
+        string result = await _mediator.Send(useCase, cancellationToken);
 
         return Ok(result);
     }
@@ -69,10 +72,10 @@ public class CategoriesController : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> UpdateCategoryAsync([FromRoute] string id, CancellationToken cancellationToken)
     {
-        var useCase = new DeleteCategoryUseCase { CategoryId = id };
+        DeleteCategoryUseCase useCase = new () { CategoryId = id };
 
         await _mediator.Send(useCase, cancellationToken);
 
-        return Ok();
+        return NoContent();
     }
 }

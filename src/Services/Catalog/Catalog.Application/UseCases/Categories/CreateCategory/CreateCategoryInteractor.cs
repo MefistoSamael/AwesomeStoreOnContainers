@@ -19,7 +19,7 @@ public class CreateCategoryInteractor : IRequestHandler<CreateCategoryUseCase, s
 
     public async Task<string> Handle(CreateCategoryUseCase request, CancellationToken cancellationToken)
     {
-        var category = await _categoryRepository.GetCategoryByNameAsync(request.CategoryName, cancellationToken);
+        Category? category = await _categoryRepository.GetCategoryByNameAsync(request.CategoryName, cancellationToken);
 
         if (category is not null)
         {

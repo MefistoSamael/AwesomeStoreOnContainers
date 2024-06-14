@@ -1,5 +1,4 @@
-﻿
-using FluentValidation;
+﻿using FluentValidation;
 using MediatR;
 using ValidationException = Catalog.Application.Common.Exceptions.ValidationException;
 
@@ -19,13 +18,13 @@ public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TReque
     {
         if (_validators.Any())
         {
-            var context = new ValidationContext<TRequest>(request);
+            ValidationContext<TRequest> context = new (request);
 
-            var validationResults = await Task.WhenAll(
+            FluentValidation.Results.ValidationResult[] validationResults = await Task.WhenAll(
                 _validators.Select(validator =>
                     validator.ValidateAsync(context, cancellationToken)));
 
-            var failures = validationResults
+            List<FluentValidation.Results.ValidationFailure> failures = validationResults
                 .Where(validationResult => validationResult.Errors.Any())
                 .SelectMany(validationResult => validationResult.Errors)
                 .ToList();
@@ -35,6 +34,7 @@ public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TReque
                 throw new ValidationException(failures);
             }
         }
+
         return await next();
     }
 }

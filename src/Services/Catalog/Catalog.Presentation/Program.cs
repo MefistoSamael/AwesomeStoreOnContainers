@@ -7,11 +7,9 @@ using Catalog.Presentation.Common.Middleware;
 using Hangfire;
 using MongoDB.Driver;
 
-
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddPresentationServices(builder.Configuration);
@@ -25,7 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseHangfireDashboard(options: new DashboardOptions()
     {
-        Authorization = new[] { new DashboardNoAuthorizationFilter() }
+        Authorization = new[] { new DashboardNoAuthorizationFilter() },
     });
 }
 
@@ -39,13 +37,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
+using (IServiceScope scope = app.Services.CreateScope())
 {
-    var categories = scope.ServiceProvider.GetService<IMongoCollection<Category>>();
-    var products = scope.ServiceProvider.GetService<IMongoCollection<Product>>();
-    
+    IMongoCollection<Category>? categories = scope.ServiceProvider.GetService<IMongoCollection<Category>>();
+    IMongoCollection<Product>? products = scope.ServiceProvider.GetService<IMongoCollection<Product>>();
+
     CategoriesSeeder.SeedCategories(categories!);
 }
 
 app.Run();
-

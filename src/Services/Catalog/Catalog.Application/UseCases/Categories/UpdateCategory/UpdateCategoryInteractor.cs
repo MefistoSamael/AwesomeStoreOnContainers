@@ -17,7 +17,7 @@ public class UpdateCategoryInteractor : IRequestHandler<UpdateCategoryUseCase, s
 
     public async Task<string> Handle(UpdateCategoryUseCase request, CancellationToken cancellationToken)
     {
-        var category = await _categoryRepository.GetCategoryByIdAsync(request.CategoryId, cancellationToken);
+        Domain.Entities.Category? category = await _categoryRepository.GetCategoryByIdAsync(request.CategoryId, cancellationToken);
 
         if (category is null)
         {

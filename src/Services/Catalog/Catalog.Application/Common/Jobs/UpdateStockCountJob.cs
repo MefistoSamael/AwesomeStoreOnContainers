@@ -14,7 +14,8 @@ public class UpdateStockCountJob : IUpdateStockCountJob
     private readonly IPublishEndpoint _publishEndpoint;
     private readonly IMapper _mapper;
 
-    public UpdateStockCountJob(IOptions<StockCountUpdationOptions> options,
+    public UpdateStockCountJob(
+        IOptions<StockCountUpdationOptions> options,
         IProductRepostitory productRepostitory,
         IPublishEndpoint publishEndpoint,
         IMapper mapper)
@@ -27,11 +28,11 @@ public class UpdateStockCountJob : IUpdateStockCountJob
 
     public async Task Execute()
     {
-        var products = await _productRepostitory.GetAllProductsAsync(null);
+        IEnumerable<Domain.Entities.Product> products = await _productRepostitory.GetAllProductsAsync(null);
 
-        foreach (var product in products)
+        foreach (Domain.Entities.Product product in products)
         {
-            var stockCountChanged = _mapper.Map<StockCountChangedEvent>(product);
+            StockCountChangedEvent stockCountChanged = _mapper.Map<StockCountChangedEvent>(product);
             stockCountChanged.NewStockCount = product.StockCount + _options.RestockAmount;
 
             await _productRepostitory.AddStockCount(product, _options.RestockAmount);

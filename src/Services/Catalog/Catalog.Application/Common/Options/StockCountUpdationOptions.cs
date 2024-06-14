@@ -2,5 +2,5 @@
 
 public class StockCountUpdationOptions
 {
-    public required int RestockAmount { get; set; }
+    required public int RestockAmount { get; set; }
 }

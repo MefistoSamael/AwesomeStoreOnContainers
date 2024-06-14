@@ -2,7 +2,7 @@
 
 public class ProductPaginationOptions
 {
-    public required int PageNumber { get; set; }
+    required public int PageNumber { get; set; }
 
-    public required int PageSize { get; set; }
+    required public int PageSize { get; set; }
 }

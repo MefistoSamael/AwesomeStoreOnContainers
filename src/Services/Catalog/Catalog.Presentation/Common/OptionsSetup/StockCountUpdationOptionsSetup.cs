@@ -17,4 +17,3 @@ public class StockCountUpdationOptionsSetup : IConfigureOptions<StockCountUpdati
         options.RestockAmount = Convert.ToInt32(_configuration["StockCountUpdationOptions:RestockAmount"]);
     }
 }
-

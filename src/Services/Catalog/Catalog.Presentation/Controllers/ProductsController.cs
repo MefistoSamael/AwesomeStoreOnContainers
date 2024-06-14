@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using Catalog.Application.Common.Models;
 using Catalog.Application.UseCases.Products.ChangeProductCategories;
 using Catalog.Application.UseCases.Products.ChangeProductImage;
-using Catalog.Application.UseCases.Products.CreateProducts;
+using Catalog.Application.UseCases.Products.CreateProduct;
 using Catalog.Application.UseCases.Products.DeleteProduct;
 using Catalog.Application.UseCases.Products.GetPaginatedProducts;
 using Catalog.Application.UseCases.Products.GetProductById;
@@ -28,9 +29,9 @@ public class ProductsController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetPaginatedProductsAsync(CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 3)
     {
-        var useCase = new GetPaginatedProductsUseCase { PageNumber = pageNumber, PageSize = pageSize };
+        GetPaginatedProductsUseCase useCase = new () { PageNumber = pageNumber, PageSize = pageSize };
 
-        var response = await _mediator.Send(useCase, cancellationToken);
+        PaginatedResult<ProductDTO> response = await _mediator.Send(useCase, cancellationToken);
 
         return Ok(response);
     }
@@ -39,9 +40,9 @@ public class ProductsController : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> GetProductByIdAsync([FromRoute] string id, CancellationToken cancellationToken)
     {
-        var useCase = new GetProductByIdUseCase { ProductId = id };
+        GetProductByIdUseCase useCase = new () { ProductId = id };
 
-        var response = await _mediator.Send(useCase, cancellationToken);
+        ProductDTO response = await _mediator.Send(useCase, cancellationToken);
 
         return Ok(response);
     }
@@ -50,10 +51,10 @@ public class ProductsController : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> PatchProductAsync([FromRoute] string id, [FromBody] UpdateProductRequest request, CancellationToken cancellationToken)
     {
-        var useCase = _mapper.Map<UpdateProductUseCase>(request);
+        UpdateProductUseCase useCase = _mapper.Map<UpdateProductUseCase>(request);
         useCase.ProductId = id;
 
-        var response = await _mediator.Send(useCase, cancellationToken);
+        string response = await _mediator.Send(useCase, cancellationToken);
 
         return Ok(response);
     }
@@ -61,9 +62,9 @@ public class ProductsController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProductAsync([FromForm] CreateProductRequest request, CancellationToken cancellationToken)
     {
-        var useCase = _mapper.Map<CreateProductUseCase>(request);
+        CreateProductUseCase useCase = _mapper.Map<CreateProductUseCase>(request);
 
-        var response = await _mediator.Send(useCase, cancellationToken);
+        string response = await _mediator.Send(useCase, cancellationToken);
 
         return Ok(response);
     }
@@ -72,7 +73,7 @@ public class ProductsController : ControllerBase
     [Route("{id}")]
     public async Task<IActionResult> DeleteProductAsync([FromRoute] string id, CancellationToken cancellationToken)
     {
-        var useCase = new DeleteProductUseCase { ProductId = id };
+        DeleteProductUseCase useCase = new () { ProductId = id };
 
         await _mediator.Send(useCase, cancellationToken);
 
@@ -83,10 +84,10 @@ public class ProductsController : ControllerBase
     [Route("{id}/image")]
     public async Task<IActionResult> ChangeImageAsync([FromRoute] string id, [FromForm] ChangeProductImageRequest request, CancellationToken cancellationToken)
     {
-        var useCase = _mapper.Map<ChangeProductImageUseCase>(request);
+        ChangeProductImageUseCase useCase = _mapper.Map<ChangeProductImageUseCase>(request);
         useCase.ProductId = id;
 
-        var result = await _mediator.Send(useCase, cancellationToken);
+        string result = await _mediator.Send(useCase, cancellationToken);
 
         return Ok(result);
     }
@@ -95,10 +96,10 @@ public class ProductsController : ControllerBase
     [Route("{id}/categories")]
     public async Task<IActionResult> ChangeCategoriesAsync([FromRoute] string id, [FromBody] ChangeProductCategoriesRequest request, CancellationToken cancellationToken)
     {
-        var useCase = _mapper.Map<ChangeProductCategoriesUseCase>(request);
+        ChangeProductCategoriesUseCase useCase = _mapper.Map<ChangeProductCategoriesUseCase>(request);
         useCase.ProductId = id;
 
-        var result = await _mediator.Send(useCase, cancellationToken);
+        string result = await _mediator.Send(useCase, cancellationToken);
 
         return Ok(result);
     }

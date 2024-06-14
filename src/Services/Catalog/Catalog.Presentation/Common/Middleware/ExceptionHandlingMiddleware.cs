@@ -20,12 +20,12 @@ public class ExceptionHandlingMiddleware
         }
         catch (ValidationException exception)
         {
-            var problemDetails = new ProblemDetails
+            ProblemDetails problemDetails = new ()
             {
                 Status = StatusCodes.Status400BadRequest,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
                 Title = "Validation error",
-                Detail = "One or more validation errors has occurred"
+                Detail = "One or more validation errors has occurred",
             };
 
             if (exception.ValidationErrors is not null)
@@ -39,12 +39,12 @@ public class ExceptionHandlingMiddleware
         }
         catch (ExistingCategoryException exception)
         {
-            var problemDetails = new ProblemDetails
+            ProblemDetails problemDetails = new ()
             {
                 Status = StatusCodes.Status400BadRequest,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
                 Title = "Existing category",
-                Detail = exception.Message
+                Detail = exception.Message,
             };
 
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
@@ -52,12 +52,12 @@ public class ExceptionHandlingMiddleware
         }
         catch (NonExistentCategoryException exception)
         {
-            var problemDetails = new ProblemDetails
+            ProblemDetails problemDetails = new ()
             {
                 Status = StatusCodes.Status400BadRequest,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
                 Title = "Non-existent category",
-                Detail = exception.Message
+                Detail = exception.Message,
             };
 
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
@@ -65,12 +65,12 @@ public class ExceptionHandlingMiddleware
         }
         catch (InvalidOperationException exception)
         {
-            var problemDetails = new ProblemDetails
+            ProblemDetails problemDetails = new ()
             {
                 Status = StatusCodes.Status400BadRequest,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
                 Title = "Invalid operation",
-                Detail = exception.Message
+                Detail = exception.Message,
             };
 
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
@@ -78,28 +78,28 @@ public class ExceptionHandlingMiddleware
         }
         catch (KeyNotFoundException exception)
         {
-            var problemDetails = new ProblemDetails
+            ProblemDetails problemDetails = new ()
             {
                 Status = StatusCodes.Status404NotFound,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.4",
                 Title = "The specified resource was not found",
-                Detail = exception.Message
+                Detail = exception.Message,
             };
 
             context.Response.StatusCode = StatusCodes.Status404NotFound;
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
-        catch (Exception exception)
+        catch (Exception)
         {
             throw;
+            Exception exception;
             await Console.Out.WriteLineAsync(exception.Message);
-            var problemDetails = new ProblemDetails
+            ProblemDetails problemDetails = new ()
             {
                 Status = StatusCodes.Status500InternalServerError,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.6.1",
-                Title = "Error occured on server"
+                Title = "Error occured on server",
             };
-
 
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
@@ -107,4 +107,3 @@ public class ExceptionHandlingMiddleware
         }
     }
 }
-

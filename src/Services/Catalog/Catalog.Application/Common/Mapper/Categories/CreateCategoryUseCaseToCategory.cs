@@ -9,9 +9,11 @@ public class CreateCategoryUseCaseToCategory : Profile
     public CreateCategoryUseCaseToCategory()
     {
         CreateMap<CreateCategoryUseCase, Category>()
-            .ForMember(category => category.Name,
+            .ForMember(
+                category => category.Name,
                 opt => opt.MapFrom(updateCategoryUseCase => updateCategoryUseCase.CategoryName))
-            .ForMember(category => category.NormalizedName,
+            .ForMember(
+                category => category.NormalizedName,
                 opt => opt.MapFrom(updateCategoryUseCase => updateCategoryUseCase.CategoryName.ToUpper()));
     }
 }

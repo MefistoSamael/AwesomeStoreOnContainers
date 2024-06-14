@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Catalog.Application.UseCases.Products.CreateProducts;
+namespace Catalog.Application.UseCases.Products.CreateProduct;
 
 public class CreateProductUseCaseValidator : AbstractValidator<CreateProductUseCase>
 {
@@ -12,7 +12,7 @@ public class CreateProductUseCaseValidator : AbstractValidator<CreateProductUseC
 
         RuleFor(createProductUseCase => createProductUseCase.Price).NotEmpty()
             .GreaterThan(0);
-        
+
         RuleFor(createProductUseCase => createProductUseCase.Image).NotEmpty();
 
         RuleFor(createProductUseCase => createProductUseCase.StockCount).GreaterThanOrEqualTo(0);

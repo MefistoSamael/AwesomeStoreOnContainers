@@ -2,5 +2,5 @@
 
 public class UpdateCategoryRequest
 {
-    public required string NewCategoryName { get; set; }
+    required public string NewCategoryName { get; set; }
 }

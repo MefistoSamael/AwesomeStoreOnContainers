@@ -2,6 +2,5 @@
 
 public class ChangeProductCategoriesRequest
 {
-    public required IEnumerable<string> Categories { get; set; }
+    required public IEnumerable<string> Categories { get; set; }
 }
-

@@ -17,7 +17,7 @@ public class DeleteProductInteractor : IRequestHandler<DeleteProductUseCase>
 
     public async Task Handle(DeleteProductUseCase request, CancellationToken cancellationToken)
     {
-        var product = await _productRepostitory.GetProductByIdAsync(request.ProductId, cancellationToken);
+        Domain.Entities.Product? product = await _productRepostitory.GetProductByIdAsync(request.ProductId, cancellationToken);
 
         if (product is null)
         {

@@ -2,11 +2,11 @@
 
 public class StockCountChangedEvent : Event
 {
-    public required string ProductId { get; set; }
+    required public string ProductId { get; set; }
 
-    public required string ProductName { get; set; }
+    required public string ProductName { get; set; }
 
-    public required int NewStockCount { get; set; }
+    required public int NewStockCount { get; set; }
 
-    public required int OldStockCount { get; set; }
+    required public int OldStockCount { get; set; }
 }

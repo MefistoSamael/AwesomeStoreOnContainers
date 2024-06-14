@@ -4,5 +4,5 @@ namespace Catalog.Application.UseCases.Categories.CreateCategory;
 
 public class CreateCategoryUseCase : IRequest<string>
 {
-    public required string CategoryName { get; set; }
+    required public string CategoryName { get; set; }
 }

@@ -2,11 +2,11 @@
 
 public class PriceChangedEvent
 {
-    public required string ProductId { get; set; }
+    required public string ProductId { get; set; }
 
-    public required string ProductName { get; set; }
+    required public string ProductName { get; set; }
 
-    public required int NewPrice { get; set; }
+    required public int NewPrice { get; set; }
 
-    public required int OldPrice { get; set; }
+    required public int OldPrice { get; set; }
 }

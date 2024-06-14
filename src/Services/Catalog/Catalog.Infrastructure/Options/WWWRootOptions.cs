@@ -2,7 +2,7 @@
 
 public class WWWRootOptions
 {
-    public required string Host { get; set; }
+    required public string Host { get; set; }
 
-    public required string WebRootPath { get; set; }
+    required public string WebRootPath { get; set; }
 }

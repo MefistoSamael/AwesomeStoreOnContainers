@@ -2,9 +2,9 @@
 
 public class Category
 {
-    public required string Id { get; set; }
+    required public string Id { get; set; }
 
-    public required string Name { get; set; }
-    
-    public required string NormalizedName { get; set; }
+    required public string Name { get; set; }
+
+    required public string NormalizedName { get; set; }
 }

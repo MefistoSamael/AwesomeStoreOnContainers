@@ -10,8 +10,8 @@ namespace Catalog.Infrastructure.Services;
 public class ImageService : IImageService
 {
     private readonly IProductRepostitory _productRepostitory;
-    private WWWRootOptions _options;
-    private string imageFolder = "";
+    private readonly WWWRootOptions _options;
+    private readonly string imageFolder = string.Empty;
 
     public ImageService(IProductRepostitory productRepostitory, IOptions<WWWRootOptions> options)
     {
@@ -24,10 +24,10 @@ public class ImageService : IImageService
     {
         DeleteImage(product);
 
-        var extension = Path.GetExtension(image.FileName);
-        var fileName = Path.ChangeExtension(Path.GetRandomFileName(), extension);
-        
-        var filePath = Path.Combine(imageFolder, fileName);
+        string extension = Path.GetExtension(image.FileName);
+        string fileName = Path.ChangeExtension(Path.GetRandomFileName(), extension);
+
+        string filePath = Path.Combine(imageFolder, fileName);
 
         using (Stream fileStream = new FileStream(filePath, FileMode.Create))
         {
@@ -46,7 +46,7 @@ public class ImageService : IImageService
     {
         if (!string.IsNullOrEmpty(product.ImageUri))
         {
-            var prevImage = Path.Combine(imageFolder, Path.GetFileName(product.ImageUri));
+            string prevImage = Path.Combine(imageFolder, Path.GetFileName(product.ImageUri));
             File.Delete(prevImage);
         }
     }

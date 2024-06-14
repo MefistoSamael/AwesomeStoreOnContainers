@@ -18,13 +18,10 @@ public class GetProductByIdInteractor : IRequestHandler<GetProductByIdUseCase, P
 
     public async Task<ProductDTO> Handle(GetProductByIdUseCase request, CancellationToken cancellationToken)
     {
-        var product = await _productRepostitory.GetProductByIdAsync(request.ProductId, cancellationToken);
+        Domain.Entities.Product? product = await _productRepostitory.GetProductByIdAsync(request.ProductId, cancellationToken);
 
-        if (product is null)
-        {
-            throw new KeyNotFoundException($"product with {request.ProductId} id not found");
-        }
-
-        return _mapper.Map<ProductDTO>(product);
+        return product is null
+            ? throw new KeyNotFoundException($"product with {request.ProductId} id not found")
+            : _mapper.Map<ProductDTO>(product);
     }
 }

@@ -2,17 +2,17 @@
 
 public class ProductDTO
 {
-    public required string Id { get; set; }
+    required public string Id { get; set; }
 
-    public required string Name { get; set; }
+    required public string Name { get; set; }
 
-    public required string Description { get; set; }
+    required public string Description { get; set; }
 
-    public required int Price { get; set; }
+    required public int Price { get; set; }
 
-    public required int StockCount { get; set; }
+    required public int StockCount { get; set; }
 
-    public required string ImageUri { get; set; }
+    required public string ImageUri { get; set; }
 
-    public required IEnumerable<CategoryDTO> ProductCatrgories { get; set; }
+    required public IEnumerable<CategoryDTO> ProductCatrgories { get; set; }
 }

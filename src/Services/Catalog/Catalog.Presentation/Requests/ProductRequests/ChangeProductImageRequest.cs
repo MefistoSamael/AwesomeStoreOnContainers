@@ -2,6 +2,5 @@
 
 public class ChangeProductImageRequest
 {
-    public required IFormFile Image { get; set; }
+    required public IFormFile Image { get; set; }
 }
-

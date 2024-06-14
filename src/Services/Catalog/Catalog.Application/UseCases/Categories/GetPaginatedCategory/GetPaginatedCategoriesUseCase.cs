@@ -5,7 +5,7 @@ namespace Catalog.Application.UseCases.Categories.GetPaginatedCategory;
 
 public class GetPaginatedCategoriesUseCase : IRequest<PaginatedResult<CategoryDTO>>
 {
-    public required int PageNumber { get; set; }
-    
-    public required int PageSize{ get; set; }
+    required public int PageNumber { get; set; }
+
+    required public int PageSize { get; set; }
 }

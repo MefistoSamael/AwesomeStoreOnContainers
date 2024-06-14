@@ -17,8 +17,8 @@ public class WWWRootOptionsSetup : IConfigureOptions<WWWRootOptions>
     public void Configure(WWWRootOptions options)
     {
         options.WebRootPath = _webHostEnvironment.WebRootPath;
+
         // KEEP launchSettings.json and applicatoinSettings.json in SYNC
         options.Host = _configuration["ApplicationUrl"]!;
     }
 }
-

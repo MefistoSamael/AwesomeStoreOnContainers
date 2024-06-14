@@ -5,5 +5,5 @@ namespace Catalog.Application.UseCases.Products.GetProductById;
 
 public class GetProductByIdUseCase : IRequest<ProductDTO>
 {
-    public required string ProductId { get; set; }
+    required public string ProductId { get; set; }
 }

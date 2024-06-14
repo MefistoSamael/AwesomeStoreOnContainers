@@ -9,7 +9,6 @@ using Hangfire.Mongo.Migration.Strategies;
 using Hangfire.Mongo.Migration.Strategies.Backup;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Catalog.Infrastructure;
@@ -18,11 +17,11 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        var connecitonString = configuration["CatalogStoreDatabase:ConnectionString"];
-        var productsDbName = configuration["CatalogStoreDatabase:DatabaseName"];
-        var hangfireDbName = "Jobs";
+        string? connecitonString = configuration["CatalogStoreDatabase:ConnectionString"];
+        string? productsDbName = configuration["CatalogStoreDatabase:DatabaseName"];
+        string hangfireDbName = "Jobs";
 
-        var client = new MongoClient(connecitonString);
+        MongoClient client = new (connecitonString);
 
         services.AddSingleton(client.GetDatabase(productsDbName).GetCollection<Product>(configuration["CatalogStoreDatabase:ProductCollectionName"]));
         services.AddSingleton(client.GetDatabase(productsDbName).GetCollection<Category>(configuration["CatalogStoreDatabase:CategoryCollectionName"]));
@@ -40,13 +39,12 @@ public static class DependencyInjection
             MigrationOptions = new MongoMigrationOptions
             {
                 MigrationStrategy = new MigrateMongoMigrationStrategy(),
-                BackupStrategy = new CollectionMongoBackupStrategy()
+                BackupStrategy = new CollectionMongoBackupStrategy(),
             },
             Prefix = "hangfire.mongo",
             CheckConnection = true,
-            CheckQueuedJobsStrategy = CheckQueuedJobsStrategy.TailNotificationsCollection
-        })
-        );
+            CheckQueuedJobsStrategy = CheckQueuedJobsStrategy.TailNotificationsCollection,
+        }));
 
         // Add the processing server as IHostedService
         services.AddHangfireServer(serverOptions =>
