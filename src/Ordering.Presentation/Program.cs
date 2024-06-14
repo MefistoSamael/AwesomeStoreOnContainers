@@ -1,6 +1,8 @@
+using Microsoft.EntityFrameworkCore;
 using Ordering.Application;
 using Ordering.Infrastructure;
 using Ordering.Presentation;
+using Ordering.Presentation.Common.Middleware;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +22,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    scope.ServiceProvider.GetService<ApplicationDbContext>().Database.Migrate();
+}
 
 app.Run();

@@ -18,6 +18,10 @@ public interface IOrderRepository
 
     public Task<Order?> FirstOrDefaultAsync(Expression<Func<Order, bool>> filters, CancellationToken cancellationToken);
 
+    public Task<Order> SingleAsync(Expression<Func<Order, bool>> filters, CancellationToken cancellationToken);
+    
+    public Task<Order?> SingleOrDefaultAsync(Expression<Func<Order, bool>> filters, CancellationToken cancellationToken);
+
     public Task<IEnumerable<Order>> GetPaginatedOrdersAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
 
     public Task<IEnumerable<Order>> GetOrdersAsync(Expression<Func<Order, bool>> filters, CancellationToken cancellationToken);

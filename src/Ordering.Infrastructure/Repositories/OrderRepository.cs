@@ -75,4 +75,22 @@ public sealed class OrderRepository : IOrderRepository
 
         return orders;
     }
+
+    public async Task<Order> SingleAsync(Expression<Func<Order, bool>> filters, CancellationToken cancellationToken)
+    {
+        var order = await _orders.AsNoTracking()
+                                 .Include(order => order.OrderItems)
+                                 .SingleAsync(filters, cancellationToken);
+
+        return order;
+    }
+    
+    public async Task<Order?> SingleOrDefaultAsync(Expression<Func<Order, bool>> filters, CancellationToken cancellationToken)
+    {
+        var order = await _orders.AsNoTracking()
+                                 .Include(order => order.OrderItems)
+                                 .SingleOrDefaultAsync(filters, cancellationToken);
+
+        return order;
+    }
 }

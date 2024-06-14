@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Ordering.Presentation;
+namespace Ordering.Presentation.Common.Swagger;
 
 public class SlugifyParameterTransformer : IOutboundParameterTransformer
 {
