@@ -1,4 +1,6 @@
-﻿namespace Ordering.Domain.Entities;
+﻿using Ordering.Domain.Enums;
+
+namespace Ordering.Domain.Entities;
 
 public class Order
 {
@@ -11,13 +13,4 @@ public class Order
     public List<OrderItem> OrderItems { get; set; } = [];
 
     public OrderState State { get; set; } = OrderState.Configuring;
-}
-
-public enum OrderState
-{
-    Configuring,
-    AwaitingValidation,
-    Confirmed,
-    Shipped,
-    Canceled,
 }

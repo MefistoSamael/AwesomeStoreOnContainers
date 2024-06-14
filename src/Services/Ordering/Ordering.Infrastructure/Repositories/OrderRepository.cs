@@ -8,14 +8,12 @@ namespace Ordering.Infrastructure.Repositories;
 public sealed class OrderRepository : IOrderRepository
 {
     private readonly DbSet<Order> _orders;
-    private readonly DbSet<OrderItem> _orderItems;
     private readonly ApplicationDbContext _context;
 
     public OrderRepository(ApplicationDbContext context)
     {
         _context = context;
         _orders = context.Orders;
-        _orderItems = context.OrderItems;
     }
 
     public async Task<string> CreateOrderAsync(Order order, CancellationToken cancellationToken)
