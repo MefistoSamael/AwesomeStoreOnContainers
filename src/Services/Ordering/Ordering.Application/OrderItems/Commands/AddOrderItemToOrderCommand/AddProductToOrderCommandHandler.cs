@@ -32,6 +32,7 @@ public class AddProductToOrderCommandHandler : IRequestHandler<AddProductToOrder
         }
 
         var product = await _productService.GetProductByIdAsync(request.ProductId);
+
         if (product is null)
         {
             throw new NonExistentProductException();

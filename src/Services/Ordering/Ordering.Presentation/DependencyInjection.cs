@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Ordering.Presentation.Common.Swagger;
 
 namespace Ordering.Presentation;
 
