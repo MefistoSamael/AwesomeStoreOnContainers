@@ -1,11 +1,11 @@
-﻿using Ordering.Application.Services;
-using Ordering.Domain.Entities;
+﻿using Ordering.Application.Common.Models;
+using Ordering.Application.Services;
 
 namespace Ordering.Infrastructure.Services;
 
 public class GRPCProductService : IProductService
 {
-    public Task<Product?> GetProductByIdAsync(string productId)
+    public Task<ProductResponse?> GetProductByIdAsync(string productId)
     {
         throw new NotImplementedException();
     }

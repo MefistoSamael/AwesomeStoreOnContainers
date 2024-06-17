@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="EventHandlers\ProductEvents\" />
-    <Folder Include="Orders\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

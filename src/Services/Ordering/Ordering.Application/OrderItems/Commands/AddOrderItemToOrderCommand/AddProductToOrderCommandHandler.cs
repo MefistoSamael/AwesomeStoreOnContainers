@@ -3,8 +3,8 @@ using MediatR;
 using Ordering.Application.Common.Exceptions;
 using Ordering.Application.OrderItems.Queries.GetOrderItemsFromOrderQuery;
 using Ordering.Application.Services;
-using Ordering.Domain.Abstractions;
 using Ordering.Domain.Entities;
+using Ordering.Domain.Repositories;
 
 namespace Ordering.Application.OrderItems.Commands.AddOrderItemToOrderCommand;
 
@@ -41,10 +41,12 @@ public class AddProductToOrderCommandHandler : IRequestHandler<AddProductToOrder
 
         var orderItem = _mapper.Map<OrderItem>(product);
 
+        orderItem.Id = Guid.NewGuid().ToString();
+
         // TODO:
         // создание orderItem в репозитории?
         order.OrderItems.Add(orderItem);
 
-        await _orderRepository.UpdateOrderAsync(order, cancellationToken);
+        await _orderRepository.UpdateAsync(order, cancellationToken);
     }
 }

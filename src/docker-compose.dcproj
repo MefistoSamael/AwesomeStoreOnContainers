@@ -6,6 +6,11 @@
     <DockerPublishLocally>False</DockerPublishLocally>
     <ProjectGuid>6ab778f6-4910-4726-b2b5-2c285edb6389</ProjectGuid>
   </PropertyGroup>
+  <PropertyGroup>
+    <DockerLaunchAction>None</DockerLaunchAction>
+    <DockerServiceName>ordering.presentation</DockerServiceName>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
+  </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using Ordering.Application.Orders.Commands.CreateOrderCommand;
+using Ordering.Application.Orders.Commands.CreateOrder;
 using Ordering.Domain.Entities;
+using Ordering.Domain.Enums;
 
 namespace Ordering.Application.Common.Mapper;
 

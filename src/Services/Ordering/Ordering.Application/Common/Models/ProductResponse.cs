@@ -1,6 +1,6 @@
-﻿namespace Ordering.Domain.Entities;
+﻿namespace Ordering.Application.Common.Models;
 
-public class Product
+public class ProductResponse
 {
     required public string Id { get; set; }
 

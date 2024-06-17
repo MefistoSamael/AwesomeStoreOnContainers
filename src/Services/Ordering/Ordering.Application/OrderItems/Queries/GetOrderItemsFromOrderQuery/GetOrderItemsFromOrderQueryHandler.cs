@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Ordering.Application.Common.Models;
-using Ordering.Domain.Abstractions;
+using Ordering.Domain.Repositories;
 
 namespace Ordering.Application.OrderItems.Queries.GetOrderItemsFromOrderQuery;
 
