@@ -18,13 +18,13 @@ public class GetPaginatedProductsInteractor : IRequestHandler<GetPaginatedProduc
 
     public async Task<PaginatedResult<ProductDTO>> Handle(GetPaginatedProductsUseCase request, CancellationToken cancellationToken)
     {
-        IEnumerable<Domain.Entities.Product> domainProducts = await _productRepostitory.GetPaginatedProductsAsync(request.PageNumber, request.PageSize, cancellationToken);
+        var domainProducts = await _productRepostitory.GetPaginatedProductsAsync(request.PageNumber, request.PageSize, cancellationToken);
 
-        IEnumerable<ProductDTO> products = _mapper.Map<IEnumerable<ProductDTO>>(domainProducts);
+        var products = _mapper.Map<IEnumerable<ProductDTO>>(domainProducts);
 
-        int count = await _productRepostitory.GetProductCountAsync(cancellationToken);
+        var count = await _productRepostitory.GetProductCountAsync(cancellationToken);
 
-        int totalPages = (int)Math.Ceiling(count / (double)request.PageSize);
+        var totalPages = (int)Math.Ceiling(count / (double)request.PageSize);
 
         return new PaginatedResult<ProductDTO>
         {
