@@ -2,7 +2,7 @@
 using Ordering.Application.Common.Models;
 using Ordering.Domain.Entities;
 
-namespace Ordering.Application.Common.Mapper;
+namespace Ordering.Application.Common.Mapper.DTOs;
 
 public class OrderItemToDTO : Profile
 {

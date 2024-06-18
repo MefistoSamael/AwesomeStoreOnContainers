@@ -16,9 +16,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{0B5E75CC-DEF0-40A4-9023-717AB461D536}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{64213F9A-03E9-4CAF-A4F2-938FAB9007B7}"
-	ProjectSection(SolutionItems) = preProject
-		Services\Ordering\Ordering.Application\Orders\Queries\GetUsersOrders\NonExistentUserException.cs = Services\Ordering\Ordering.Application\Orders\Queries\GetUsersOrders\NonExistentUserException.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Presentation", "Services\Ordering\Ordering.Presentation\Ordering.Presentation.csproj", "{9FD2FDFE-D739-494B-8D1B-63270EC2BF35}"
 EndProject

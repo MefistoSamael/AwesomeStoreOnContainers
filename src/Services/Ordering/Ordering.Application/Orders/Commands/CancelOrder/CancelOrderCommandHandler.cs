@@ -8,7 +8,6 @@ namespace Ordering.Application.Orders.Commands.CancelOrder;
 public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand>
 {
     private readonly IOrderRepository _orderRepository;
-    //private readonly IPublishEndpoint _publishEndpoint;
 
     public CancelOrderCommandHandler(IOrderRepository orderRepository)
     {
@@ -24,7 +23,5 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand>
         order.State = OrderState.Canceled;
 
         await _orderRepository.UpdateAsync(order, cancellationToken);
-
-        //await _publishEndpoint.Publish();
     }
 }

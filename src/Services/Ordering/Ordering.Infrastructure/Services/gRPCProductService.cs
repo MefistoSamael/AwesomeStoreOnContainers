@@ -1,12 +1,13 @@
-﻿using Ordering.Application.Common.Models;
-using Ordering.Application.Services;
+﻿using Ordering.Application.Services;
+using ProductResponse = Ordering.Application.Common.Models.ProductResponse;
 
 namespace Ordering.Infrastructure.Services;
 
 public class GRPCProductService : IProductService
 {
-    public Task<ProductResponse?> GetProductByIdAsync(string productId)
+    public async Task<ProductResponse?> GetProductByIdAsync(string productId)
     {
-        throw new NotImplementedException();
+        return new ProductResponse
+        { Id = productId, Name = "Product", ImageUri = "https://image.com", Price = 100, Categoties = "Fence, wood" };
     }
 }

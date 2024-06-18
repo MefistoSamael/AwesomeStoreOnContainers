@@ -25,5 +25,6 @@ public interface IUserRepository
     public Task<ApplicationUser?> GetUserByIdAsync(string id);
 
     public Task<int> GetUsersCountAsync(CancellationToken cancellationToken);
+
     public Task UpdateUser(ApplicationUser user);
 }

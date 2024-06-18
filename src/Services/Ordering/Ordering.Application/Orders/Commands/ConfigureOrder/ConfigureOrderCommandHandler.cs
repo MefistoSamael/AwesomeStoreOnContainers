@@ -7,13 +7,10 @@ namespace Ordering.Application.Orders.Commands.ConfigureOrder;
 public class ConfigureOrderCommandHandler : IRequestHandler<ConfigureOrderCommand>
 {
     private readonly IOrderRepository _orderRepository;
-    //private readonly IPublishEndpoint _publishEndpoint;
 
     public ConfigureOrderCommandHandler(IOrderRepository orderRepository)
-        //IPublishEndpoint publishEndpoint)
     {
         _orderRepository = orderRepository;
-        //_publishEndpoint = publishEndpoint
     }
 
     public async Task Handle(ConfigureOrderCommand request, CancellationToken cancellationToken)
@@ -30,7 +27,5 @@ public class ConfigureOrderCommandHandler : IRequestHandler<ConfigureOrderComman
         order.State = Domain.Enums.OrderState.AwaitingValidation;
 
         await _orderRepository.UpdateAsync(order, cancellationToken);
-
-        //await _publishEndpoint.Publish();
     }
 }

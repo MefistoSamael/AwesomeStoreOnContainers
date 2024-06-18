@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Ordering.Presentation.Common.Swagger;
 
 namespace Ordering.Presentation;
@@ -12,6 +13,8 @@ public static class DependencyInjection
             options.Conventions.Add(new RouteTokenTransformerConvention(
                                          new SlugifyParameterTransformer()));
         });
+
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();

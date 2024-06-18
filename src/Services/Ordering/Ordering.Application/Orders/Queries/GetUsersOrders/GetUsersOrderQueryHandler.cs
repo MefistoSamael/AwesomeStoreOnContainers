@@ -2,9 +2,7 @@
 using MediatR;
 using Ordering.Application.Common.Exceptions;
 using Ordering.Application.Common.Models;
-using Ordering.Application.OrderItems.Queries.GetOrderItemsFromOrderQuery;
 using Ordering.Domain.Repositories;
-using System.Runtime.CompilerServices;
 
 namespace Ordering.Application.Orders.Queries.GetUsersOrders;
 
@@ -25,7 +23,7 @@ public class GetUsersOrderQueryHandler : IRequestHandler<GetUsersOrderQuery, Pag
     {
         if (await _userRepository.FirstOrDefaultAsync(user => user.Id == request.UserId, cancellationToken) is null)
         {
-            //throw new NonExistentUserException("user with specified id doesn't exist");
+            throw new NonExistentUserException("user with specified id doesn't exist");
         }
 
         var domainOrders = await _orderRepository.GetPaginatedOrderdsAsync(

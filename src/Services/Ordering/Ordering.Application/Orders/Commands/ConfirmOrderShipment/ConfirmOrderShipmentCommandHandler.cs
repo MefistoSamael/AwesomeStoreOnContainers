@@ -7,7 +7,6 @@ namespace Ordering.Application.Orders.Commands.ConfirmOrderShipment;
 public class ConfirmOrderShipmentCommandHandler : IRequestHandler<ConfirmOrderShipmentCommand>
 {
     private readonly IOrderRepository _orderRepository;
-    //private readonly IPublishEndpoint _publishEndpoint;
 
     public ConfirmOrderShipmentCommandHandler(IOrderRepository orderRepository)
     {
@@ -28,7 +27,5 @@ public class ConfirmOrderShipmentCommandHandler : IRequestHandler<ConfirmOrderSh
         order.State = Domain.Enums.OrderState.Shipped;
 
         await _orderRepository.UpdateAsync(order, cancellationToken);
-
-        //await _publishEndpoint.Publish();
     }
 }

@@ -24,10 +24,10 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, str
                                         order.BuyerId == request.BuyerId &&
                                         order.State == OrderState.Configuring;
 
-        //if (await _orderRepository.SingleOrDefaultAsync(userHasOrder, cancellationToken) is not null)
-        //{
-        //    throw new InvalidOperationException("user alredy has configuring order");
-        //}
+        if (await _orderRepository.SingleOrDefaultAsync(userHasOrder, cancellationToken) is not null)
+        {
+            throw new InvalidOperationException("user alredy has configuring order");
+        }
 
         var order = _mapper.Map<Order>(request);
 

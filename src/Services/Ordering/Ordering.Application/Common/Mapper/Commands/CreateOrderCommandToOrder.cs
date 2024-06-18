@@ -3,7 +3,7 @@ using Ordering.Application.Orders.Commands.CreateOrder;
 using Ordering.Domain.Entities;
 using Ordering.Domain.Enums;
 
-namespace Ordering.Application.Common.Mapper;
+namespace Ordering.Application.Common.Mapper.Commands;
 
 public class CreateOrderCommandToOrder : Profile
 {

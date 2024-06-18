@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using System.Threading;
 
 namespace Ordering.Domain.Abstractions;
 public interface IGenericRepository<TEntity>

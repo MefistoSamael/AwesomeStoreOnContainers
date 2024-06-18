@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using System.Data;
 
 namespace Ordering.Application.Orders.Commands.CreateOrder;
 

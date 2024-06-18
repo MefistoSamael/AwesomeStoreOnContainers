@@ -8,7 +8,6 @@ namespace Ordering.Application.Orders.Commands.ValidateOrder;
 public class ValidateOrderCommandHandler : IRequestHandler<ValidateOrderCommand>
 {
     private readonly IOrderRepository _orderRepository;
-    //private readonly IPublishEndpoint _publishEndpoint;
 
     public ValidateOrderCommandHandler(IOrderRepository orderRepository)
     {
@@ -29,7 +28,5 @@ public class ValidateOrderCommandHandler : IRequestHandler<ValidateOrderCommand>
         order.State = Domain.Enums.OrderState.Confirmed;
 
         await _orderRepository.UpdateAsync(order, cancellationToken);
-
-        //await _publishEndpoint.Publish();
     }
 }

@@ -75,6 +75,9 @@ dotnet_diagnostic.SA1602.severity = none
 # SA1009: Closing parenthesis should be spaced correctly
 dotnet_diagnostic.SA1009.severity = none
 
+# SA1124: Do not use regions
+dotnet_diagnostic.SA1124.severity = none
+
 [*.{cs,vb}]
 #### Naming styles ####
 

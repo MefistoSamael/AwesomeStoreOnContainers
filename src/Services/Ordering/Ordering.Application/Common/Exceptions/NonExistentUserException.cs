@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Ordering.Application.Common.Exceptions;
+﻿namespace Ordering.Application.Common.Exceptions;
 
 internal class NonExistentUserException : Exception
 {
@@ -15,11 +13,6 @@ internal class NonExistentUserException : Exception
 
     public NonExistentUserException(string? message, Exception? innerException)
         : base(message, innerException)
-    {
-    }
-
-    protected NonExistentUserException(SerializationInfo info, StreamingContext context)
-        : base(info, context)
     {
     }
 }

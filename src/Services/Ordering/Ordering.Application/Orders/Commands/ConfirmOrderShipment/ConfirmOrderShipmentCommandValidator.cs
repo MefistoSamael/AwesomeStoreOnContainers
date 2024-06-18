@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Ordering.Application.Orders.Commands.ConfigureOrder;
 
 namespace Ordering.Application.Orders.Commands.ConfirmOrderShipment;
 

@@ -7,6 +7,7 @@ public class ApplicationRole : IdentityRole
     public ApplicationRole()
     {
     }
+
     public ApplicationRole(string roleName)
         : base(roleName)
     {
@@ -15,7 +16,7 @@ public class ApplicationRole : IdentityRole
 
     private string? name;
 
-    override public string? Name
+    public override string? Name
     {
         get
         {

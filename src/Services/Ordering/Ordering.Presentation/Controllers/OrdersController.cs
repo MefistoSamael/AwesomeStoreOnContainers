@@ -1,15 +1,12 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Ordering.Application.Orders.Commands;
 using Ordering.Application.Orders.Commands.CancelOrder;
 using Ordering.Application.Orders.Commands.ConfigureOrder;
 using Ordering.Application.Orders.Commands.ConfirmOrderShipment;
 using Ordering.Application.Orders.Commands.CreateOrder;
 using Ordering.Application.Orders.Queries.GetUsersActiveOrder;
 using Ordering.Application.Orders.Queries.GetUsersOrders;
-using Ordering.Presentation.Common.Mapper.Orders;
 
 namespace Ordering.Presentation.Controllers;
 
@@ -66,7 +63,6 @@ public class OrdersController : ControllerBase
     [Route("{orderId}/cancel")]
     public async Task<IActionResult> ChangeOrderStateAsync(
     [FromRoute] string orderId,
-    [FromBody] ChangeOrderStateRequest request,
     CancellationToken cancellationToken = default)
     {
         var command = new CancelOrderCommand { OrderId = orderId };
@@ -80,7 +76,6 @@ public class OrdersController : ControllerBase
     [Route("{orderId}/configure")]
     public async Task<IActionResult> ConfigureOrderAsync(
     [FromRoute] string orderId,
-    [FromBody] ChangeOrderStateRequest request,
     CancellationToken cancellationToken = default)
     {
         var command = new ConfigureOrderCommand { OrderId = orderId };
@@ -94,7 +89,6 @@ public class OrdersController : ControllerBase
     [Route("{orderId}/validate")]
     public async Task<IActionResult> ValidateOrderAsync(
     [FromRoute] string orderId,
-    [FromBody] ChangeOrderStateRequest request,
     CancellationToken cancellationToken = default)
     {
         var command = new ValidateOrderCommand { OrderId = orderId };
@@ -108,7 +102,6 @@ public class OrdersController : ControllerBase
     [Route("{orderId}/confirm-shipment")]
     public async Task<IActionResult> ConfirmOrderShipmentAsync(
     [FromRoute] string orderId,
-    [FromBody] ChangeOrderStateRequest request,
     CancellationToken cancellationToken = default)
     {
         var command = new ConfirmOrderShipmentCommand { OrderId = orderId };

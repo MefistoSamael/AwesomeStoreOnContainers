@@ -23,7 +23,7 @@ public class GetUsersActiveOrderQueryHandler : IRequestHandler<GetUsersActiveOrd
     {
         if (await _userRepository.FirstOrDefaultAsync(user => user.Id == request.UserId, cancellationToken) is null)
         {
-            //throw new NonExistentUserException("user with specified id doesn't exist");
+            throw new NonExistentUserException("user with specified id doesn't exist");
         }
 
         var domainOrder = await _orderRepository.SingleOrDefaultAsync(

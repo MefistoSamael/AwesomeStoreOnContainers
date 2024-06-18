@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Requests\" />
+    <Folder Include="Common\Mapper\Orders\" />
   </ItemGroup>
 
 </Project>

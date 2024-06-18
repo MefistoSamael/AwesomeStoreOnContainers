@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Ordering.Domain.Abstractions;
-using Ordering.Domain.Entities;
 
 namespace Ordering.Infrastructure.Repositories;
 

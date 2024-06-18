@@ -8,13 +8,14 @@ namespace Identity.Application.UseCases.Authentication.Register;
 
 public class RegisterInteractor : IRequestHandler<RegisterUseCase, string>
 {
-    PasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
     private readonly IUserRepository _userRepository;
+    private readonly PasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
 
     public RegisterInteractor(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
+
     public async Task<string> Handle(RegisterUseCase request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetUserByEmailAsync(request.Email);

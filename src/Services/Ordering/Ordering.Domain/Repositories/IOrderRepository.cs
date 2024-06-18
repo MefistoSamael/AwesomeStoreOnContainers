@@ -1,6 +1,6 @@
-﻿using Ordering.Domain.Abstractions;
+﻿using System.Linq.Expressions;
+using Ordering.Domain.Abstractions;
 using Ordering.Domain.Entities;
-using System.Linq.Expressions;
 
 namespace Ordering.Domain.Repositories;
 public interface IOrderRepository : IGenericRepository<Order>
