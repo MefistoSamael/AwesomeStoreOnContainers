@@ -17,7 +17,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     user: root
     volumes:
-      - ./.containers/data/identity:/var/opt/mssql/data/identity
+      - ./.containers/data/identity:/var/lib/mssql/identity
     environment:
         ACCEPT_EULA: "Y"
         MSSQL_SA_PASSWORD: StrongPassword123
@@ -39,7 +39,7 @@ services:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     user: root
     volumes:
-      - ./.containers/data/ordering:/var/opt/mssql/data/ordering
+      - ./.containers/data/ordering:/var/lib/mssql/ordering
     environment:
         ACCEPT_EULA: "Y"
         MSSQL_SA_PASSWORD: StrongPassword123
