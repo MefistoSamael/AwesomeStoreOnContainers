@@ -37,7 +37,7 @@ public class ExceptionHandlingMiddleware
 
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
-        catch (ExistingUserException exception)
+        catch (DuplicateUserException exception)
         {
             var problemDetails = new ProblemDetails
             {
@@ -63,26 +63,26 @@ public class ExceptionHandlingMiddleware
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
-        catch (UnexistingRoleException exception)
+        catch (NonExistentRoleException exception)
         {
             var problemDetails = new ProblemDetails
             {
-                Status = StatusCodes.Status400BadRequest,
+                Status = StatusCodes.Status404NotFound,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
                 Title = "Unexsiting role",
                 Detail = exception.Message,
             };
 
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
-        catch (KeyNotFoundException exception)
+        catch (NonExistentUserException exception)
         {
             var problemDetails = new ProblemDetails
             {
                 Status = StatusCodes.Status404NotFound,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.4",
-                Title = "The specified resource was not found",
+                Title = "The specified user was not found",
                 Detail = exception.Message,
             };
 

@@ -16,9 +16,7 @@ public interface IUserRepository
 
     public Task<ApplicationUser?> GetUserByEmailAsync(string email);
 
-    public Task<ApplicationUser?> GetUserByUserNameAsync(string email);
-
-    public Task<string> GetUserRoleAsync(string userId);
+    public Task<string?> GetUserRoleAsync(string userId);
 
     public Task<IEnumerable<ApplicationUser>> GetPaginatedUsersAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
 

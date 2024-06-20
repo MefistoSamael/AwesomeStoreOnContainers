@@ -90,19 +90,6 @@ public class ExceptionHandlingMiddleware
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
-        catch (KeyNotFoundException exception)
-        {
-            var problemDetails = new ProblemDetails
-            {
-                Status = StatusCodes.Status404NotFound,
-                Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.4",
-                Title = "The specified resource was not found",
-                Detail = exception.Message,
-            };
-
-            context.Response.StatusCode = StatusCodes.Status404NotFound;
-            await context.Response.WriteAsJsonAsync(problemDetails);
-        }
         catch (Exception exception)
         {
             throw;
