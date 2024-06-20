@@ -22,7 +22,7 @@ public class RegisterInteractor : IRequestHandler<RegisterUseCase, string>
 
         if (user is not null)
         {
-            throw new ExistingUserException("User with such email already exists");
+            throw new DuplicateUserException("User with such email already exists");
         }
 
         user = new ApplicationUser(request.Email, request.Password);

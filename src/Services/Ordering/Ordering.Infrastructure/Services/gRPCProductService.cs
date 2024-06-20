@@ -31,6 +31,7 @@ public class GRPCProductService : IProductService
         var grpcResponse = await client.ProdGetAsync(request);
 
         var response = _mapper.Map<ProductResponse>(grpcResponse);
+
         return response;
     }
 }
