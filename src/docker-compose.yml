@@ -17,7 +17,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2022-latest
     user: root
     volumes:
-      - ./.containers/data/identity:/var/opt/mssql/data/identity
+      - ./.containers/data/identity:/var/lib/mssql/identity
     environment:
         ACCEPT_EULA: "Y"
         MSSQL_SA_PASSWORD: StrongPassword123
@@ -39,9 +39,22 @@ services:
     image: "mcr.microsoft.com/mssql/server:2022-latest"
     user: root
     volumes:
-      - ./.containers/data/ordering:/var/opt/mssql/data/ordering
+      - ./.containers/data/ordering:/var/lib/mssql/ordering
     environment:
         ACCEPT_EULA: "Y"
         MSSQL_SA_PASSWORD: StrongPassword123
     ports:
         - "5533:1433"
+
+  catalog.mq:
+    image: rabbitmq:management
+    container_name: Catalog.RabbitMq
+    volumes:
+        - ./.containers/queue/data/:/var/lib/rabbitmq
+        - ./.containers/queue/log/:/var/log/rabbitmq
+    environment:
+        RABBITMQ_DEFAULT_USER: guest
+        RABBITMQ_DEFAULT_PASS: guest
+    ports:
+      - "5672:5672"
+      - "15672:15672"

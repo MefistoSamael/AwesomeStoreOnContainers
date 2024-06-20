@@ -9,10 +9,10 @@ namespace Ordering.Application.Orders.Queries.GetUsersOrders;
 public class GetUsersOrderQueryHandler : IRequestHandler<GetUsersOrderQuery, PaginatedResult<OrderDTO>>
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly IUserRepository _userRepository;
+    private readonly IBuyerRepository _userRepository;
     private readonly IMapper _mapper;
 
-    public GetUsersOrderQueryHandler(IOrderRepository orderRepository, IMapper mapper, IUserRepository userRepository)
+    public GetUsersOrderQueryHandler(IOrderRepository orderRepository, IMapper mapper, IBuyerRepository userRepository)
     {
         _orderRepository = orderRepository;
         _mapper = mapper;

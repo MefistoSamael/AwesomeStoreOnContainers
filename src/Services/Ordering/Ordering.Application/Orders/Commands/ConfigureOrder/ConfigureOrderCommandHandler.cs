@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using Contracts.Events.OrderingEvents;
+using MassTransit;
+using MediatR;
 using Ordering.Application.OrderItems.Queries.GetOrderItemsFromOrderQuery;
 using Ordering.Domain.Repositories;
 
@@ -7,10 +10,14 @@ namespace Ordering.Application.Orders.Commands.ConfigureOrder;
 public class ConfigureOrderCommandHandler : IRequestHandler<ConfigureOrderCommand>
 {
     private readonly IOrderRepository _orderRepository;
+    private readonly IPublishEndpoint _publishEndpoint;
+    private readonly IMapper _mapper;
 
-    public ConfigureOrderCommandHandler(IOrderRepository orderRepository)
+    public ConfigureOrderCommandHandler(IOrderRepository orderRepository, IMapper mapper, IPublishEndpoint publishEndpoint)
     {
         _orderRepository = orderRepository;
+        _publishEndpoint = publishEndpoint;
+        _mapper = mapper;
     }
 
     public async Task Handle(ConfigureOrderCommand request, CancellationToken cancellationToken)
@@ -27,5 +34,9 @@ public class ConfigureOrderCommandHandler : IRequestHandler<ConfigureOrderComman
         order.State = Domain.Enums.OrderState.AwaitingValidation;
 
         await _orderRepository.UpdateAsync(order, cancellationToken);
+
+        var @event = _mapper.Map<OrderConfiguredEvent>(order);
+
+        await _publishEndpoint.Publish(@event, default);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Ordering.Domain.Entities;
 
-public class User
+public class Buyer
 {
     required public string Id { get; set; }
 

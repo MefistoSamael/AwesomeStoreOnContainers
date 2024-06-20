@@ -9,10 +9,10 @@ namespace Ordering.Application.Orders.Queries.GetUsersActiveOrder;
 public class GetUsersActiveOrderQueryHandler : IRequestHandler<GetUsersActiveOrderQuery, OrderDTO>
 {
     private readonly IOrderRepository _orderRepository;
-    private readonly IUserRepository _userRepository;
+    private readonly IBuyerRepository _userRepository;
     private readonly IMapper _mapper;
 
-    public GetUsersActiveOrderQueryHandler(IOrderRepository orderRepository, IUserRepository userRepository, IMapper mapper)
+    public GetUsersActiveOrderQueryHandler(IOrderRepository orderRepository, IBuyerRepository userRepository, IMapper mapper)
     {
         _orderRepository = orderRepository;
         _userRepository = userRepository;

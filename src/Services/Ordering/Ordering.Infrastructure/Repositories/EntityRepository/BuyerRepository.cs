@@ -3,9 +3,9 @@ using Ordering.Domain.Repositories;
 
 namespace Ordering.Infrastructure.Repositories.EntityRepository;
 
-public class UserRepository : GenericRepository<User>, IUserRepository
+public class BuyerRepository : GenericRepository<Buyer>, IBuyerRepository
 {
-    public UserRepository(ApplicationDbContext context)
+    public BuyerRepository(ApplicationDbContext context)
         : base(context)
     {
     }

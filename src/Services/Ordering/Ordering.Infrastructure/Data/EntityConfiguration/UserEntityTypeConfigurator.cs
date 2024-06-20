@@ -4,11 +4,11 @@ using Ordering.Domain.Entities;
 
 namespace Ordering.Infrastructure.Data.EntityConfiguration;
 
-public class UserEntityTypeConfigurator : IEntityTypeConfiguration<User>
+public class UserEntityTypeConfigurator : IEntityTypeConfiguration<Buyer>
 {
-    public void Configure(EntityTypeBuilder<User> userConfiguration)
+    public void Configure(EntityTypeBuilder<Buyer> userConfiguration)
     {
-        userConfiguration.ToTable(nameof(User));
+        userConfiguration.ToTable(nameof(Buyer));
 
         userConfiguration.HasKey(order => order.Id);
 

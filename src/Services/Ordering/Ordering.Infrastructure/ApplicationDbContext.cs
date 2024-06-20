@@ -10,7 +10,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<OrderItem> OrderItems => Set<OrderItem>();
 
-    public DbSet<User> Users => Set<User>();
+    public DbSet<Buyer> Users => Set<Buyer>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
