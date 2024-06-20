@@ -1,11 +1,12 @@
 ﻿using System.Reflection;
 using FluentValidation;
 using MassTransit;
-using MassTransit.Configuration;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Ordering.Application.Common.Behaviours;
+using Ordering.Application.Consumers.CatalogConsumers;
+using Ordering.Application.EventHandlers.UserEvents;
 
 namespace Ordering.Application;
 
@@ -27,8 +28,9 @@ public static class DependencyInjection
         {
             busConfigurator.SetKebabCaseEndpointNameFormatter();
 
-            // explicit consumer configuration?
-            busConfigurator.AddConsumers(Assembly.GetExecutingAssembly());
+            busConfigurator.AddConsumer<BuyerCreatedConsumer>();
+            busConfigurator.AddConsumer<BuyerDeletedConsumer>();
+            busConfigurator.AddConsumer<ProductChangedConsumer>();
 
             busConfigurator.UsingRabbitMq((context, configurator) =>
             {

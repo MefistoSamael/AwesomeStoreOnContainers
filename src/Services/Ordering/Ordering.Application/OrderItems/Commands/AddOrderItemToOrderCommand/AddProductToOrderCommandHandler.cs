@@ -36,7 +36,7 @@ public class AddProductToOrderCommandHandler : IRequestHandler<AddProductToOrder
 
         if (order.OrderItems.SingleOrDefault(item => item.ProductId == request.ProductId) is not null)
         {
-            throw new ExistingOrderItemException();
+            throw new DuplicateOrderItemException();
         }
 
         var product = await _productService.GetProductByIdAsync(request.ProductId);

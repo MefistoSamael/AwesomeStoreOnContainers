@@ -1,4 +1,5 @@
 ﻿using Contracts.Events.IdentityEvents;
+using Identity.Application.Common.Exceptions;
 using Identity.Domain.Abstractions.Interfaces;
 using MassTransit;
 using MediatR;
@@ -21,7 +22,7 @@ public class DeleteUserInteractor : IRequestHandler<DeleteUserUseCase>
         var user = await _userRepository.GetUserByIdAsync(request.Id);
         if (user is null)
         {
-            throw new KeyNotFoundException($"User with {request.Id} id wasn't found");
+            throw new UserNotFoundException($"User with {request.Id} id wasn't found");
         }
 
         await _userRepository.DeleteUserAsync(request.Id);

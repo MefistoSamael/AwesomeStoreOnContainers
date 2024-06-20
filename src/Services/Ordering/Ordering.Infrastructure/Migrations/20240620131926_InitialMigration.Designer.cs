@@ -11,7 +11,7 @@ using Ordering.Infrastructure;
 namespace Ordering.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240617105038_InitialMigration")]
+    [Migration("20240620131926_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -24,16 +24,26 @@ namespace Ordering.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Ordering.Domain.Entities.Buyer", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Buyer", (string)null);
+                });
+
             modelBuilder.Entity("Ordering.Domain.Entities.Order", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BuyerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -78,20 +88,6 @@ namespace Ordering.Infrastructure.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("OrderItem", (string)null);
-                });
-
-            modelBuilder.Entity("Ordering.Domain.Entities.User", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User", (string)null);
                 });
 
             modelBuilder.Entity("Ordering.Domain.Entities.OrderItem", b =>

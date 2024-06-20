@@ -1,6 +1,6 @@
 ﻿namespace Ordering.Application.Common.Exceptions;
-[Serializable]
-internal class NonExistentOrderItemException : Exception
+
+public class NonExistentOrderItemException : Exception
 {
     public NonExistentOrderItemException()
     {

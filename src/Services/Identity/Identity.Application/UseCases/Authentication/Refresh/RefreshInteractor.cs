@@ -1,9 +1,9 @@
-﻿using System.Security.Claims;
-using Identity.Application.Common.Exceptions;
+﻿using Identity.Application.Common.Exceptions;
 using Identity.Application.Common.Models;
 using Identity.Application.Providers;
 using Identity.Domain.Abstractions.Interfaces;
 using MediatR;
+using System.Security.Claims;
 
 namespace Identity.Application.UseCases.Authentication.Refresh;
 

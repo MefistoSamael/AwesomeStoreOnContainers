@@ -1,7 +1,7 @@
-﻿using System.Security.Cryptography;
-using Identity.Application.Common.Models;
+﻿using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using Microsoft.Extensions.Options;
+using System.Security.Cryptography;
 
 namespace Identity.Infrastracture.Authentication;
 

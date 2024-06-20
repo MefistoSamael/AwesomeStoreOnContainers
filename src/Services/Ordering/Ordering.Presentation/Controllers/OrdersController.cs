@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Orders.Commands.CancelOrder;
 using Ordering.Application.Orders.Commands.ConfigureOrder;
 using Ordering.Application.Orders.Commands.ConfirmOrderShipment;
-using Ordering.Application.Orders.Commands.CreateOrder;
 using Ordering.Application.Orders.Queries.GetUsersActiveOrder;
 using Ordering.Application.Orders.Queries.GetUsersOrders;
 
@@ -21,14 +20,6 @@ public class OrdersController : ControllerBase
     {
         _mediator = mediator;
         _mapper = mapper;
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> CreateOrderAsync([FromBody] CreateOrderCommand command, CancellationToken cancellationToken = default)
-    {
-        var result = await _mediator.Send(command, cancellationToken);
-
-        return Ok(result);
     }
 
     [HttpGet]

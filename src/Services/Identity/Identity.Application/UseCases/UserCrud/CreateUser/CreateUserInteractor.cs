@@ -31,7 +31,7 @@ public class CreateUserInteractor : IRequestHandler<CreateUserUseCase, string>
 
         if (await _userRepository.GetUserByEmailAsync(request.Email) is not null)
         {
-            throw new ExistingUserException("User with such email already exists");
+            throw new DuplicatedUserException("User with such email already exists");
         }
 
         var user = new ApplicationUser(request.Email, request.Password);
@@ -41,7 +41,7 @@ public class CreateUserInteractor : IRequestHandler<CreateUserUseCase, string>
 
         await _userRepository.AddToRoleAsync(user, request.Role);
 
-        if (request.Role == RoleConstants.Buyer)
+        if (request.Role.ToLower() == RoleConstants.Buyer.ToLower())
         {
             await _publishEndpoint.Publish(new BuyerCreatedEvent
             {

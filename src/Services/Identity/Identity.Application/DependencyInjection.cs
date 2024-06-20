@@ -1,10 +1,10 @@
-﻿using System.Reflection;
-using FluentValidation;
+﻿using FluentValidation;
 using Identity.Application.Common.Behaviours;
 using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Identity.Application;
 

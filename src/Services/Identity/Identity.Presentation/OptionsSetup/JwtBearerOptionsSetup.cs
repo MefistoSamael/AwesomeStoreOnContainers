@@ -1,8 +1,8 @@
-﻿using System.Text;
-using Identity.Infrastracture.Authentication;
+﻿using Identity.Infrastracture.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Identity.Presentation.OptionsSetup;
 

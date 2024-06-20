@@ -3,6 +3,7 @@ using Contracts.Events.OrderingEvents;
 using MassTransit;
 using MediatR;
 using Ordering.Application.OrderItems.Queries.GetOrderItemsFromOrderQuery;
+using Ordering.Domain.Entities;
 using Ordering.Domain.Enums;
 using Ordering.Domain.Repositories;
 
@@ -30,6 +31,10 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand>
         order.State = OrderState.Canceled;
 
         await _orderRepository.UpdateAsync(order, cancellationToken);
+
+        var newOrder = new Order { BuyerId = order.BuyerId, Id = Guid.NewGuid().ToString(), };
+
+        await _orderRepository.CreateAsync(newOrder, default);
 
         // generate signalr message
         var @event = _mapper.Map<OrderCanceledEvent>(order);

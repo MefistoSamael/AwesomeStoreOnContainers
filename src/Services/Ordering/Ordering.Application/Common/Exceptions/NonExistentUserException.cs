@@ -1,6 +1,6 @@
 ﻿namespace Ordering.Application.Common.Exceptions;
 
-internal class NonExistentUserException : Exception
+public class NonExistentUserException : Exception
 {
     public NonExistentUserException()
     {

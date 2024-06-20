@@ -21,7 +21,8 @@ public class GetUsersActiveOrderQueryHandler : IRequestHandler<GetUsersActiveOrd
 
     public async Task<OrderDTO> Handle(GetUsersActiveOrderQuery request, CancellationToken cancellationToken)
     {
-        if (await _userRepository.FirstOrDefaultAsync(user => user.Id == request.UserId, cancellationToken) is null)
+        var buyer = await _userRepository.FirstOrDefaultAsync(user => user.Id == request.UserId, cancellationToken);
+        if (buyer is null)
         {
             throw new NonExistentUserException("user with specified id doesn't exist");
         }
@@ -32,6 +33,7 @@ public class GetUsersActiveOrderQueryHandler : IRequestHandler<GetUsersActiveOrd
             order => order.OrderItems);
 
         var order = _mapper.Map<OrderDTO>(domainOrder);
+        order.BuyerEmail = buyer.Email;
 
         return order;
     }

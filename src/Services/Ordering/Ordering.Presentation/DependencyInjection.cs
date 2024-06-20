@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Mvc.ApplicationModels;
+﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Ordering.Presentation.Common.Swagger;
+using System.Reflection;
 
 namespace Ordering.Presentation;
 

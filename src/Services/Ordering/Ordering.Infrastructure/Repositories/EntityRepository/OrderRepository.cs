@@ -1,7 +1,7 @@
-﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Ordering.Domain.Entities;
 using Ordering.Domain.Repositories;
+using System.Linq.Expressions;
 
 namespace Ordering.Infrastructure.Repositories.EntityRepository;
 

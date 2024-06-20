@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Ordering.Domain.Abstractions;
+using System.Linq.Expressions;
 
 namespace Ordering.Infrastructure.Repositories;
 
@@ -85,6 +85,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity>
     private IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeProperties)
     {
         IQueryable<TEntity> query = _dbSet.AsNoTracking();
+
         return includeProperties
             .Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
     }

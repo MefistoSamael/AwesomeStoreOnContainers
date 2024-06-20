@@ -1,6 +1,6 @@
-﻿using System.Security.Claims;
-using Identity.Application.Common.Models;
+﻿using Identity.Application.Common.Models;
 using Identity.Domain.Entities;
+using System.Security.Claims;
 
 namespace Identity.Application.Providers;
 

@@ -21,7 +21,8 @@ public class GetUsersOrderQueryHandler : IRequestHandler<GetUsersOrderQuery, Pag
 
     public async Task<PaginatedResult<OrderDTO>> Handle(GetUsersOrderQuery request, CancellationToken cancellationToken)
     {
-        if (await _userRepository.FirstOrDefaultAsync(user => user.Id == request.UserId, cancellationToken) is null)
+        var buyer = await _userRepository.FirstOrDefaultAsync(user => user.Id == request.UserId, cancellationToken);
+        if (buyer is null)
         {
             throw new NonExistentUserException("user with specified id doesn't exist");
         }
@@ -33,6 +34,11 @@ public class GetUsersOrderQueryHandler : IRequestHandler<GetUsersOrderQuery, Pag
             cancellationToken);
 
         var orders = _mapper.Map<IEnumerable<OrderDTO>>(domainOrders);
+
+        foreach (var order in orders)
+        {
+            order.BuyerEmail = buyer.Email;
+        }
 
         var count = await _orderRepository.GetCountAsync(cancellationToken);
 

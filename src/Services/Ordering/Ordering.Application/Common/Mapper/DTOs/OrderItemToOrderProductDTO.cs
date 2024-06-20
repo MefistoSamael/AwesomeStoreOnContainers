@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Contracts.DTO;
-using Contracts.OrderingEvents;
 using Ordering.Domain.Entities;
 
 namespace Ordering.Application.Common.Mapper.DTOs;

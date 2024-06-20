@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Contracts.DTO;
 using Contracts.Events.OrderingEvents;
 using Ordering.Domain.Entities;
 

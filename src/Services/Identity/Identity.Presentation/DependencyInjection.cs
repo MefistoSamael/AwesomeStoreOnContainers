@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using Identity.Presentation.OptionsSetup;
+﻿using Identity.Presentation.OptionsSetup;
 using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace Identity.Presentation;
 

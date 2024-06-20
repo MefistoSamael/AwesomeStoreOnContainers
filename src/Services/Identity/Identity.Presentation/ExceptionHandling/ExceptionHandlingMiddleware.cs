@@ -37,17 +37,18 @@ public class ExceptionHandlingMiddleware
 
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
-        catch (ExistingUserException exception)
+        catch (DuplicatedUserException exception)
         {
             var problemDetails = new ProblemDetails
             {
-                Status = StatusCodes.Status400BadRequest,
+                Status = StatusCodes.Status409Conflict,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
                 Title = "Existing user",
                 Detail = exception.Message,
             };
 
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Response.StatusCode = StatusCodes.Status409Conflict;
+
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
         catch (MissMatchingUserCredentialsException exception)
@@ -61,19 +62,35 @@ public class ExceptionHandlingMiddleware
             };
 
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
         catch (UnexistingRoleException exception)
         {
             var problemDetails = new ProblemDetails
             {
-                Status = StatusCodes.Status400BadRequest,
+                Status = StatusCodes.Status404NotFound,
                 Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
                 Title = "Unexsiting role",
                 Detail = exception.Message,
             };
 
-            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+
+            await context.Response.WriteAsJsonAsync(problemDetails);
+        }
+        catch (UserNotFoundException exception)
+        {
+            var problemDetails = new ProblemDetails
+            {
+                Status = StatusCodes.Status404NotFound,
+                Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
+                Title = "User wasn't found",
+                Detail = exception.Message,
+            };
+
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
         catch (KeyNotFoundException exception)
@@ -87,6 +104,7 @@ public class ExceptionHandlingMiddleware
             };
 
             context.Response.StatusCode = StatusCodes.Status404NotFound;
+
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
         catch (UnauthorizedException exception)
@@ -100,6 +118,7 @@ public class ExceptionHandlingMiddleware
             };
 
             context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
         catch (Exception exception)

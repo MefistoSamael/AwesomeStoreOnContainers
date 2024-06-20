@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using Contracts.Events.IdentityEvents;
+﻿using Contracts.Events.IdentityEvents;
 using MassTransit;
-using Ordering.Domain.Entities;
 using Ordering.Domain.Repositories;
 
 namespace Ordering.Application.EventHandlers.UserEvents;
@@ -23,8 +21,6 @@ public class BuyerDeletedConsumer : IConsumer<BuyerDeletedEvent>
             return;
         }
 
-        buyer.Email = "Deleted";
-
-        await _buyerRepository.UpdateAsync(buyer, default);
+        await _buyerRepository.RemoveAsync(buyer, default);
     }
 }

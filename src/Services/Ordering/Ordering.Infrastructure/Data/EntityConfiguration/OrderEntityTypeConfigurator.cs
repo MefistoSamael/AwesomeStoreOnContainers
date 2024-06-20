@@ -15,9 +15,6 @@ public class OrderEntityTypeConfigurator : IEntityTypeConfiguration<Order>
         orderConfiguration.Property(order => order.BuyerId)
             .IsRequired();
 
-        orderConfiguration.Property(order => order.Description)
-            .IsRequired();
-
         orderConfiguration.HasMany(order => order.OrderItems)
             .WithOne()
             .HasForeignKey(orderItem => orderItem.OrderId)
