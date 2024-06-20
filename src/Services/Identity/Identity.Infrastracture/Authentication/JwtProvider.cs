@@ -1,11 +1,12 @@
-﻿using Identity.Application.Common.Models;
-using Identity.Domain.Abstractions.Interfaces;
-using Identity.Domain.Models;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Identity.Application.Common.Models;
+using Identity.Application.Providers;
+using Identity.Domain.Abstractions.Interfaces;
+using Identity.Domain.Entities;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Identity.Infrastracture.Authentication;
 
@@ -27,7 +28,7 @@ internal class JwtProvider : IJwtProvider
         var claims = new Claim[]
         {
             new (JwtRegisteredClaimNames.Sub, user.Id),
-            new (JwtRegisteredClaimNames.Email, user.Email),
+            new (JwtRegisteredClaimNames.Email, user.Email!),
             new ("role", role),
         };
 
@@ -45,7 +46,7 @@ internal class JwtProvider : IJwtProvider
             expiryDate,
             signingCredentials);
 
-        string tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
+        var tokenValue = new JwtSecurityTokenHandler().WriteToken(token);
 
         return new TokenResult
         {
@@ -63,7 +64,7 @@ internal class JwtProvider : IJwtProvider
             ValidIssuer = _options.Issuer,
             ValidAudience = _options.Audience,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret)),
-            ValidateLifetime = false
+            ValidateLifetime = false,
         };
 
         return new JwtSecurityTokenHandler().ValidateToken(token, validation, out _);

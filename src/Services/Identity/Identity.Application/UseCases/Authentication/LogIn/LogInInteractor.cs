@@ -1,7 +1,8 @@
 ﻿using Identity.Application.Common.Exceptions;
 using Identity.Application.Common.Models;
+using Identity.Application.Providers;
 using Identity.Domain.Abstractions.Interfaces;
-using Identity.Domain.Models;
+using Identity.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -9,7 +10,7 @@ namespace Identity.Application.UseCases.Authentication.LogIn;
 
 public class LogInInteractor : IRequestHandler<LogInUseCase, TokensResponse>
 {
-    PasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
+    private readonly PasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
     private readonly IUserRepository _userRepository;
     private readonly IJwtProvider _jwtProvider;
     private readonly IRefreshTokenProvider _refreshTokenProvider;
@@ -30,12 +31,12 @@ public class LogInInteractor : IRequestHandler<LogInUseCase, TokensResponse>
             throw new MissMatchingUserCredentialsException("there are no user with such combination of username and password");
         }
 
-        if (_passwordHasher.VerifyHashedPassword(user, user.PasswordHash, request.Password) == PasswordVerificationResult.Failed)
+        if (_passwordHasher.VerifyHashedPassword(user, user.PasswordHash!, request.Password) == PasswordVerificationResult.Failed)
         {
             throw new MissMatchingUserCredentialsException("there are no user with such combination of username and password");
         }
 
-        var JwtToken = await _jwtProvider.GenerateJwt(user);
+        var jwtToken = await _jwtProvider.GenerateJwt(user);
 
         var refreshTokenResult = _refreshTokenProvider.Genereate();
 
@@ -46,7 +47,7 @@ public class LogInInteractor : IRequestHandler<LogInUseCase, TokensResponse>
 
         return new TokensResponse
         {
-            JwtToken = JwtToken.Token,
+            JwtToken = jwtToken.Token,
             RefreshToken = refreshTokenResult.Token,
         };
     }

@@ -5,5 +5,5 @@ namespace Identity.Application.UseCases.RoleCrud.GetRoleById;
 
 public class GetRoleByIdUseCase : IRequest<ApplicationRole?>
 {
-    public string RoleId { get; set; }
+    required public string RoleId { get; set; }
 }

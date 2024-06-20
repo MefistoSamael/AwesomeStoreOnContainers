@@ -1,4 +1,5 @@
-﻿using Identity.Domain.Abstractions.Interfaces;
+﻿using Identity.Application.Common.Exceptions;
+using Identity.Domain.Abstractions.Interfaces;
 using MediatR;
 
 namespace Identity.Application.UseCases.UserCrud.DeleteUser;
@@ -16,7 +17,7 @@ public class DeleteUserInteractor : IRequestHandler<DeleteUserUseCase>
     {
         if (await _userRepository.GetUserByIdAsync(request.Id) is null)
         {
-            return;
+            throw new NonExistentUserException($"User with {request.Id} id wasn't found");
         }
 
         await _userRepository.DeleteUserAsync(request.Id);

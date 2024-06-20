@@ -2,5 +2,5 @@
 
 public class ChangeUserRoleRequest
 {
-    public string RoleName { get; set; }
+    required public string RoleName { get; set; }
 }

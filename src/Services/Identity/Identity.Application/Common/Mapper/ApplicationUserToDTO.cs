@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Identity.Application.Common.Models;
-using Identity.Domain.Models;
+using Identity.Domain.Entities;
 
 namespace Identity.Application.Common.Mapper;
 

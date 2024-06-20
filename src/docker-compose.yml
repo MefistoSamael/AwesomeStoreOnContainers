@@ -13,13 +13,35 @@ services:
         - "7001:7001"
 
   identity.db:
-    container_name: "Identity.Db"
+    container_name: "Identity.Database"
     image: mcr.microsoft.com/mssql/server:2022-latest
     user: root
     volumes:
-      - ./.containers/data:/var/opt/mssql/data
+      - ./.containers/data/identity:/var/opt/mssql/data/identity
     environment:
         ACCEPT_EULA: "Y"
         MSSQL_SA_PASSWORD: StrongPassword123
     ports:
         - "1433:1433"
+
+  ordering.presentation:
+    container_name: "Ordering.Presentation"
+    image: ${DOCKER_REGISTRY-}orderingpresentation
+    build:
+      context: .
+      dockerfile: Services/Ordering/Ordering.Presentation/Dockerfile
+    ports:
+        - "6000:6000"
+        - "6001:6001"
+
+  ordering.db:
+    container_name: "Ordering.Database"
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    user: root
+    volumes:
+      - ./.containers/data/ordering:/var/opt/mssql/data/ordering
+    environment:
+        ACCEPT_EULA: "Y"
+        MSSQL_SA_PASSWORD: StrongPassword123
+    ports:
+        - "5533:1433"

@@ -1,7 +1,6 @@
 ﻿using Identity.Application.Common.Exceptions;
 using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Entities;
-using Identity.Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -9,22 +8,22 @@ namespace Identity.Application.UseCases.Authentication.Register;
 
 public class RegisterInteractor : IRequestHandler<RegisterUseCase, string>
 {
-    PasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
     private readonly IUserRepository _userRepository;
+    private readonly PasswordHasher<ApplicationUser> _passwordHasher = new PasswordHasher<ApplicationUser>();
 
     public RegisterInteractor(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
+
     public async Task<string> Handle(RegisterUseCase request, CancellationToken cancellationToken)
     {
         var user = await _userRepository.GetUserByEmailAsync(request.Email);
 
         if (user is not null)
         {
-            throw new ExistingUserException("User with such email already exists");
+            throw new DuplicateUserException("User with such email already exists");
         }
-
 
         user = new ApplicationUser(request.Email, request.Password);
         user.PasswordHash = _passwordHasher.HashPassword(user, request.Password);

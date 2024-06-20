@@ -2,7 +2,7 @@
 
 public class TokensResponse
 {
-    public required string JwtToken { get; set; }
+    required public string JwtToken { get; set; }
 
-    public required string RefreshToken { get; set; }
+    required public string RefreshToken { get; set; }
 }

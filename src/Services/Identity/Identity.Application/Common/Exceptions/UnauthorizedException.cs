@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Identity.Application.Common.Exceptions;
+﻿namespace Identity.Application.Common.Exceptions;
 
 public class UnauthorizedException : Exception
 {
@@ -8,15 +6,13 @@ public class UnauthorizedException : Exception
     {
     }
 
-    public UnauthorizedException(string? message) : base(message)
+    public UnauthorizedException(string? message)
+        : base(message)
     {
     }
 
-    public UnauthorizedException(string? message, Exception? innerException) : base(message, innerException)
-    {
-    }
-
-    protected UnauthorizedException(SerializationInfo info, StreamingContext context) : base(info, context)
+    public UnauthorizedException(string? message, Exception? innerException)
+        : base(message, innerException)
     {
     }
 }
