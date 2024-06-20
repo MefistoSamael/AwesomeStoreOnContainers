@@ -26,12 +26,12 @@ public class CreateUserInteractor : IRequestHandler<CreateUserUseCase, string>
     {
         if (await _roleRepository.GetRoleByNameAsync(request.Role) is null)
         {
-            throw new UnexistingRoleException("There are no such role");
+            throw new NonExistentRoleException("There are no such role");
         }
 
         if (await _userRepository.GetUserByEmailAsync(request.Email) is not null)
         {
-            throw new DuplicatedUserException("User with such email already exists");
+            throw new DuplicateUserException("User with such email already exists");
         }
 
         var user = new ApplicationUser(request.Email, request.Password);

@@ -19,7 +19,7 @@ public class RemoveOrderItemFromOrderCommandHandler : IRequestHandler<RemoveOrde
     {
         var orderItem = await _orderItemRepository.SingleOrDefaultAsync(
             item => item.Id == request.OrderItemId,
-            cancellationToken) ?? throw new KeyNotFoundException("can't find order item with specified id");
+            cancellationToken) ?? throw new NonExistentOrderException("can't find order item with specified id");
 
         var order = await _orderRepository.SingleOrDefaultAsync(
             order => order.Id == orderItem.OrderId,

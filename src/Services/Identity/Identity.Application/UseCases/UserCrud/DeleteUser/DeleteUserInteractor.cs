@@ -22,7 +22,7 @@ public class DeleteUserInteractor : IRequestHandler<DeleteUserUseCase>
         var user = await _userRepository.GetUserByIdAsync(request.Id);
         if (user is null)
         {
-            throw new UserNotFoundException($"User with {request.Id} id wasn't found");
+            throw new NonExistentUserException($"User with {request.Id} id wasn't found");
         }
 
         await _userRepository.DeleteUserAsync(request.Id);

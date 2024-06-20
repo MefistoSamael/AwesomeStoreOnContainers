@@ -29,7 +29,7 @@ public class GetUserByIdInteractor : IRequestHandler<GetUserByIdUseCase, UserDTO
         }
         else
         {
-            throw new UserNotFoundException($"User with {request.UserId} id wasn't found");
+            throw new NonExistentUserException(UserNotFoundMessage);
         }
     }
 }
