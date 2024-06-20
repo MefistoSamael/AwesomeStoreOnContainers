@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Identity.Application.Common.Exceptions;
 using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using MediatR;
@@ -29,7 +30,7 @@ public class GetUserByIdInteractor : IRequestHandler<GetUserByIdUseCase, UserDTO
         }
         else
         {
-            throw new KeyNotFoundException(UserNotFoundMessage);
+            throw new NonExistentUserException(UserNotFoundMessage);
         }
     }
 }
