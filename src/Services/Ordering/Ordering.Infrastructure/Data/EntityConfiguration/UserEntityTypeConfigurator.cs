@@ -12,7 +12,7 @@ public class UserEntityTypeConfigurator : IEntityTypeConfiguration<Buyer>
 
         userConfiguration.HasKey(order => order.Id);
 
-        userConfiguration.Property(order => order.FullName)
+        userConfiguration.Property(order => order.Email)
             .IsRequired();
     }
 }

@@ -23,7 +23,7 @@ public class BuyerDeletedConsumer : IConsumer<BuyerDeletedEvent>
             return;
         }
 
-        buyer.FullName = "Deleted";
+        buyer.Email = "Deleted";
 
         await _buyerRepository.UpdateAsync(buyer, default);
     }

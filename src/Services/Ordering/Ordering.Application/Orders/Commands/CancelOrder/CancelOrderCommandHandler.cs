@@ -31,6 +31,7 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand>
 
         await _orderRepository.UpdateAsync(order, cancellationToken);
 
+        // generate signalr message
         var @event = _mapper.Map<OrderCanceledEvent>(order);
 
         await _publishEndpoint.Publish(@event);

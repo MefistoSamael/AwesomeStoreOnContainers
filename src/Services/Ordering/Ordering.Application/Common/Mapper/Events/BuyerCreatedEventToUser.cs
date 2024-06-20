@@ -10,6 +10,6 @@ public class BuyerCreatedEventToBuyer : Profile
     {
         CreateMap<BuyerCreatedEvent, Buyer>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.BuyerId))
-            .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => src.BuyerFullName));
+            .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.BuyerEmail));
     }
 }

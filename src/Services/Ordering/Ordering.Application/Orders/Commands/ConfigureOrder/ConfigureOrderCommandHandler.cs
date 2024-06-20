@@ -35,6 +35,7 @@ public class ConfigureOrderCommandHandler : IRequestHandler<ConfigureOrderComman
 
         await _orderRepository.UpdateAsync(order, cancellationToken);
 
+        // generate signalr message
         var @event = _mapper.Map<OrderConfiguredEvent>(order);
 
         await _publishEndpoint.Publish(@event, default);
