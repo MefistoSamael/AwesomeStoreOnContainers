@@ -17,17 +17,25 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        string? connecitonString = configuration["CatalogStoreDatabase:ConnectionString"];
+        string? connectionString = configuration["CatalogStoreDatabase:ConnectionString"];
         string? productsDbName = configuration["CatalogStoreDatabase:DatabaseName"];
         string hangfireDbName = "Jobs";
 
-        MongoClient client = new (connecitonString);
+        MongoClient client = new (connectionString);
 
         services.AddSingleton(client.GetDatabase(productsDbName).GetCollection<Product>(configuration["CatalogStoreDatabase:ProductCollectionName"]));
         services.AddSingleton(client.GetDatabase(productsDbName).GetCollection<Category>(configuration["CatalogStoreDatabase:CategoryCollectionName"]));
 
+        services.AddStackExchangeRedisCache(redisOptions =>
+        {
+            string connection = configuration["Redis:ConnectionString"]!;
+
+            redisOptions.Configuration = connection;
+        });
+
         services.AddScoped<ICategoryRepository, CategoryRepository>();
-        services.AddScoped<IProductRepostitory, ProductRepository>();
+        services.AddScoped<ProductRepository>();
+        services.AddScoped<IProductRepostitory, CashedProductRepository>();
         services.AddScoped<IImageService, ImageService>();
 
         services.AddHangfire(configuration => configuration
