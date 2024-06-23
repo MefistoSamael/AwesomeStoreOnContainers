@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Ordering.Application;
 using Ordering.Infrastructure;
 using Ordering.Presentation;

@@ -1,6 +1,6 @@
-﻿namespace Contracts.Events.IdentityEvents;
+﻿namespace Contracts.Messages.IdentityMessages;
 
-public class BuyerCreatedEvent : Event
+public class BuyerCreatedMessage : Message
 {
     required public string BuyerId { get; set; }
 

@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using FluentValidation;
+﻿using FluentValidation;
 using MassTransit;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -7,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Ordering.Application.Common.Behaviours;
 using Ordering.Application.Consumers.CatalogConsumers;
 using Ordering.Application.EventHandlers.UserEvents;
+using System.Reflection;
 
 namespace Ordering.Application;
 

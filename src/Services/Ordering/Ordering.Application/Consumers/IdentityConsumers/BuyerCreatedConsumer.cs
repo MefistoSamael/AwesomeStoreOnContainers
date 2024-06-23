@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using Contracts.Events.IdentityEvents;
+using Contracts.Messages.IdentityMessages;
 using MassTransit;
 using Ordering.Domain.Entities;
 using Ordering.Domain.Repositories;
 
 namespace Ordering.Application.EventHandlers.UserEvents;
 
-public class BuyerCreatedConsumer : IConsumer<BuyerCreatedEvent>
+public class BuyerCreatedConsumer : IConsumer<BuyerCreatedMessage>
 {
     private readonly IBuyerRepository _buyerRepository;
     private readonly IMapper _mapper;
@@ -19,9 +19,17 @@ public class BuyerCreatedConsumer : IConsumer<BuyerCreatedEvent>
         _orderRepository = orderRepository;
     }
 
-    public async Task Consume(ConsumeContext<BuyerCreatedEvent> context)
+    public async Task Consume(ConsumeContext<BuyerCreatedMessage> context)
     {
-        var buyer = _mapper.Map<Buyer>(context.Message);
+        var buyer = await _buyerRepository.SingleOrDefaultAsync(buyer => buyer.Id == context.Message.BuyerId, default);
+
+        if (buyer is not null)
+        {
+            // log this situation
+            return;
+        }
+
+        buyer = _mapper.Map<Buyer>(context.Message);
 
         await _buyerRepository.CreateAsync(buyer, default);
 

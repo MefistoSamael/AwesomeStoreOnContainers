@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Contracts.Events.OrderingEvents;
+using Contracts.Messages.OrderingMessages;
 using MassTransit;
 using MediatR;
 using Ordering.Application.OrderItems.Queries.GetOrderItemsFromOrderQuery;
@@ -41,7 +41,7 @@ public class ConfigureOrderCommandHandler : IRequestHandler<ConfigureOrderComman
         await _orderRepository.CreateAsync(newOrder, default);
 
         // generate signalr message
-        var @event = _mapper.Map<OrderConfiguredEvent>(order);
+        var @event = _mapper.Map<OrderConfiguredMessage>(order);
 
         await _publishEndpoint.Publish(@event, default);
     }

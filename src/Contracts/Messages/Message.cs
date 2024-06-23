@@ -1,10 +1,10 @@
-﻿namespace Contracts.Events;
+﻿namespace Contracts.Messages;
 
-public abstract class Event
+public abstract class Message
 {
     public DateTime TimeStamp { get; protected set; }
 
-    protected Event()
+    protected Message()
     {
         TimeStamp = DateTime.Now;
     }

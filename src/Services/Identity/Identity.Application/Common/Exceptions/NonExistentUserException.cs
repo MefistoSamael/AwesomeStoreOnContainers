@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-
-namespace Identity.Application.Common.Exceptions;
+﻿namespace Identity.Application.Common.Exceptions;
 
 public class NonExistentUserException : Exception
 {

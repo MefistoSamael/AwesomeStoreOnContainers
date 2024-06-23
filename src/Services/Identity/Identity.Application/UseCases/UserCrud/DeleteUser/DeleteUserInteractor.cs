@@ -1,4 +1,4 @@
-﻿using Contracts.Events.IdentityEvents;
+﻿using Contracts.Messages.IdentityMessages;
 using Identity.Application.Common.Exceptions;
 using Identity.Domain.Abstractions.Interfaces;
 using MassTransit;
@@ -27,6 +27,6 @@ public class DeleteUserInteractor : IRequestHandler<DeleteUserUseCase>
 
         await _userRepository.DeleteUserAsync(request.Id);
 
-        await _publishEndpoint.Publish(new BuyerDeletedEvent { BuyerId = request.Id });
+        await _publishEndpoint.Publish(new BuyerDeletedMessage { BuyerId = request.Id });
     }
 }

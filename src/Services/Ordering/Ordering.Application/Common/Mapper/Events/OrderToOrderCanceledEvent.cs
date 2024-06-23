@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Contracts.Events.OrderingEvents;
+using Contracts.Messages.OrderingMessages;
 using Ordering.Domain.Entities;
 
 namespace Ordering.Application.Common.Mapper.Events;
@@ -8,7 +8,7 @@ public class OrderToOrderCanceledEvent : Profile
 {
     public OrderToOrderCanceledEvent()
     {
-        CreateMap<Order, OrderCanceledEvent>()
+        CreateMap<Order, OrderCanceledMessage>()
             .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems));
     }
 }

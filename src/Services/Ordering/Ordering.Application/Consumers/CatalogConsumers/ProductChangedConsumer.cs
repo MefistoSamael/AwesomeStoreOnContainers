@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using Contracts.Events.CatalogEvents;
+using Contracts.Messages.CatalogMessages;
 using MassTransit;
 using Ordering.Domain.Repositories;
 
 namespace Ordering.Application.Consumers.CatalogConsumers;
 
-public class ProductChangedConsumer : IConsumer<ProductChangedEvent>
+public class ProductChangedConsumer : IConsumer<ProductChangedMessage>
 {
     private readonly IOrderItemRepository _orderItemRepository;
     private readonly IMapper _mapper;
@@ -16,7 +16,7 @@ public class ProductChangedConsumer : IConsumer<ProductChangedEvent>
         _mapper = mapper;
     }
 
-    public async Task Consume(ConsumeContext<ProductChangedEvent> context)
+    public async Task Consume(ConsumeContext<ProductChangedMessage> context)
     {
         var @event = context.Message;
 
@@ -32,40 +32,17 @@ public class ProductChangedConsumer : IConsumer<ProductChangedEvent>
 
         foreach (var orderItem in orderItems)
         {
-            var isUpdated = false;
-
-            if (@event.NewProductName is not null)
+            if (orderItem.Price != @event.Price)
             {
-                orderItem.ProductName = @event.NewProductName;
-                isUpdated = true;
-            }
-
-            if (@event.NewPrice is not null)
-            {
-                orderItem.Price = (int)@event.NewPrice;
-                isUpdated = true;
-
                 // signalr message generation
             }
 
-            if (@event.NewImageUri is not null)
+            if (orderItem.Quantity != @event.StockCount)
             {
-                orderItem.ImageUri = @event.NewImageUri;
-                isUpdated = true;
-            }
-
-            if (@event.NewStockCount is not null)
-            {
-                orderItem.Quantity = (int)@event.NewStockCount;
-                isUpdated = true;
-
                 // signalr message generation
             }
 
-            if (isUpdated)
-            {
-                tasks.Add(_orderItemRepository.UpdateAsync(orderItem, default));
-            }
+            tasks.Add(_orderItemRepository.UpdateAsync(orderItem, default));
         }
 
         await Task.WhenAll(tasks);

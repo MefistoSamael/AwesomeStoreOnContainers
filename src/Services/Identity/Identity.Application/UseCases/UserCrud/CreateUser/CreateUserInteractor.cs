@@ -1,4 +1,4 @@
-﻿using Contracts.Events.IdentityEvents;
+﻿using Contracts.Messages.IdentityMessages;
 using Identity.Application.Common.Exceptions;
 using Identity.Domain.Abstractions.Interfaces;
 using Identity.Domain.Entities;
@@ -43,7 +43,7 @@ public class CreateUserInteractor : IRequestHandler<CreateUserUseCase, string>
 
         if (request.Role.ToLower() == RoleConstants.Buyer.ToLower())
         {
-            await _publishEndpoint.Publish(new BuyerCreatedEvent
+            await _publishEndpoint.Publish(new BuyerCreatedMessage
             {
                 BuyerId = id,
                 BuyerEmail = user.Email!,

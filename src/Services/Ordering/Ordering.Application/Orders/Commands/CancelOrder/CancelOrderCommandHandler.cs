@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Contracts.Events.OrderingEvents;
+using Contracts.Messages.OrderingMessages;
 using MassTransit;
 using MediatR;
 using Ordering.Application.OrderItems.Queries.GetOrderItemsFromOrderQuery;
@@ -37,7 +37,7 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand>
         await _orderRepository.CreateAsync(newOrder, default);
 
         // generate signalr message
-        var @event = _mapper.Map<OrderCanceledEvent>(order);
+        var @event = _mapper.Map<OrderCanceledMessage>(order);
 
         await _publishEndpoint.Publish(@event);
     }

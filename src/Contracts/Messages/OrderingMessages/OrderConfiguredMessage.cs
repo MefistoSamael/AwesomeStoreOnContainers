@@ -1,9 +1,9 @@
 ﻿using Contracts.DTO;
 
-namespace Contracts.Events.OrderingEvents;
+namespace Contracts.Messages.OrderingMessages;
 
 // reduce stock count of product
-public class OrderConfiguredEvent : Event
+public class OrderConfiguredMessage : Message
 {
     required public List<OrderProductDTO> OrderItems { get; set; }
 }
