@@ -17,7 +17,7 @@ public class DeleteProductInteractor : IRequestHandler<DeleteProductUseCase>
 
     public async Task Handle(DeleteProductUseCase request, CancellationToken cancellationToken)
     {
-        Domain.Entities.Product? product = await _productRepostitory.GetProductByIdAsync(request.ProductId, cancellationToken);
+        Domain.Entities.Product? product = await _productRepostitory.GetByIdAsync(request.ProductId, cancellationToken);
 
         if (product is null)
         {
@@ -25,6 +25,7 @@ public class DeleteProductInteractor : IRequestHandler<DeleteProductUseCase>
         }
 
         _imageService.DeleteImage(product);
-        await _productRepostitory.DeleteProductAsync(product, cancellationToken);
+
+        await _productRepostitory.DeleteAsync(product, cancellationToken);
     }
 }

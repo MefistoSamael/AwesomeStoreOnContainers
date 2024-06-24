@@ -23,7 +23,7 @@ public class CategoryRepository : ICategoryRepository
         _deleteOneOptions = new DeleteOptions();
     }
 
-    public async Task<string> CreateCategoryAsync(Category category, CancellationToken cancellationToken)
+    public async Task<string> CreateAsync(Category category, CancellationToken cancellationToken)
     {
         category.Id = Guid.NewGuid().ToString();
 
@@ -32,14 +32,14 @@ public class CategoryRepository : ICategoryRepository
         return category.Id;
     }
 
-    public async Task DeleteCategoryAsync(Category category, CancellationToken cancellationToken)
+    public async Task DeleteAsync(Category category, CancellationToken cancellationToken)
     {
         FilterDefinition<Category> idFilter = Builders<Category>.Filter.Eq(category => category.Id, category.Id);
 
         await _categories.DeleteOneAsync(idFilter, _deleteOneOptions, cancellationToken);
     }
 
-    public async Task<string> UpdateCategoryAsync(Category category, CancellationToken cancellationToken)
+    public async Task<string> UpdateAsync(Category category, CancellationToken cancellationToken)
     {
         FilterDefinition<Product> filter = Builders<Product>.Filter.ElemMatch(p => p.Categories, c => c.Id == category.Id);
 
@@ -52,26 +52,26 @@ public class CategoryRepository : ICategoryRepository
         return category.Id;
     }
 
-    public async Task<int> GetCategoriesCountAsync(CancellationToken cancellationToken)
+    public async Task<int> GetCountAsync(CancellationToken cancellationToken)
     {
         return (int)await _categories.EstimatedDocumentCountAsync(_estimatedDocumentCountOptions, cancellationToken);
     }
 
-    public async Task<Category?> GetCategoryByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<Category?> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         FilterDefinition<Category> filter = Builders<Category>.Filter.Eq(category => category.Id, id);
 
         return await (await _categories.FindAsync(filter, cancellationToken: cancellationToken)).FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task<Category?> GetCategoryByNameAsync(string categoryName, CancellationToken cancellationToken)
+    public async Task<Category?> GetByNameAsync(string categoryName, CancellationToken cancellationToken)
     {
         FilterDefinition<Category> filter = Builders<Category>.Filter.Eq(category => category.NormalizedName, categoryName.ToUpper());
 
         return await (await _categories.FindAsync(filter, cancellationToken: cancellationToken)).FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<Category>> GetPaginatedCategoriesAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Category>> GetPaginatedAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
         return await _categories.Find(filter => true)
             .SortBy(category => category.Id)

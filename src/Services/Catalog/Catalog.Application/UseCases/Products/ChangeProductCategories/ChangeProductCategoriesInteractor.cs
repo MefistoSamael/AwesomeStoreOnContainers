@@ -18,20 +18,20 @@ public class ChangeProductCategoriesInteractor : IRequestHandler<ChangeProductCa
 
     public async Task<string> Handle(ChangeProductCategoriesUseCase request, CancellationToken cancellationToken)
     {
-        Product product = await _productRepostitory.GetProductByIdAsync(request.ProductId, cancellationToken)
+        Product product = await _productRepostitory.GetByIdAsync(request.ProductId, cancellationToken)
             ?? throw new KeyNotFoundException("product with specified id wasn't found");
 
         List<Category> domainCategories = [];
 
         foreach (string category in request.Categories)
         {
-            domainCategories.Add(await _categoryRepository.GetCategoryByNameAsync(category, cancellationToken)
+            domainCategories.Add(await _categoryRepository.GetByNameAsync(category, cancellationToken)
                 ?? throw new NonExistentCategoryException($"there are no category with {category} name"));
         }
 
         product.Categories = domainCategories;
 
-        await _productRepostitory.UpdateProductAsync(product, cancellationToken);
+        await _productRepostitory.UpdateAsync(product, cancellationToken);
 
         return product.Id;
     }
