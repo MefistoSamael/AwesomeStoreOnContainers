@@ -48,7 +48,9 @@ public class CreateProductInteractor : IRequestHandler<CreateProductUseCase, str
 
         product = await _imageService.SaveImageAsync(request.Image, product, cancellationToken);
 
-        await _productRepository.AddToCategoriesAsync(product, domainCategories, cancellationToken);
+        product.Categories = domainCategories;
+
+        await _productRepository.UpdateProductAsync(product, cancellationToken);
 
         return product.Id;
     }

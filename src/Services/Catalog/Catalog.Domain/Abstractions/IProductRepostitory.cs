@@ -10,14 +10,6 @@ public interface IProductRepostitory
 
     Task DeleteProductAsync(Product product, CancellationToken cancellationToken);
 
-    Task<string> AddToCategoryAsync(Product product, Category category, CancellationToken cancellationToken);
-
-    Task<string> AddToCategoriesAsync(Product product, IEnumerable<Category> categories, CancellationToken cancellationToken);
-
-    Task<string> RemoveFromCategoryAsync(Product product, Category category, CancellationToken cancellationToken);
-
-    Task<string> RemoveFromCategoriesAsync(Product product, IEnumerable<Category> categories, CancellationToken cancellationToken);
-
     Task<Product> GetProductByIdAsync(string id, CancellationToken cancellationToken);
 
     Task<IEnumerable<Product>> GetPaginatedProductsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
@@ -25,6 +17,4 @@ public interface IProductRepostitory
     Task<int> GetProductCountAsync(CancellationToken cancellationToken);
 
     Task<IEnumerable<Product>> GetAllProductsAsync(CancellationToken? cancellationToken);
-
-    Task AddStockCount(Product product, int restockAmount);
 }

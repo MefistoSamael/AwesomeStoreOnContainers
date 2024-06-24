@@ -32,10 +32,11 @@ public class UpdateStockCountJob : IUpdateStockCountJob
 
         foreach (Domain.Entities.Product product in products)
         {
+            product.StockCount += _options.RestockAmount;
             StockCountChangedEvent stockCountChanged = _mapper.Map<StockCountChangedEvent>(product);
-            stockCountChanged.NewStockCount = product.StockCount + _options.RestockAmount;
+            stockCountChanged.NewStockCount = product.StockCount;
 
-            await _productRepostitory.AddStockCount(product, _options.RestockAmount);
+            await _productRepostitory.UpdateProductAsync(product, default);
 
             await _publishEndpoint.Publish(stockCountChanged);
         }

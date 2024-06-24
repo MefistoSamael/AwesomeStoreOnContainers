@@ -29,9 +29,9 @@ public class ChangeProductCategoriesInteractor : IRequestHandler<ChangeProductCa
                 ?? throw new NonExistentCategoryException($"there are no category with {category} name"));
         }
 
-        await _productRepostitory.RemoveFromCategoriesAsync(product, new List<Category>(product.Categories), cancellationToken);
+        product.Categories = domainCategories;
 
-        await _productRepostitory.AddToCategoriesAsync(product, domainCategories, cancellationToken);
+        await _productRepostitory.UpdateProductAsync(product, cancellationToken);
 
         return product.Id;
     }
