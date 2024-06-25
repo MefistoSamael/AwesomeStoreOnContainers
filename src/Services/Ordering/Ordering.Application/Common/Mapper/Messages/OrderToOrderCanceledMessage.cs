@@ -2,13 +2,13 @@
 using Contracts.Messages.OrderingMessages;
 using Ordering.Domain.Entities;
 
-namespace Ordering.Application.Common.Mapper.Events;
+namespace Ordering.Application.Common.Mapper.Messages;
 
-public class OrderToOrderConfiguredEvent : Profile
+public class OrderToOrderCanceledMessage : Profile
 {
-    public OrderToOrderConfiguredEvent()
+    public OrderToOrderCanceledMessage()
     {
-        CreateMap<Order, OrderConfiguredMessage>()
+        CreateMap<Order, OrderCanceledMessage>()
             .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems));
     }
 }

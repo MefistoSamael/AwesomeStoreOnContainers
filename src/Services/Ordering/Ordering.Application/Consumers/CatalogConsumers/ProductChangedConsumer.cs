@@ -42,7 +42,9 @@ public class ProductChangedConsumer : IConsumer<ProductChangedMessage>
                 // signalr message generation
             }
 
-            tasks.Add(_orderItemRepository.UpdateAsync(orderItem, default));
+            var newOrderItem = _mapper.Map(@event, orderItem);
+
+            tasks.Add(_orderItemRepository.UpdateAsync(newOrderItem, default));
         }
 
         await Task.WhenAll(tasks);

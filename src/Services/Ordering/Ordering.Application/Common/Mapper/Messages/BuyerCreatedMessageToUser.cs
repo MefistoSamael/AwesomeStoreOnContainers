@@ -2,7 +2,7 @@
 using Contracts.Messages.IdentityMessages;
 using Ordering.Domain.Entities;
 
-namespace Ordering.Application.Common.Mapper.Events;
+namespace Ordering.Application.Common.Mapper.Messages;
 
 public class BuyerCreatedEventToBuyer : Profile
 {

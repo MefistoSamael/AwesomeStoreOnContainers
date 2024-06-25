@@ -4,9 +4,9 @@ using Ordering.Domain.Entities;
 
 namespace Ordering.Application.Common.Mapper.DTOs;
 
-public class OrderToOrderCanceledEvent : Profile
+public class OrderItemToOrderProductDTO : Profile
 {
-    public OrderToOrderCanceledEvent()
+    public OrderItemToOrderProductDTO()
     {
         CreateMap<OrderItem, OrderProductDTO>()
             .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
