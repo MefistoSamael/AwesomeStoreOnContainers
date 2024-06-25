@@ -37,7 +37,7 @@ public class ImageService : IImageService
         product.ImageUri = $"{_options.Host}/Images/{fileName}";
         product.ImageFileName = extension;
 
-        await _productRepostitory.UpdateProductAsync(product, cancellationToken);
+        await _productRepostitory.UpdateAsync(product, cancellationToken);
 
         return product;
     }

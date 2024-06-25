@@ -28,7 +28,7 @@ public class UpdateStockCountJob : IUpdateStockCountJob
 
     public async Task Execute()
     {
-        IEnumerable<Domain.Entities.Product> products = await _productRepostitory.GetAllProductsAsync(null);
+        IEnumerable<Domain.Entities.Product> products = await _productRepostitory.GetAllAsync(null);
 
         foreach (Domain.Entities.Product product in products)
         {
@@ -36,7 +36,7 @@ public class UpdateStockCountJob : IUpdateStockCountJob
             StockCountChangedEvent stockCountChanged = _mapper.Map<StockCountChangedEvent>(product);
             stockCountChanged.NewStockCount = product.StockCount;
 
-            await _productRepostitory.UpdateProductAsync(product, default);
+            await _productRepostitory.UpdateAsync(product, default);
 
             await _publishEndpoint.Publish(stockCountChanged);
         }

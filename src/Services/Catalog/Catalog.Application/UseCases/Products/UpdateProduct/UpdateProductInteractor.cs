@@ -24,7 +24,7 @@ public class UpdateProductInteractor : IRequestHandler<UpdateProductUseCase, str
 
     public async Task<string> Handle(UpdateProductUseCase request, CancellationToken cancellationToken)
     {
-        Domain.Entities.Product? product = await _productRepostitory.GetProductByIdAsync(request.ProductId, cancellationToken);
+        Domain.Entities.Product? product = await _productRepostitory.GetByIdAsync(request.ProductId, cancellationToken);
 
         if (product is null)
         {
@@ -36,7 +36,7 @@ public class UpdateProductInteractor : IRequestHandler<UpdateProductUseCase, str
 
         product = _mapper.Map(request, product);
 
-        await _productRepostitory.UpdateProductAsync(product, cancellationToken);
+        await _productRepostitory.UpdateAsync(product, cancellationToken);
 
         await _publishEndpoint.Publish(priceChangedEvent);
 

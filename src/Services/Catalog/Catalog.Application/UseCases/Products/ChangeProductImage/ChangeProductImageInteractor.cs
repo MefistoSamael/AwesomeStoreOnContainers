@@ -17,7 +17,7 @@ public class ChangeProductImageInteractor : IRequestHandler<ChangeProductImageUs
 
     public async Task<string> Handle(ChangeProductImageUseCase request, CancellationToken cancellationToken)
     {
-        Domain.Entities.Product product = await _productRepository.GetProductByIdAsync(request.ProductId, cancellationToken)
+        Domain.Entities.Product product = await _productRepository.GetByIdAsync(request.ProductId, cancellationToken)
             ?? throw new KeyNotFoundException("product with specified id wasn't found");
 
         await _imageService.SaveImageAsync(request.Image, product, cancellationToken);

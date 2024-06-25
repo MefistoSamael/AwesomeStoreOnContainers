@@ -48,6 +48,7 @@ public class ExceptionHandlingMiddleware
             };
 
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
         catch (NonExistentCategoryException exception)
@@ -61,6 +62,7 @@ public class ExceptionHandlingMiddleware
             };
 
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
         catch (InvalidOperationException exception)
@@ -74,6 +76,7 @@ public class ExceptionHandlingMiddleware
             };
 
             context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
         catch (KeyNotFoundException exception)
@@ -87,12 +90,14 @@ public class ExceptionHandlingMiddleware
             };
 
             context.Response.StatusCode = StatusCodes.Status404NotFound;
+
             await context.Response.WriteAsJsonAsync(problemDetails);
         }
         catch (Exception)
         {
             throw;
             Exception exception;
+
             await Console.Out.WriteLineAsync(exception.Message);
             ProblemDetails problemDetails = new ()
             {

@@ -18,11 +18,11 @@ public class GetPaginatedCategoriesInteractor : IRequestHandler<GetPaginatedCate
 
     public async Task<PaginatedResult<CategoryDTO>> Handle(GetPaginatedCategoriesUseCase request, CancellationToken cancellationToken)
     {
-        var domainCategories = await _categoryRepository.GetPaginatedCategoriesAsync(request.PageNumber, request.PageSize, cancellationToken);
+        var domainCategories = await _categoryRepository.GetPaginatedAsync(request.PageNumber, request.PageSize, cancellationToken);
 
         var categories = _mapper.Map<IEnumerable<CategoryDTO>>(domainCategories);
 
-        var count = await _categoryRepository.GetCategoriesCountAsync(cancellationToken);
+        var count = await _categoryRepository.GetCountAsync(cancellationToken);
 
         var totalPages = (int)Math.Ceiling(count / (double)request.PageSize);
 

@@ -16,12 +16,12 @@ public class CashedProductRepository : IProductRepostitory
         _distributedCache = distributedCache;
     }
 
-    public async Task<string> CreateProductAsync(Product product, CancellationToken cancellationToken)
+    public async Task<string> CreateAsync(Product product, CancellationToken cancellationToken)
     {
-        return await _decorated.CreateProductAsync(product, cancellationToken);
+        return await _decorated.CreateAsync(product, cancellationToken);
     }
 
-    public async Task DeleteProductAsync(Product product, CancellationToken cancellationToken)
+    public async Task DeleteAsync(Product product, CancellationToken cancellationToken)
     {
         var key = $"productId-{product.Id}";
 
@@ -36,20 +36,20 @@ public class CashedProductRepository : IProductRepostitory
                 cancellationToken);
         }
 
-        await _decorated.DeleteProductAsync(product, cancellationToken);
+        await _decorated.DeleteAsync(product, cancellationToken);
     }
 
-    public async Task<IEnumerable<Product>> GetAllProductsAsync(CancellationToken? cancellationToken)
+    public async Task<IEnumerable<Product>> GetAllAsync(CancellationToken? cancellationToken)
     {
-        return await _decorated.GetAllProductsAsync(cancellationToken);
+        return await _decorated.GetAllAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<Product>> GetPaginatedProductsAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
+    public async Task<IEnumerable<Product>> GetPaginatedAsync(int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        return await _decorated.GetPaginatedProductsAsync(pageNumber, pageSize, cancellationToken);
+        return await _decorated.GetPaginatedAsync(pageNumber, pageSize, cancellationToken);
     }
 
-    public async Task<Product> GetProductByIdAsync(string id, CancellationToken cancellationToken)
+    public async Task<Product?> GetByIdAsync(string id, CancellationToken cancellationToken)
     {
         var key = $"productId-{id}";
 
@@ -59,11 +59,11 @@ public class CashedProductRepository : IProductRepostitory
 
         if (string.IsNullOrEmpty(cashedMember))
         {
-            var member = await _decorated.GetProductByIdAsync(id, cancellationToken);
+            var member = await _decorated.GetByIdAsync(id, cancellationToken);
 
             if (member is null)
             {
-                return member;
+                return member!;
             }
 
             await _distributedCache.SetStringAsync(
@@ -77,16 +77,16 @@ public class CashedProductRepository : IProductRepostitory
         return JsonConvert.DeserializeObject<Product>(cashedMember);
     }
 
-    public async Task<int> GetProductCountAsync(CancellationToken cancellationToken)
+    public async Task<int> GetCountAsync(CancellationToken cancellationToken)
     {
-        return await _decorated.GetProductCountAsync(cancellationToken);
+        return await _decorated.GetCountAsync(cancellationToken);
     }
 
-    public async Task<string> UpdateProductAsync(Product product, CancellationToken cancellationToken)
+    public async Task<string> UpdateAsync(Product product, CancellationToken cancellationToken)
     {
         var key = $"productId-{product.Id}";
 
-        var answer = await _decorated.UpdateProductAsync(product, cancellationToken);
+        var answer = await _decorated.UpdateAsync(product, cancellationToken);
 
         if (!string.IsNullOrEmpty(await _distributedCache.GetStringAsync(
                 key,

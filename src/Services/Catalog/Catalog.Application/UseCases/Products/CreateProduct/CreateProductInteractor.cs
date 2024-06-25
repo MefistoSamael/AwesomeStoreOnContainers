@@ -32,7 +32,7 @@ public class CreateProductInteractor : IRequestHandler<CreateProductUseCase, str
 
         foreach (string category in request.Categories)
         {
-            Category? domainCategory = await _categoryRepository.GetCategoryByNameAsync(category, cancellationToken);
+            Category? domainCategory = await _categoryRepository.GetByNameAsync(category, cancellationToken);
 
             if (domainCategory is null)
             {
@@ -44,13 +44,13 @@ public class CreateProductInteractor : IRequestHandler<CreateProductUseCase, str
 
         Product product = _mapper.Map<Product>(request);
 
-        product.Id = await _productRepository.CreateProductAsync(product, cancellationToken);
+        product.Id = await _productRepository.CreateAsync(product, cancellationToken);
 
         product = await _imageService.SaveImageAsync(request.Image, product, cancellationToken);
 
         product.Categories = domainCategories;
 
-        await _productRepository.UpdateProductAsync(product, cancellationToken);
+        await _productRepository.UpdateAsync(product, cancellationToken);
 
         return product.Id;
     }

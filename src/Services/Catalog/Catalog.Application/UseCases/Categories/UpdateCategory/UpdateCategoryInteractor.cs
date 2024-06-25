@@ -17,7 +17,7 @@ public class UpdateCategoryInteractor : IRequestHandler<UpdateCategoryUseCase, s
 
     public async Task<string> Handle(UpdateCategoryUseCase request, CancellationToken cancellationToken)
     {
-        Domain.Entities.Category? category = await _categoryRepository.GetCategoryByIdAsync(request.CategoryId, cancellationToken);
+        Domain.Entities.Category? category = await _categoryRepository.GetByIdAsync(request.CategoryId, cancellationToken);
 
         if (category is null)
         {
@@ -26,7 +26,7 @@ public class UpdateCategoryInteractor : IRequestHandler<UpdateCategoryUseCase, s
 
         category = _mapper.Map(request, category);
 
-        await _categoryRepository.UpdateCategoryAsync(category, cancellationToken);
+        await _categoryRepository.UpdateAsync(category, cancellationToken);
 
         return category.Id;
     }

@@ -14,7 +14,7 @@ public class DeleteCategoryInteractor : IRequestHandler<DeleteCategoryUseCase>
 
     public async Task Handle(DeleteCategoryUseCase request, CancellationToken cancellationToken)
     {
-        Domain.Entities.Category category = await _categoryRepository.GetCategoryByIdAsync(request.CategoryId, cancellationToken)
+        Domain.Entities.Category category = await _categoryRepository.GetByIdAsync(request.CategoryId, cancellationToken)
             ?? throw new KeyNotFoundException("category with specified id wasn't found");
 
         if (await _categoryRepository.HasProductsAsync(category, cancellationToken))
@@ -22,6 +22,6 @@ public class DeleteCategoryInteractor : IRequestHandler<DeleteCategoryUseCase>
             throw new InvalidOperationException("category can't be deletet while it has products");
         }
 
-        await _categoryRepository.DeleteCategoryAsync(category, cancellationToken);
+        await _categoryRepository.DeleteAsync(category, cancellationToken);
     }
 }
