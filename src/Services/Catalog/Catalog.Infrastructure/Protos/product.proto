@@ -1,0 +1,25 @@
+syntax = "proto3";
+ 
+option csharp_namespace = "Catalog.Infrastructure.Protos";
+ 
+package product;
+
+message Request{
+    string productId = 1;
+}
+ 
+message ProductResponse{
+     string Id = 1;
+
+     string Name = 2;
+
+     string ImageUri = 3;
+
+     int32 Price = 4;
+
+     string Categories = 5;
+}
+ 
+service GRPCProduct {
+  rpc GetProductById (Request) returns (ProductResponse);
+}
