@@ -1,9 +1,7 @@
 ﻿namespace Ordering.Domain.Entities;
 
-public class OrderItem
+public class OrderItem : Entity
 {
-    required public string Id { get; set; }
-
     required public string ProductName { get; set; }
 
     required public string ImageUri { get; set; }

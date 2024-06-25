@@ -2,10 +2,8 @@
 
 namespace Ordering.Domain.Entities;
 
-public class Order
+public class Order : Entity
 {
-    required public string Id { get; set; }
-
     required public string BuyerId { get; set; }
 
     required public string Description { get; set; }
