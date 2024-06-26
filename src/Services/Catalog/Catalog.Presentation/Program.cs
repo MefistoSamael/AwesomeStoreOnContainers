@@ -2,6 +2,7 @@ using Catalog.Application;
 using Catalog.Domain.Entities;
 using Catalog.Infrastructure;
 using Catalog.Infrastructure.Data.Seeders;
+using Catalog.Infrastructure.Services;
 using Catalog.Presentation;
 using Catalog.Presentation.Common.Middleware;
 using Hangfire;
@@ -36,6 +37,8 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapGrpcService<GRPCProductService>();
 
 using (IServiceScope scope = app.Services.CreateScope())
 {

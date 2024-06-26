@@ -1,12 +1,15 @@
-﻿using Catalog.Application.Services;
+﻿using System.Reflection;
+using Catalog.Application.Services;
 using Catalog.Domain.Abstractions;
 using Catalog.Domain.Entities;
 using Catalog.Infrastructure.Repositories;
 using Catalog.Infrastructure.Services;
+using FluentValidation;
 using Hangfire;
 using Hangfire.Mongo;
 using Hangfire.Mongo.Migration.Strategies;
 using Hangfire.Mongo.Migration.Strategies.Backup;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
@@ -51,6 +54,10 @@ public static class DependencyInjection
         {
             serverOptions.ServerName = "Hangfire.Mongo server 1";
         });
+
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+        services.AddGrpc();
 
         return services;
     }
