@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Ordering.Presentation.Common.OptionsSetup;
 using Ordering.Presentation.Common.Swagger;
 
 namespace Ordering.Presentation;
@@ -18,6 +19,8 @@ public static class DependencyInjection
 
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
+        services.ConfigureOptions<GrpcConnectionOptionsSetup>();
 
         return services;
     }

@@ -1,4 +1,6 @@
-﻿namespace Ordering.Application.Common.Exceptions;
+﻿using System.Runtime.Serialization;
+
+namespace Ordering.Application.Common.Exceptions;
 [Serializable]
 internal class NonExistentOrderItemException : Exception
 {
