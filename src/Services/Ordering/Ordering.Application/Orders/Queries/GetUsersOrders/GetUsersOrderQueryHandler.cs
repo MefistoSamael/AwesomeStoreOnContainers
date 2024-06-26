@@ -26,8 +26,8 @@ public class GetUsersOrderQueryHandler : IRequestHandler<GetUsersOrderQuery, Pag
             throw new NonExistentUserException("user with specified id doesn't exist");
         }
 
-        var domainOrders = await _orderRepository.GetPaginatedOrderdsAsync(
-            order => order.BuyerId == request.UserId,
+        var domainOrders = await _orderRepository.GetPaginatedOrderdsOfUserAsync(
+            request.UserId,
             request.PageNumber,
             request.PageSize,
             cancellationToken);

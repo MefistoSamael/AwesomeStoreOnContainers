@@ -26,10 +26,9 @@ public class GetUsersActiveOrderQueryHandler : IRequestHandler<GetUsersActiveOrd
             throw new NonExistentUserException("user with specified id doesn't exist");
         }
 
-        var domainOrder = await _orderRepository.SingleOrDefaultAsync(
-            order => order.BuyerId == request.UserId && order.State == Domain.Enums.OrderState.Configuring,
-            cancellationToken,
-            order => order.OrderItems);
+        var domainOrder = await _orderRepository.GetUserActiveOrder(
+            request.UserId,
+            cancellationToken);
 
         var order = _mapper.Map<OrderDTO>(domainOrder);
 

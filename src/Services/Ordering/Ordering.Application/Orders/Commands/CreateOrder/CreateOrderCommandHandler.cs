@@ -20,11 +20,7 @@ public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, str
 
     public async Task<string> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
     {
-        Expression<Func<Order, bool>> userHasOrder = order =>
-                                        order.BuyerId == request.BuyerId &&
-                                        order.State == OrderState.Configuring;
-
-        if (await _orderRepository.SingleOrDefaultAsync(userHasOrder, cancellationToken) is not null)
+        if (await _orderRepository.GetUserActiveOrder(request.BuyerId, cancellationToken) is not null)
         {
             throw new InvalidOperationException("user alredy has configuring order");
         }

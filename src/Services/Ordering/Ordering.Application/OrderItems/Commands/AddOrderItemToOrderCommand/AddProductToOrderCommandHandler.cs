@@ -25,8 +25,8 @@ public class AddProductToOrderCommandHandler : IRequestHandler<AddProductToOrder
 
     public async Task Handle(AddProductToOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.SingleOrDefaultAsync(
-            order => order.Id == request.OrderId,
+        var order = await _orderRepository.GetOrderById(
+            request.OrderId,
             cancellationToken) ?? throw new NonExistentOrderException();
 
         if (order.State != Domain.Enums.OrderState.Configuring)

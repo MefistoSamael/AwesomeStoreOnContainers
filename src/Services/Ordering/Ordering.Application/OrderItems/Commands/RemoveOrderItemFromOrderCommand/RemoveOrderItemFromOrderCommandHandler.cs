@@ -17,12 +17,12 @@ public class RemoveOrderItemFromOrderCommandHandler : IRequestHandler<RemoveOrde
 
     public async Task Handle(RemoveOrderItemFromOrderCommand request, CancellationToken cancellationToken)
     {
-        var orderItem = await _orderItemRepository.SingleOrDefaultAsync(
-            item => item.Id == request.OrderItemId,
+        var orderItem = await _orderItemRepository.GetOrderItemById(
+            request.OrderItemId,
             cancellationToken) ?? throw new NonExistentOrderException("can't find order item with specified id");
 
-        var order = await _orderRepository.SingleOrDefaultAsync(
-            order => order.Id == orderItem.OrderId,
+        var order = await _orderRepository.GetOrderById(
+            orderItem.OrderId,
             cancellationToken) ?? throw new NonExistentOrderException();
 
         if (order.State != Domain.Enums.OrderState.Configuring)

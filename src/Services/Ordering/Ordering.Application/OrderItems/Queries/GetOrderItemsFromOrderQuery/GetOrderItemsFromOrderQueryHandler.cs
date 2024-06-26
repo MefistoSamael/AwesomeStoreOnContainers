@@ -18,8 +18,8 @@ public class GetOrderItemsFromOrderQueryHandler : IRequestHandler<GetOrderItemsF
 
     public async Task<IEnumerable<OrderItemDTO>> Handle(GetOrderItemsFromOrderQuery request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.SingleOrDefaultAsync(
-            order => order.Id == request.OrderId,
+        var order = await _orderRepository.GetOrderById(
+            request.OrderId,
             cancellationToken) ?? throw new NonExistentOrderException();
 
         return _mapper.Map<IEnumerable<OrderItemDTO>>(order.OrderItems);
