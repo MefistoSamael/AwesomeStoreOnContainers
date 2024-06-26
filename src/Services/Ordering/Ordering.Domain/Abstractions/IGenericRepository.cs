@@ -1,8 +1,9 @@
 ﻿using System.Linq.Expressions;
+using Ordering.Domain.Entities;
 
 namespace Ordering.Domain.Abstractions;
 public interface IGenericRepository<TEntity>
-    where TEntity : class
+    where TEntity : Entity
 {
     Task CreateAsync(TEntity item, CancellationToken cancellationToken);
 

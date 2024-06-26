@@ -1,12 +1,14 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Ordering.Domain.Abstractions;
+using Ordering.Domain.Entities;
+using Ordering.Infrastructure.Specifications.Common;
 
 namespace Ordering.Infrastructure.Repositories;
 
 [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.MaintainabilityRules", "SA1401:Fields should be private", Justification = "properties are useless here")]
 public class GenericRepository<TEntity> : IGenericRepository<TEntity>
-    where TEntity : class
+    where TEntity : Entity
 {
     protected readonly DbContext _context;
 
@@ -80,6 +82,11 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity>
         var query = Include(includeProperties);
 
         return await query.Where(filters).ToListAsync(cancellationToken);
+    }
+
+    protected IQueryable<TEntity> ApplySpecification(Specification<TEntity> specification)
+    {
+        return SpecificationEvaluator.GetQuery(_dbSet, specification);
     }
 
     private IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeProperties)

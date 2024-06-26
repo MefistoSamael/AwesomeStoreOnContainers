@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Specifications\OrderItemSpecifications\**" />
+    <Compile Remove="Specifications\OrderSpecifications\**" />
+    <EmbeddedResource Remove="Specifications\OrderItemSpecifications\**" />
+    <EmbeddedResource Remove="Specifications\OrderSpecifications\**" />
+    <None Remove="Specifications\OrderItemSpecifications\**" />
+    <None Remove="Specifications\OrderSpecifications\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.27.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">

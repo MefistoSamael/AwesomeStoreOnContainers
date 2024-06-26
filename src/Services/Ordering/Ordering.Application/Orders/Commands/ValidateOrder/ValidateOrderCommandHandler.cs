@@ -16,8 +16,8 @@ public class ValidateOrderCommandHandler : IRequestHandler<ValidateOrderCommand>
 
     public async Task Handle(ValidateOrderCommand request, CancellationToken cancellationToken)
     {
-        var order = await _orderRepository.SingleOrDefaultAsync(
-            order => order.Id == request.OrderId,
+        var order = await _orderRepository.GetOrderById(
+            request.OrderId,
             cancellationToken) ?? throw new NonExistentOrderException();
 
         if (order.State != Domain.Enums.OrderState.AwaitingValidation)
