@@ -2,7 +2,9 @@
 
 #nullable disable
 
+#pragma warning disable IDE0161 // Convert to file-scoped namespace
 namespace Identity.Infrastracture.Migrations
+#pragma warning restore IDE0161 // Convert to file-scoped namespace
 {
     /// <inheritdoc />
     public partial class UPdatedConnectionString : Migration

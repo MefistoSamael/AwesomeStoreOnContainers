@@ -2,7 +2,7 @@
 
 public class TokenResult
 {
-    public required string Token { get; set; }
+    required public string Token { get; set; }
 
-    public required DateTime Expiry { get; set; }
+    required public DateTime Expiry { get; set; }
 }

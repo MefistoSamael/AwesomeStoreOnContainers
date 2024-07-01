@@ -4,7 +4,9 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
+#pragma warning disable IDE0161 // Convert to file-scoped namespace
 namespace Identity.Infrastracture.Migrations
+#pragma warning restore IDE0161 // Convert to file-scoped namespace
 {
     /// <inheritdoc />
     public partial class AddRefreshToken : Migration
@@ -56,14 +58,16 @@ namespace Identity.Infrastracture.Migrations
                 columns: new[] { "ConcurrencyStamp", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "RefreshToken", "RefreshTokenExpiry", "SecurityStamp", "UserName" },
                 values: new object[] { "4e873f95-7d22-44a8-baa5-69725a346e9f", "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAIAAYagAAAAEEPeyoIdmp6AZCjsj1WXlQzA2NSdFAEfbvtdhfnMpcQPjZNxZftijueTQglSGEI1Zw==", null, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "fa4c10eb-ac26-429b-8d34-4a18eff8a017", "admin@gmail.com" });
 
+#pragma warning disable SA1118 // Parameter should not span multiple lines
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "RefreshToken", "RefreshTokenExpiry", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
                     { "0078F440-C7A4-4445-94C0-350F23700AA0", 0, "43fffa33-f937-40d3-b89d-256c83a21b32", "buyer@gmail.com", false, false, null, "BUYER@GMAIL.COM", "BUYER@GMAIL.COM", "AQAAAAIAAYagAAAAELewYGnLSv5GzI209vDzBayH+GrLCenKAgc12loaesUzicKj54Fh56nqxHGotFivSw==", null, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "1e22cc16-ce28-4b88-9eae-606732014699", false, "buyer@gmail.com" },
-                    { "40F21EAF-2807-4EF3-8506-84FAF53A2190", 0, "3e6f9eaa-193d-4724-8b0d-c476e7f47eef", "employee@gmail.com", false, false, null, "EMPLOYEE@GMAIL.COM", "EMPLOYEE@GMAIL.COM", "AQAAAAIAAYagAAAAEN1EJBW/YIeoZzhIFDFImger36YE3PekLXQstveBVpNMvan3z6WjwQi4AF3MWCbBMA==", null, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "31e86946-0681-41fd-91d9-aad59f0687fb", false, "employee@gmail.com" }
+                    { "40F21EAF-2807-4EF3-8506-84FAF53A2190", 0, "3e6f9eaa-193d-4724-8b0d-c476e7f47eef", "employee@gmail.com", false, false, null, "EMPLOYEE@GMAIL.COM", "EMPLOYEE@GMAIL.COM", "AQAAAAIAAYagAAAAEN1EJBW/YIeoZzhIFDFImger36YE3PekLXQstveBVpNMvan3z6WjwQi4AF3MWCbBMA==", null, false, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "31e86946-0681-41fd-91d9-aad59f0687fb", false, "employee@gmail.com" },
                 });
+#pragma warning restore SA1118 // Parameter should not span multiple lines
         }
 
         /// <inheritdoc />

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Identity.Domain.Models;
+namespace Identity.Domain.Entities;
 
 public class ApplicationUser : IdentityUser
 {
@@ -8,7 +8,9 @@ public class ApplicationUser : IdentityUser
 
     public DateTime RefreshTokenExpiry { get; set; }
 
-    public ApplicationUser() { }
+    public ApplicationUser()
+    {
+    }
 
     public ApplicationUser(string email, string password)
     {

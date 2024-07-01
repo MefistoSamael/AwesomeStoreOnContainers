@@ -19,13 +19,13 @@ public class ChangeUserRoleInteractor : IRequestHandler<ChangeUserRoleUseCase, s
     {
         if (await _roleRepository.GetRoleByNameAsync(request.RoleName) is null)
         {
-            throw new UnexistingRoleException("There are no such role");
+            throw new NonExistentRoleException("There are no such role");
         }
 
         var user = await _userRepository.GetUserByIdAsync(request.UserId);
         if (user is null)
         {
-            throw new KeyNotFoundException("There are no user with such id");
+            throw new NonExistentUserException("There are no user with such id");
         }
 
         var oldRole = await _userRepository.GetUserRoleAsync(request.UserId);

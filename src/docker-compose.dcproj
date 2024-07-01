@@ -4,10 +4,12 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>3d2fa86e-4a6f-414c-9dac-7c78c5ffc3fd</ProjectGuid>
-	<DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-	<DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-	<DockerServiceName>Identity.Presentation</DockerServiceName>
+    <ProjectGuid>6ab778f6-4910-4726-b2b5-2c285edb6389</ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DockerLaunchAction>None</DockerLaunchAction>
+    <DockerServiceName>ordering.presentation</DockerServiceName>
+    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

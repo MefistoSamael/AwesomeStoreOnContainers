@@ -37,7 +37,7 @@ public class GetPaginatedUsersInteractor : IRequestHandler<GetPaginatedUsersUseC
             CurrentPage = request.PageNumber,
 
             TotalItemCount = itemsCount,
-            TotalPageCount = totalPages
+            TotalPageCount = totalPages,
         };
     }
 }

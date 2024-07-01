@@ -1,4 +1,4 @@
-﻿using Identity.Domain.Models;
+﻿using Identity.Domain.Entities;
 
 namespace Identity.Domain.Abstractions.Interfaces;
 
@@ -16,14 +16,13 @@ public interface IUserRepository
 
     public Task<ApplicationUser?> GetUserByEmailAsync(string email);
 
-    public Task<ApplicationUser?> GetUserByUserNameAsync(string email);
-
-    public Task<string> GetUserRoleAsync(string userId);
+    public Task<string?> GetUserRoleAsync(string userId);
 
     public Task<IEnumerable<ApplicationUser>> GetPaginatedUsersAsync(int pageNumber, int pageSize, CancellationToken cancellationToken);
 
     public Task<ApplicationUser?> GetUserByIdAsync(string id);
 
     public Task<int> GetUsersCountAsync(CancellationToken cancellationToken);
+
     public Task UpdateUser(ApplicationUser user);
 }

@@ -25,7 +25,7 @@ public class RefreshTokenProvider : IRefreshTokenProvider
         return new TokenResult
         {
             Expiry = DateTime.UtcNow.AddMinutes(_options.RefreshTokenLifeTime),
-            Token = Convert.ToBase64String(randomNumber)
+            Token = Convert.ToBase64String(randomNumber),
         };
     }
 }

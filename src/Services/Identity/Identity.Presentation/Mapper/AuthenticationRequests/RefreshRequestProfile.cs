@@ -11,4 +11,3 @@ public class RefreshRequestProfile : Profile
         CreateMap<RefreshRequest, RefreshUseCase>();
     }
 }
-

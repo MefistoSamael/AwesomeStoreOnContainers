@@ -1,8 +1,8 @@
 ﻿using Identity.Application.Common.Models;
-using Identity.Domain.Models;
+using Identity.Domain.Entities;
 using System.Security.Claims;
 
-namespace Identity.Domain.Abstractions.Interfaces;
+namespace Identity.Application.Providers;
 
 public interface IJwtProvider
 {

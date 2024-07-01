@@ -2,11 +2,11 @@
 
 public class JwtOptions
 {
-    public required string Issuer { get; init; }
+    required public string Issuer { get; init; }
 
-    public required string Audience { get; init; }
+    required public string Audience { get; init; }
 
-    public required string SecretKey { get; init; }
+    required public string SecretKey { get; init; }
 
-    public required int JwtTokenLifeTime { get; init; }
+    required public int JwtTokenLifeTime { get; init; }
 }

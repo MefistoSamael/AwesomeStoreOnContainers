@@ -2,9 +2,9 @@
 
 public class UserDTO
 {
-    public string Id { get; set; }
+    required public string Id { get; set; }
 
-    public string Email { get; set; }
+    required public string Email { get; set; }
 
-    public string RoleName { get; set; }
+    required public string RoleName { get; set; }
 }

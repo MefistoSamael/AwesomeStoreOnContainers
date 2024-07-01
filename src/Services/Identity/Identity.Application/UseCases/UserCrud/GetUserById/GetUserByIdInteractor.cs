@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Identity.Application.Common.Exceptions;
 using Identity.Application.Common.Models;
 using Identity.Domain.Abstractions.Interfaces;
 using MediatR;
@@ -7,7 +8,6 @@ namespace Identity.Application.UseCases.UserCrud.GetUserById;
 
 public class GetUserByIdInteractor : IRequestHandler<GetUserByIdUseCase, UserDTO?>
 {
-    private const string userNotFoundMessage = "user with specified id not found";
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
 
@@ -24,11 +24,12 @@ public class GetUserByIdInteractor : IRequestHandler<GetUserByIdUseCase, UserDTO
         {
             var user = _mapper.Map<UserDTO>(applicationUser);
             user.RoleName = await _userRepository.GetUserRoleAsync(request.UserId);
+
             return user;
         }
         else
         {
-            throw new KeyNotFoundException(userNotFoundMessage);
+            throw new NonExistentUserException();
         }
     }
 }
